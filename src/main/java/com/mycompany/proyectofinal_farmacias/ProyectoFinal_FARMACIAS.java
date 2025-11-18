@@ -26,7 +26,7 @@ public class ProyectoFinal_FARMACIAS {
         UIManager.put( "Button.hoverBackground", new Color(220, 235, 255) );
         UIManager.put( "Button.pressedBackground", new Color(200, 220, 250) );
 
-        UIManager.put("defaultFont", new Font("Inter", Font.PLAIN, 14));
+        UIManager.put("defaultFont", new Font("Inter", Font.BOLD, 14));
 
         try {
             FlatMacLightLaf.setup();

@@ -4,7 +4,11 @@
  */
 package com.mycompany.proyectofinal_farmacias;
 
-import com.formdev.flatlaf.FlatLightLaf;
+
+import Ventanas.VentanaMedicos;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -13,6 +17,8 @@ import javax.swing.ImageIcon;
  * @author erick
  */
 public class VentanaInicio extends javax.swing.JFrame {
+    
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaInicio.class.getName());
 
@@ -26,9 +32,75 @@ public class VentanaInicio extends javax.swing.JFrame {
         setSize(850, 700);
         setVisible(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
+        // 1. Configura el JFrame para BorderLayout
+        getContentPane().setLayout(new BorderLayout());
+
+        // 2. Agrega panelMenu al WEST (izquierda)
+        getContentPane().add(panelMenu, BorderLayout.WEST);
+
+        // 3. Agrega panelContenido al CENTER (derecha)
+        getContentPane().add(panelContenido, BorderLayout.CENTER);
+
+        panelContenido.setLayout(new BorderLayout());
+
         
-        
-        
+        // Panel tipo botón "sin contorno"
+        panelInicio.setOpaque(true);
+        panelInicio.setBackground(new Color(30, 41, 59)); // color del fondo
+        panelInicio.setBorder(null);
+        panelInicio.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+
+    // LABELS no deben tapar el fondo
+    lblInicio.setOpaque(false);
+
+    // Evento del botón-panel
+    panelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent e) {
+        panelInicio.setBackground(new Color(60, 90, 150)); // hover
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent e) {
+        panelInicio.setBackground(new Color(30, 41, 59)); // fondo normal
+    }
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent e) {
+        System.out.println("Click en Inicio");
+        panelContenido.removeAll();                  // limpiar contenido anterior
+        //panelContenido.add(new VentanaMedicos());      // agregar el panel de médicos
+        panelContenido.revalidate();                 // refrescar el layout
+        panelContenido.repaint();     
+    }
+});
+
+     lblMedicos.setOpaque(false);
+
+    // Evento del botón-panel
+    panelMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent e) {
+        panelMedicos.setBackground(new Color(60, 90, 150)); // hover
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent e) {
+        panelMedicos.setBackground(new Color(30, 41, 59)); // fondo normal
+    }
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent e) {
+        System.out.println("Click en Médicos");
+        panelContenido.removeAll();                  // limpiar contenido anterior
+        panelContenido.add(new VentanaMedicos());      // agregar el panel de médicos
+        panelContenido.revalidate();                 // refrescar el layout
+        panelContenido.repaint();     
+    }
+});
+    
+    
        
 
     }
@@ -42,73 +114,157 @@ public class VentanaInicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        panelMenu = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        btnInicio = new javax.swing.JButton();
-        btnPacientes = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
-        btnMedicos = new javax.swing.JButton();
+        panelInicio = new javax.swing.JPanel();
+        lblInicio = new javax.swing.JLabel();
+        panelMedicos = new javax.swing.JPanel();
+        lblMedicos = new javax.swing.JLabel();
+        panelPacientes = new javax.swing.JPanel();
+        lblPacientes = new javax.swing.JLabel();
+        panelSalir = new javax.swing.JPanel();
+        lblSalir = new javax.swing.JLabel();
+        panelContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(30, 41, 59));
+        panelMenu.setBackground(new java.awt.Color(30, 41, 59));
+        panelMenu.setPreferredSize(new java.awt.Dimension(190, 700));
 
         lblLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\farmaSalud.png")); // NOI18N
 
-        btnInicio.setLabel("INICIO");
+        lblInicio.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblInicio.setForeground(new java.awt.Color(255, 255, 255));
+        lblInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblInicio.setText("INICIO");
 
-        btnPacientes.setText("PACIENTES");
-
-        btnSalir.setText("SALIR");
-
-        btnMedicos.setText("MEDICOS");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(25, 25, 25)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnMedicos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)))))
-                .addContainerGap(14, Short.MAX_VALUE))
+        javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
+        panelInicio.setLayout(panelInicioLayout);
+        panelInicioLayout.setHorizontalGroup(
+            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(btnMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+        panelInicioLayout.setVerticalGroup(
+            panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
+                .addComponent(lblInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        panelMedicos.setBackground(new java.awt.Color(30, 41, 59));
+
+        lblMedicos.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblMedicos.setForeground(new java.awt.Color(255, 255, 255));
+        lblMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblMedicos.setText("MEDICOS");
+
+        javax.swing.GroupLayout panelMedicosLayout = new javax.swing.GroupLayout(panelMedicos);
+        panelMedicos.setLayout(panelMedicosLayout);
+        panelMedicosLayout.setHorizontalGroup(
+            panelMedicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMedicosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelMedicosLayout.setVerticalGroup(
+            panelMedicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMedicosLayout.createSequentialGroup()
+                .addComponent(lblMedicos, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelPacientes.setBackground(new java.awt.Color(30, 41, 59));
+
+        lblPacientes.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblPacientes.setForeground(new java.awt.Color(255, 255, 255));
+        lblPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblPacientes.setText("PACIENTES");
+
+        javax.swing.GroupLayout panelPacientesLayout = new javax.swing.GroupLayout(panelPacientes);
+        panelPacientes.setLayout(panelPacientesLayout);
+        panelPacientesLayout.setHorizontalGroup(
+            panelPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPacientesLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelPacientesLayout.setVerticalGroup(
+            panelPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPacientesLayout.createSequentialGroup()
+                .addComponent(lblPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelSalir.setBackground(new java.awt.Color(30, 41, 59));
+
+        lblSalir.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblSalir.setForeground(new java.awt.Color(255, 255, 255));
+        lblSalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblSalir.setText("SALIR");
+
+        javax.swing.GroupLayout panelSalirLayout = new javax.swing.GroupLayout(panelSalir);
+        panelSalir.setLayout(panelSalirLayout);
+        panelSalirLayout.setHorizontalGroup(
+            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSalirLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelSalirLayout.setVerticalGroup(
+            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSalirLayout.createSequentialGroup()
+                .addComponent(lblSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelMenuLayout = new javax.swing.GroupLayout(panelMenu);
+        panelMenu.setLayout(panelMenuLayout);
+        panelMenuLayout.setHorizontalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(panelInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelMedicos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelPacientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelMenuLayout.setVerticalGroup(
+            panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMenuLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(188, Short.MAX_VALUE))
+        );
+
+        panelContenido.setBackground(new java.awt.Color(252, 248, 221));
+        panelContenido.setPreferredSize(new java.awt.Dimension(418, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 670, Short.MAX_VALUE))
+                .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelContenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -139,11 +295,16 @@ public class VentanaInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnInicio;
-    private javax.swing.JButton btnMedicos;
-    private javax.swing.JButton btnPacientes;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblMedicos;
+    private javax.swing.JLabel lblPacientes;
+    private javax.swing.JLabel lblSalir;
+    private javax.swing.JPanel panelContenido;
+    private javax.swing.JPanel panelInicio;
+    private javax.swing.JPanel panelMedicos;
+    private javax.swing.JPanel panelMenu;
+    private javax.swing.JPanel panelPacientes;
+    private javax.swing.JPanel panelSalir;
     // End of variables declaration//GEN-END:variables
 }
