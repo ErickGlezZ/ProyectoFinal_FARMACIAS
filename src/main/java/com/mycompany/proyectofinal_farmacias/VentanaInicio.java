@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectofinal_farmacias;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -133,7 +134,6 @@ public class VentanaInicio extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new VentanaInicio().setVisible(true));
     }
