@@ -4,6 +4,7 @@
  */
 package Ventanas;
 
+import Controlador.MedicoDAO;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -12,15 +13,25 @@ import javax.swing.SwingUtilities;
  *
  * @author erick
  */
+
 public class VentanaMedicos extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelMedicos
      */
+    
+    MedicoDAO medicoDAO = MedicoDAO.getInstancia();
     public VentanaMedicos() {
         initComponents();
         
+       
+        
+        
+        medicoDAO.actualizarTabla(tablaRegMedicos);
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,7 +51,7 @@ public class VentanaMedicos extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaRegMedicos = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 244, 183));
 
@@ -77,7 +88,7 @@ public class VentanaMedicos extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Apellido Paterno");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRegMedicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -88,7 +99,7 @@ public class VentanaMedicos extends javax.swing.JPanel {
                 "SSN", "Nombre(s)", "Apellido Paterno", "Apellido Materno", "Especialidad", "Años"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaRegMedicos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,7 +128,9 @@ public class VentanaMedicos extends javax.swing.JPanel {
                                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -148,7 +161,7 @@ public class VentanaMedicos extends javax.swing.JPanel {
     
     private void btnAgregarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedicosActionPerformed
           JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-          Dg_Medicos dialog = new Dg_Medicos(parent, true); // modal
+          Dg_Medicos dialog = new Dg_Medicos(parent, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
     }//GEN-LAST:event_btnAgregarMedicosActionPerformed
 
@@ -163,6 +176,6 @@ public class VentanaMedicos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaRegMedicos;
     // End of variables declaration//GEN-END:variables
 }
