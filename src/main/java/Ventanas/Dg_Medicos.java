@@ -64,7 +64,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
 
         jLabel6.setText("Años Experiencia");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología\"Neurología", "Oncología", "Oftalmología" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 

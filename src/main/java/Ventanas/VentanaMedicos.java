@@ -148,8 +148,8 @@ public class VentanaMedicos extends javax.swing.JPanel {
     
     private void btnAgregarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedicosActionPerformed
           JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-    Dg_Medicos dialog = new Dg_Medicos(parent, true); // modal
-    dialog.setVisible(true);
+          Dg_Medicos dialog = new Dg_Medicos(parent, true); // modal
+          dialog.setVisible(true);
     }//GEN-LAST:event_btnAgregarMedicosActionPerformed
 
 

@@ -1,0 +1,105 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ConexionBD;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ConexionBD {
+
+    private static ConexionBD instanciaConexion;
+    private Connection conexion;
+
+    // Datos de tu Oracle
+    private final String URL = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
+    private final String USUARIO = "erick_admin";
+    private final String CONTRASEÑA = "usuarioitsj";
+
+    // Constructor privado
+    private ConexionBD() {
+        try {
+            // Cargar el driver JDBC de Oracle
+            Class.forName("oracle.jdbc.OracleDriver");
+
+            // Establecer la conexión
+            conexion = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
+            System.out.println("Conexión a Oracle establecida con éxito");
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: No se encontró el driver JDBC de Oracle");
+            e.printStackTrace();
+
+        } catch (SQLException e) {
+            System.out.println("Error al conectar con Oracle");
+            e.printStackTrace();
+        }
+    }
+
+    // Singleton - obtener única instancia
+    public static ConexionBD getInstancia() {
+        if (instanciaConexion == null) {
+            instanciaConexion = new ConexionBD();
+        }
+        return instanciaConexion;
+    }
+
+    // Retornar la conexión
+    public Connection getConexion() {
+        return conexion;
+    }
+
+    public String getURL() {
+        return URL;
+    }
+
+    public String getDriver() {
+        return "oracle.jdbc.OracleDriver";
+    }
+
+    // Método para ejecutar INSERT, UPDATE, DELETE
+    public boolean ejecutarInstruccionLMD(String sql, Object... datos) {
+        try (PreparedStatement pstmt = conexion.prepareStatement(sql)) {
+
+            for (int i = 0; i < datos.length; i++) {
+                pstmt.setObject(i + 1, datos[i]);
+            }
+
+            return pstmt.executeUpdate() >= 1;
+
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar instrucción LMD en Oracle");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Método para ejecutar SELECT
+    public ResultSet ejecutarConsultaSQL(String sql, Object... datos) {
+        try {
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+
+            for (int i = 0; i < datos.length; i++) {
+                pstmt.setObject(i + 1, datos[i]);
+            }
+
+            return pstmt.executeQuery();
+
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar SELECT en Oracle");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Prueba de conexión
+    public static void main(String[] args) {
+        ConexionBD conexion = ConexionBD.getInstancia();
+        new ConexionBD();
+    }
+}
+
