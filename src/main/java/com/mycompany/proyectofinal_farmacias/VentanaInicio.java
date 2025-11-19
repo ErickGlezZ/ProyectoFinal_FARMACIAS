@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,6 +22,7 @@ public class VentanaInicio extends javax.swing.JFrame {
     
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaInicio.class.getName());
+    private JPanel panelSeleccionado = null;
 
     /**
      * Creates new form VentanaInicio
@@ -29,7 +31,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
-        setSize(850, 700);
+        setSize(950, 700);
         setVisible(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         // 1. Configura el JFrame para BorderLayout
@@ -46,11 +48,17 @@ public class VentanaInicio extends javax.swing.JFrame {
         
         // Panel tipo botón "sin contorno"
         panelInicio.setOpaque(true);
-        panelInicio.setBackground(new Color(30, 41, 59)); // color del fondo
+        panelInicio.setBackground(new Color(60, 90, 150)); // color del fondo
         panelInicio.setBorder(null);
         panelInicio.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        panelMedicos.setOpaque(true);
+        panelMedicos.setBackground(new Color(30, 41, 59)); // color del fondo
+        panelMedicos.setBorder(null);
+        panelMedicos.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
+        
     // LABELS no deben tapar el fondo
     lblInicio.setOpaque(false);
 
@@ -58,45 +66,62 @@ public class VentanaInicio extends javax.swing.JFrame {
     panelInicio.addMouseListener(new java.awt.event.MouseAdapter() {
     @Override
     public void mouseEntered(java.awt.event.MouseEvent e) {
-        panelInicio.setBackground(new Color(60, 90, 150)); // hover
+        if (panelSeleccionado != panelInicio) {
+        panelInicio.setBackground(new Color(30, 41, 59));
+    }
     }
 
     @Override
     public void mouseExited(java.awt.event.MouseEvent e) {
-        panelInicio.setBackground(new Color(30, 41, 59)); // fondo normal
+         if (panelSeleccionado != panelInicio) {
+        panelInicio.setBackground(new Color(30, 41, 59));
+    }
     }
 
     @Override
     public void mouseClicked(java.awt.event.MouseEvent e) {
         System.out.println("Click en Inicio");
-        panelContenido.removeAll();                  // limpiar contenido anterior
-        //panelContenido.add(new VentanaMedicos());      // agregar el panel de médicos
-        panelContenido.revalidate();                 // refrescar el layout
-        panelContenido.repaint();     
+        seleccionarPanel(panelInicio);
+        
+        panelMedicos.setBackground(new Color(30, 41, 59));
+
+        panelContenido.removeAll();
+        panelContenido.revalidate();
+        panelContenido.repaint();    
     }
 });
 
-     lblMedicos.setOpaque(false);
+    
+    //==================LABEL MEDICOS=========================
+    
+    lblMedicos.setOpaque(false);
 
     // Evento del botón-panel
     panelMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
     @Override
     public void mouseEntered(java.awt.event.MouseEvent e) {
-        panelMedicos.setBackground(new Color(60, 90, 150)); // hover
+         if (panelSeleccionado != panelMedicos) {
+        panelMedicos.setBackground(new Color(30, 41, 59));
+    }
     }
 
     @Override
     public void mouseExited(java.awt.event.MouseEvent e) {
-        panelMedicos.setBackground(new Color(30, 41, 59)); // fondo normal
+         if (panelSeleccionado != panelMedicos) {
+        panelMedicos.setBackground(new Color(30, 41, 59));
+    }
     }
 
     @Override
     public void mouseClicked(java.awt.event.MouseEvent e) {
         System.out.println("Click en Médicos");
-        panelContenido.removeAll();                  // limpiar contenido anterior
-        panelContenido.add(new VentanaMedicos());      // agregar el panel de médicos
-        panelContenido.revalidate();                 // refrescar el layout
-        panelContenido.repaint();     
+        seleccionarPanel(panelMedicos);
+        
+        panelInicio.setBackground(new Color(30, 41, 59));
+        panelContenido.removeAll();
+        panelContenido.add(new VentanaMedicos());
+        panelContenido.revalidate();
+        panelContenido.repaint();    
     }
 });
     
@@ -104,6 +129,19 @@ public class VentanaInicio extends javax.swing.JFrame {
        
 
     }
+    
+    private void seleccionarPanel(JPanel panel) {
+
+    // Restaurar el panel anterior
+    if (panelSeleccionado != null) {
+        panelSeleccionado.setBackground(new Color(30, 41, 59));  // color normal
+    }
+
+    // Activar el nuevo panel
+    panel.setBackground(new Color(60, 90, 150)); // color seleccionado
+    panelSeleccionado = panel;
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -127,6 +165,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         panelContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 700));
 
         panelMenu.setBackground(new java.awt.Color(30, 41, 59));
         panelMenu.setPreferredSize(new java.awt.Dimension(190, 700));
@@ -249,7 +288,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         );
 
         panelContenido.setBackground(new java.awt.Color(252, 248, 221));
-        panelContenido.setPreferredSize(new java.awt.Dimension(418, 0));
+        panelContenido.setPreferredSize(new java.awt.Dimension(450, 300));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -258,8 +297,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelContenido, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(panelContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 804, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
