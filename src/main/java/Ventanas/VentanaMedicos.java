@@ -73,6 +73,11 @@ public class VentanaMedicos extends javax.swing.JPanel {
         btnEditarMedicos.setBackground(new java.awt.Color(255, 153, 0));
         btnEditarMedicos.setForeground(new java.awt.Color(0, 0, 0));
         btnEditarMedicos.setText("MODIFICAR");
+        btnEditarMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarMedicosActionPerformed(evt);
+            }
+        });
 
         btnConsultarMedicos.setBackground(new java.awt.Color(0, 153, 255));
         btnConsultarMedicos.setForeground(new java.awt.Color(0, 0, 0));
@@ -175,6 +180,12 @@ public class VentanaMedicos extends javax.swing.JPanel {
           Dg_MedicosBajas dialog = new Dg_MedicosBajas(parent2, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
     }//GEN-LAST:event_btnEliminarMedicosActionPerformed
+
+    private void btnEditarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMedicosActionPerformed
+          JFrame parent3 = (JFrame) SwingUtilities.getWindowAncestor(this);
+          Dg_MedicosCambios dialog = new Dg_MedicosCambios(parent3, true, tablaRegMedicos); // modal
+          dialog.setVisible(true);
+    }//GEN-LAST:event_btnEditarMedicosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
