@@ -44,7 +44,7 @@
                               <Component id="cajaMaternoBajas" alignment="0" pref="200" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="cajaSNNBajas" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="cajaSSNBajas" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnBuscarBajas" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
@@ -65,7 +65,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                  <Component id="cajaSNNBajas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cajaSSNBajas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBuscarBajas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
@@ -135,7 +135,7 @@
         <Property name="text" type="java.lang.String" value="A&#xf1;os Experiencia"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="cajaSNNBajas">
+    <Component class="javax.swing.JTextField" name="cajaSSNBajas">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="99" red="33" type="rgb"/>
@@ -182,6 +182,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarMedBajasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbEspecialidadBajas">
       <Properties>

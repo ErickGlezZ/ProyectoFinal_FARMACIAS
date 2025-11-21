@@ -176,7 +176,7 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
     private void btnAgregarMedAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedAltasActionPerformed
         
         
-        Medico m = new Medico(cajaSSNAltas.getText(),
+        Medico m = new Medico(cajaSSNAltas.getText().trim(),
                 cajaNombreAltas.getText(),
                 cajaPaternoAltas.getText(),
                 cajaMaternoAltas.getText(),

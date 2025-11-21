@@ -4,6 +4,12 @@
  */
 package Ventanas;
 
+import ConexionBD.ConexionBD;
+import Controlador.MedicoDAO;
+import com.sun.source.tree.CatchTree;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -20,6 +26,9 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
     
     private javax.swing.JTable tablaRegMedicos;
     
+    MedicoDAO medicoDAO = MedicoDAO.getInstancia();
+    ConexionBD conexionBD = ConexionBD.getInstancia();
+    
     public Dg_MedicosBajas(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegMedicos) {
         super(parent, modal);
         this.tablaRegMedicos = tablaRegMedicos;
@@ -30,6 +39,45 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         setResizable(false); 
     }
     
+    
+    public void limpiarCampos(){
+        cajaSSNBajas.setText("");
+        cajaNombreBajas.setText("");
+        cajaPaternoBajas.setText("");
+        cajaMaternoBajas.setText("");
+        cbEspecialidadBajas.setSelectedIndex(0);
+        cajaExperienciaBajas.setText("");
+    }
+    
+    
+    public void obtenerDatosMedico(){
+        
+        medicoDAO.actualizarTabla(tablaRegMedicos);
+        String sql = "SELECT * FROM Medicos WHERE SSN = ?";
+
+        ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, cajaSSNBajas.getText());
+        
+        try {
+            if (rs != null && rs.next()) {
+
+                cajaNombreBajas.setText(rs.getString("Nombre"));
+                cajaPaternoBajas.setText(rs.getString("Ape_Paterno"));
+                cajaMaternoBajas.setText(rs.getString("Ape_Materno"));
+                cbEspecialidadBajas.setSelectedItem(rs.getString("Especialidad"));
+                cajaExperienciaBajas.setText(rs.getString("Años_Experiencia"));
+
+}           else {
+                JOptionPane.showMessageDialog(null, "No se encontró un medico con ese SSN.");
+}
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del vehiculo.");
+        }
+        
+        
+    }
+    
+        
     
     
 
@@ -48,7 +96,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        cajaSNNBajas = new javax.swing.JTextField();
+        cajaSSNBajas = new javax.swing.JTextField();
         cajaNombreBajas = new javax.swing.JTextField();
         cajaPaternoBajas = new javax.swing.JTextField();
         btnBuscarBajas = new javax.swing.JButton();
@@ -72,7 +120,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
 
         jLabel6.setText("Años Experiencia");
 
-        cajaSNNBajas.setBackground(new java.awt.Color(51, 153, 255));
+        cajaSSNBajas.setBackground(new java.awt.Color(51, 153, 255));
 
         btnBuscarBajas.setText("Buscar");
         btnBuscarBajas.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +141,11 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         btnEliminarMedBajas.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminarMedBajas.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarMedBajas.setText("Eliminar");
+        btnEliminarMedBajas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarMedBajasActionPerformed(evt);
+            }
+        });
 
         cbEspecialidadBajas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
 
@@ -119,7 +172,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
                                 .addComponent(cbEspecialidadBajas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cajaMaternoBajas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cajaSNNBajas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cajaSSNBajas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnBuscarBajas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -133,7 +186,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
-                    .addComponent(cajaSNNBajas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaSSNBajas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarBajas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -167,12 +220,31 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRestablecerMedBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedBajasActionPerformed
-        // TODO add your handling code here:
+        limpiarCampos();
     }//GEN-LAST:event_btnRestablecerMedBajasActionPerformed
 
     private void btnBuscarBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBajasActionPerformed
-        // TODO add your handling code here:
+        
+         if (cajaSSNBajas.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"Campo vacio, verifica el campo 'SSN'");
+            }
+            try {
+                obtenerDatosMedico();
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(this,"Campo vacio, verifica los datos");
+            }
     }//GEN-LAST:event_btnBuscarBajasActionPerformed
+
+    private void btnEliminarMedBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMedBajasActionPerformed
+        
+         if (medicoDAO.eliminarMedico(cajaSSNBajas.getText())){
+
+                medicoDAO.actualizarTabla(tablaRegMedicos);
+                JOptionPane.showMessageDialog(this, "Registro eliminado correctamente");
+            }else {
+                JOptionPane.showMessageDialog(this, "ERROR al eliminar el registro");
+            }
+    }//GEN-LAST:event_btnEliminarMedBajasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +292,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
     private javax.swing.JTextField cajaMaternoBajas;
     private javax.swing.JTextField cajaNombreBajas;
     private javax.swing.JTextField cajaPaternoBajas;
-    private javax.swing.JTextField cajaSNNBajas;
+    private javax.swing.JTextField cajaSSNBajas;
     private javax.swing.JComboBox<String> cbEspecialidadBajas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

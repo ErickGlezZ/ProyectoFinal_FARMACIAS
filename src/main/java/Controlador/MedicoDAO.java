@@ -100,12 +100,19 @@ public class MedicoDAO {
     
     public boolean existeMedico(String SSN) {
         String sql = "SELECT SSN FROM Medicos WHERE SSN = ?";
-        ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, SSN);
+        ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, SSN.trim());
         try {
             return rs != null && rs.next(); // Ya existe
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    
+    //==========================BAJAS==========================
+    public boolean eliminarMedico(String SSN){
+        String sql = "DELETE FROM Medicos WHERE SSN = ?";
+        return conexionBD.ejecutarInstruccionLMD(sql, SSN);
     }
 }
