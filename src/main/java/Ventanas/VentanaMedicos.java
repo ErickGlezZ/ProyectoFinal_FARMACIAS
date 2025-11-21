@@ -81,6 +81,11 @@ public class VentanaMedicos extends javax.swing.JPanel {
         btnEliminarMedicos.setBackground(new java.awt.Color(255, 0, 51));
         btnEliminarMedicos.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarMedicos.setText("ELIMINAR");
+        btnEliminarMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarMedicosActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Nombre(s)");
@@ -161,9 +166,15 @@ public class VentanaMedicos extends javax.swing.JPanel {
     
     private void btnAgregarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedicosActionPerformed
           JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
-          Dg_Medicos dialog = new Dg_Medicos(parent, true, tablaRegMedicos); // modal
+          Dg_MedicosAltas dialog = new Dg_MedicosAltas(parent, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
     }//GEN-LAST:event_btnAgregarMedicosActionPerformed
+
+    private void btnEliminarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMedicosActionPerformed
+          JFrame parent2 = (JFrame) SwingUtilities.getWindowAncestor(this);
+          Dg_MedicosBajas dialog = new Dg_MedicosBajas(parent2, true, tablaRegMedicos); // modal
+          dialog.setVisible(true);
+    }//GEN-LAST:event_btnEliminarMedicosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

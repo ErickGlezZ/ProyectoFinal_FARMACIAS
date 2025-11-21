@@ -13,9 +13,9 @@ import javax.swing.JTable;
  *
  * @author erick
  */
-public class Dg_Medicos extends javax.swing.JDialog {
+public class Dg_MedicosAltas extends javax.swing.JDialog {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dg_Medicos.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dg_MedicosAltas.class.getName());
 
     /**
      * Creates new form Dg_Medicos
@@ -25,7 +25,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
     
     private javax.swing.JTable tablaRegMedicos;
     
-    public Dg_Medicos(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegMedicos) {
+    public Dg_MedicosAltas(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegMedicos) {
         super(parent, modal);
         this.tablaRegMedicos = tablaRegMedicos;
         initComponents();
@@ -42,7 +42,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
         cajaNombreAltas.setText("");
         cajaPaternoAltas.setText("");
         cajaMaternoAltas.setText("");
-        cbEspecialidad.setSelectedIndex(0);
+        cbEspecialidadAltas.setSelectedIndex(0);
         cajaExperienciaAltas.setText("");
     }
 
@@ -65,7 +65,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
         cajaNombreAltas = new javax.swing.JTextField();
         cajaPaternoAltas = new javax.swing.JTextField();
         cajaMaternoAltas = new javax.swing.JTextField();
-        cbEspecialidad = new javax.swing.JComboBox<>();
+        cbEspecialidadAltas = new javax.swing.JComboBox<>();
         cajaExperienciaAltas = new javax.swing.JTextField();
         btnAgregarMedAltas = new javax.swing.JButton();
         btnRestablecerMedAltas = new javax.swing.JButton();
@@ -85,7 +85,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
 
         jLabel6.setText("Años Experiencia");
 
-        cbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
+        cbEspecialidadAltas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
 
         btnAgregarMedAltas.setBackground(new java.awt.Color(0, 255, 51));
         btnAgregarMedAltas.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
@@ -118,15 +118,15 @@ public class Dg_Medicos extends javax.swing.JDialog {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cajaSSNAltas)
                     .addComponent(cajaNombreAltas)
                     .addComponent(cajaPaternoAltas)
                     .addComponent(cajaMaternoAltas)
-                    .addComponent(cbEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbEspecialidadAltas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cajaExperienciaAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -144,9 +144,9 @@ public class Dg_Medicos extends javax.swing.JDialog {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cajaSSNAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cajaNombreAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cajaNombreAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +158,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbEspecialidadAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +180,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
                 cajaNombreAltas.getText(),
                 cajaPaternoAltas.getText(),
                 cajaMaternoAltas.getText(),
-                cbEspecialidad.getSelectedItem().toString(),
+                cbEspecialidadAltas.getSelectedItem().toString(),
                 Byte.parseByte(cajaExperienciaAltas.getText()));
         
         
@@ -227,7 +227,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
             JTable tablaDummy = new JTable();
             @Override
             public void run() {
-                Dg_Medicos dialog = new Dg_Medicos(new javax.swing.JFrame(), true, tablaDummy);
+                Dg_MedicosAltas dialog = new Dg_MedicosAltas(new javax.swing.JFrame(), true, tablaDummy);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -247,7 +247,7 @@ public class Dg_Medicos extends javax.swing.JDialog {
     private javax.swing.JTextField cajaNombreAltas;
     private javax.swing.JTextField cajaPaternoAltas;
     private javax.swing.JTextField cajaSSNAltas;
-    private javax.swing.JComboBox<String> cbEspecialidad;
+    private javax.swing.JComboBox<String> cbEspecialidadAltas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
