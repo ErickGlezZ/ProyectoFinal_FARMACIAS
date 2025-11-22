@@ -116,6 +116,20 @@ public class MedicoDAO {
         return conexionBD.ejecutarInstruccionLMD(sql, SSN);
     }
     
+    public ResultSetTableModel actualizarTablaFiltrada(String campo, String valor){
+    String consulta = "SELECT * FROM Medicos WHERE " + campo + " LIKE ?";
+    try {
+        return new ResultSetTableModel(
+                conexionBD.getDriver(),
+                conexionBD.getURL(),
+                consulta,
+                "%" + valor + "%"  
+        );
+    } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException("Error al obtener medicos filtrados", e);
+    }
+}
+
     //=====================CAMBIOS==========================
     public boolean editarMedico(Medico medico){
         String sql = "UPDATE Medicos SET Nombre = ?, Ape_Paterno = ?, Ape_Materno = ?, Especialidad = ?, Años_Experiencia = ? WHERE SSN = ?";

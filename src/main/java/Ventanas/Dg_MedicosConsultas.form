@@ -40,11 +40,11 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jTextField4" max="32767" attributes="0"/>
-                          <Component id="jTextField3" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jTextField6" max="32767" attributes="0"/>
-                          <Component id="jComboBox1" pref="184" max="32767" attributes="0"/>
+                          <Component id="cajaMaternoConsultas" max="32767" attributes="0"/>
+                          <Component id="cajaPaternoConsultas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cajaNombreConsultas" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cajaExperienciaConsultas" max="32767" attributes="0"/>
+                          <Component id="cbEspecialidadConsultas" pref="184" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -83,41 +83,41 @@
                   <Component id="rbTodos" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jButton2" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="jTextField1" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="jButton3" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jButton4" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbNombres" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jTextField2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="cajaNombreConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbPaterno" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jTextField3" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="cajaPaternoConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbMaterno" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jTextField4" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="cajaMaternoConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="rbEspecialidad" pref="40" max="32767" attributes="0"/>
-                  <Component id="jComboBox1" max="32767" attributes="0"/>
+                  <Component id="cbEspecialidadConsultas" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbExperiencia" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jTextField6" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="cajaExperienciaConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnRestablecerMedConsultas" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnBuscarMedConsultas" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="71" max="32767" attributes="0"/>
+              <EmptySpace pref="70" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,31 +127,49 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Todos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbTodosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbNombres">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre(s)"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbNombresActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbPaterno">
       <Properties>
         <Property name="text" type="java.lang.String" value="Apellido Paterno"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbPaternoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbMaterno">
       <Properties>
         <Property name="text" type="java.lang.String" value="Apellido Materno"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbMaternoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbEspecialidad">
       <Properties>
         <Property name="text" type="java.lang.String" value="Especialidad"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbEspecialidadActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="rbExperiencia">
       <Properties>
         <Property name="text" type="java.lang.String" value="A&#xf1;os Experiencia"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbExperienciaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
@@ -183,15 +201,15 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField1">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
+    <Component class="javax.swing.JTextField" name="cajaNombreConsultas">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField3">
+    <Component class="javax.swing.JTextField" name="cajaPaternoConsultas">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField4">
+    <Component class="javax.swing.JTextField" name="cajaMaternoConsultas">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField6">
+    <Component class="javax.swing.JTextField" name="cajaExperienciaConsultas">
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="cbEspecialidadConsultas">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="9">

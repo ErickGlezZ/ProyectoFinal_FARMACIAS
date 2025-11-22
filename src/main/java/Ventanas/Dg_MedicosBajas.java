@@ -6,6 +6,7 @@ package Ventanas;
 
 import ConexionBD.ConexionBD;
 import Controlador.MedicoDAO;
+import Modelo.ResultSetTableModel;
 import com.sun.source.tree.CatchTree;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,7 +57,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         cajaExperienciaBajas.setText("");
     }
     
-    
+    /*
     public void obtenerDatosMedico(){
         
         medicoDAO.actualizarTabla(tablaRegMedicos);
@@ -83,6 +84,41 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         
         
     }
+    */
+    
+    public void obtenerDatosMedico() {
+
+    String sql = "SELECT * FROM Medicos WHERE SSN LIKE ?";
+    String texto = cajaSSNBajas.getText().trim() + "%";
+
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, texto);
+
+    // Actualizar tabla según coincidencias
+    medicoDAO.actualizarTablaFiltrada(cajaSSNBajas.getText(), texto);
+
+    try {
+        if (rs != null && rs.next()) {
+            // Mostrar datos del primero, si coincide
+            cajaNombreBajas.setText(rs.getString("Nombre"));
+            cajaPaternoBajas.setText(rs.getString("Ape_Paterno"));
+            cajaMaternoBajas.setText(rs.getString("Ape_Materno"));
+            cbEspecialidadBajas.setSelectedItem(rs.getString("Especialidad"));
+            cajaExperienciaBajas.setText(rs.getString("Años_Experiencia"));
+        } else {
+            // Limpiar campos si no hay coincidencias exactas
+            cajaNombreBajas.setText("");
+            cajaPaternoBajas.setText("");
+            cajaMaternoBajas.setText("");
+            cbEspecialidadBajas.setSelectedItem(null);
+            cajaExperienciaBajas.setText("");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al obtener los datos del Médico.");
+    }
+}
+
     
         
     
@@ -128,6 +164,11 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         jLabel6.setText("Años Experiencia");
 
         cajaSSNBajas.setBackground(new java.awt.Color(51, 153, 255));
+        cajaSSNBajas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaSSNBajasKeyReleased(evt);
+            }
+        });
 
         btnBuscarBajas.setText("Buscar");
         btnBuscarBajas.addActionListener(new java.awt.event.ActionListener() {
@@ -252,6 +293,11 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "ERROR al eliminar el registro");
             }
     }//GEN-LAST:event_btnEliminarMedBajasActionPerformed
+
+    private void cajaSSNBajasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNBajasKeyReleased
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNBajas.getText());
+        tablaRegMedicos.setModel(modelo);
+    }//GEN-LAST:event_cajaSSNBajasKeyReleased
 
     /**
      * @param args the command line arguments
