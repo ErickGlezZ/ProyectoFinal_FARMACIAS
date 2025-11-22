@@ -1,4 +1,5 @@
 Modelo\ResultSetTableModel.class
+Ventanas\Dg_MedicosConsultas$1$1.class
 Ventanas\VentanaMedicos.class
 Ventanas\Dg_MedicosAltas$1.class
 Ventanas\Dg_MedicosCambios.class
@@ -6,13 +7,16 @@ Controlador\MedicoDAO.class
 Ventanas\Dg_MedicosAltas.class
 Ventanas\Dg_MedicosAltas$3$1.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio$1.class
+Ventanas\Dg_MedicosConsultas$1.class
 Ventanas\Dg_MedicosBajas$2.class
+Ventanas\VentanaMedicos$4.class
 Ventanas\Dg_MedicosBajas$4$1.class
 Ventanas\Dg_MedicosBajas$3.class
 Ventanas\Dg_MedicosCambios$3.class
 Ventanas\VentanaMedicos$2.class
 Ventanas\VentanaMedicos$1.class
 Ventanas\Dg_MedicosAltas$2.class
+Ventanas\Dg_MedicosConsultas.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio$2.class
 Ventanas\Dg_MedicosCambios$1.class
 Ventanas\Dg_MedicosBajas.class

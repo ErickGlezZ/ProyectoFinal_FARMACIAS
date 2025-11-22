@@ -129,4 +129,35 @@ public class MedicoDAO {
                 medico.getAños(),
                 medico.getSsn());
     }
+    
+    //====================CONSULTAS===================
+    
+    public ResultSetTableModel obtenerMedicosFiltrados(String campo, Object valor){
+        String consulta = "SELECT * FROM Medicos WHERE " + campo + " = ?";
+        try {
+
+            return new ResultSetTableModel(
+                    conexionBD.getDriver(),
+                    conexionBD.getURL(),
+                    consulta,
+                    valor
+            );
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException("Error al obtener medicos filtrados", e);
+        }
+    }
+    
+    
+    public ResultSetTableModel obtenerMedicos() {
+        String consulta = "SELECT * FROM Medicos";
+        try {
+            return new ResultSetTableModel(
+                    conexionBD.getDriver(),
+                    conexionBD.getURL(),
+                    consulta
+            );
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException("Error al obtener medicos", e);
+        }
+    }
 }
