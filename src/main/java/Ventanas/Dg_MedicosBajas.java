@@ -269,6 +269,8 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
 
     private void btnRestablecerMedBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedBajasActionPerformed
         limpiarCampos();
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNBajas.getText());
+        tablaRegMedicos.setModel(modelo);
     }//GEN-LAST:event_btnRestablecerMedBajasActionPerformed
 
     private void btnBuscarBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBajasActionPerformed

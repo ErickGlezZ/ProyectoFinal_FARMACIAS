@@ -7,6 +7,7 @@ package Ventanas;
 import ConexionBD.ConexionBD;
 import Controlador.MedicoDAO;
 import Modelo.Medico;
+import Modelo.ResultSetTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -45,7 +46,7 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         cajaExperienciaCambios.setEnabled(false);
     }
     
-    
+    /*
     public void obtenerDatosMedico(){
         
         String sql = "SELECT * FROM Medicos WHERE SSN = ?";
@@ -72,6 +73,46 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos del Medico.");
         }
     }
+    */
+    
+    
+    public void obtenerDatosMedico() {
+
+    String sql = "SELECT * FROM Medicos WHERE SSN LIKE ?";
+    String texto = cajaSSNCambios.getText().trim() + "%";
+
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, texto);
+
+    // Actualizar tabla según coincidencias
+    medicoDAO.actualizarTablaFiltrada(cajaSSNCambios.getText(), texto);
+
+    try {
+        if (rs != null && rs.next()) {
+            // Mostrar datos del primero, si coincide
+            cajaNombreCambios.setText(rs.getString("Nombre"));
+            cajaPaternoCambios.setText(rs.getString("Ape_Paterno"));
+            cajaMaternoCambios.setText(rs.getString("Ape_Materno"));
+            cbEspecialidadCambios.setSelectedItem(rs.getString("Especialidad"));
+            cajaExperienciaCambios.setText(rs.getString("Años_Experiencia"));
+            
+            habilitarCamposEdicion(true);
+            
+        } else {
+            // Limpiar campos si no hay coincidencias exactas
+            cajaNombreCambios.setText("");
+            cajaPaternoCambios.setText("");
+            cajaMaternoCambios.setText("");
+            cbEspecialidadCambios.setSelectedItem(null);
+            cajaExperienciaCambios.setText("");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al obtener los datos del Médico.");
+    }
+}
+    
+    
     
     public void habilitarCamposEdicion(boolean habilitar){
         cajaNombreCambios.setEnabled(habilitar);
@@ -131,6 +172,11 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         jLabel6.setText("Años Experiencia");
 
         cajaSSNCambios.setBackground(new java.awt.Color(51, 153, 255));
+        cajaSSNCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaSSNCambiosKeyReleased(evt);
+            }
+        });
 
         cbEspecialidadCambios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
 
@@ -245,6 +291,8 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this,"No hay datos para borrar");
             }
             limpiarCampos();
+             ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
+        tablaRegMedicos.setModel(modelo);
     }//GEN-LAST:event_btnRestablecerMedCambiosActionPerformed
 
     private void btnBuscarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCambiosActionPerformed
@@ -277,6 +325,12 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
                   
              }
     }//GEN-LAST:event_btnEditarMedCambiosActionPerformed
+
+    private void cajaSSNCambiosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNCambiosKeyReleased
+        
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
+        tablaRegMedicos.setModel(modelo);
+    }//GEN-LAST:event_cajaSSNCambiosKeyReleased
 
     /**
      * @param args the command line arguments

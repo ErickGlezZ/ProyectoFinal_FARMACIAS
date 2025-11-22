@@ -153,6 +153,9 @@
           <Color blue="ff" green="99" red="33" type="rgb"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaSSNCambiosKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaNombreCambios">
     </Component>
