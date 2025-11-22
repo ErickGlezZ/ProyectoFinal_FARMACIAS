@@ -4,6 +4,12 @@
  */
 package Ventanas;
 
+import ConexionBD.ConexionBD;
+import Controlador.MedicoDAO;
+import Modelo.Medico;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -17,8 +23,10 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
     /**
      * Creates new form Dg_MedicosCambios
      */
-    
+    ConexionBD conexionBD = ConexionBD.getInstancia();
+    MedicoDAO medicoDAO = MedicoDAO.getInstancia();
     private javax.swing.JTable tablaRegMedicos;
+    
     
     public Dg_MedicosCambios(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegMedicos) {
         super(parent, modal);
@@ -28,6 +36,59 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         setSize(380, 450);           
         setLocationRelativeTo(null);  
         setResizable(false); 
+        
+        
+        cajaNombreCambios.setEnabled(false);
+        cajaPaternoCambios.setEnabled(false);
+        cajaMaternoCambios.setEnabled(false);
+        cbEspecialidadCambios.setEnabled(false);
+        cajaExperienciaCambios.setEnabled(false);
+    }
+    
+    
+    public void obtenerDatosMedico(){
+        
+        String sql = "SELECT * FROM Medicos WHERE SSN = ?";
+        
+        ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, cajaSSNCambios.getText());
+        
+        try {
+            if (rs != null && rs.next()) {
+
+                cajaNombreCambios.setText(rs.getString("Nombre"));
+                cajaPaternoCambios.setText(rs.getString("Ape_Paterno"));
+                cajaMaternoCambios.setText(rs.getString("Ape_Materno"));
+                cbEspecialidadCambios.setSelectedItem(rs.getString("Especialidad"));
+                cajaExperienciaCambios.setText(rs.getString("Años_Experiencia"));
+                
+                habilitarCamposEdicion(true);
+
+        }   else {
+                JOptionPane.showMessageDialog(null, "No se encontró un medico con ese SSN.");
+                habilitarCamposEdicion(false);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del Medico.");
+        }
+    }
+    
+    public void habilitarCamposEdicion(boolean habilitar){
+        cajaNombreCambios.setEnabled(habilitar);
+        cajaPaternoCambios.setEnabled(habilitar);
+        cajaMaternoCambios.setEnabled(habilitar);
+        cbEspecialidadCambios.setEnabled(habilitar);
+        cajaExperienciaCambios.setEnabled(habilitar);
+    }
+    
+    
+    public void limpiarCampos(){
+        cajaSSNCambios.setText("");
+        cajaNombreCambios.setText("");
+        cajaPaternoCambios.setText("");
+        cajaMaternoCambios.setText("");
+        cbEspecialidadCambios.setSelectedIndex(0);
+        cajaExperienciaCambios.setText("");
     }
 
     /**
@@ -45,15 +106,15 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        cajaSSNCambios = new javax.swing.JTextField();
+        cajaNombreCambios = new javax.swing.JTextField();
+        cajaPaternoCambios = new javax.swing.JTextField();
+        cajaMaternoCambios = new javax.swing.JTextField();
+        cajaExperienciaCambios = new javax.swing.JTextField();
+        cbEspecialidadCambios = new javax.swing.JComboBox<>();
+        btnBuscarCambios = new javax.swing.JButton();
+        btnRestablecerMedCambios = new javax.swing.JButton();
+        btnEditarMedCambios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -69,19 +130,34 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
 
         jLabel6.setText("Años Experiencia");
 
-        jTextField1.setBackground(new java.awt.Color(51, 153, 255));
+        cajaSSNCambios.setBackground(new java.awt.Color(51, 153, 255));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
+        cbEspecialidadCambios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
 
-        jButton1.setText("Buscar");
+        btnBuscarCambios.setText("Buscar");
+        btnBuscarCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCambiosActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(255, 153, 0));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Restablecer");
+        btnRestablecerMedCambios.setBackground(new java.awt.Color(255, 153, 0));
+        btnRestablecerMedCambios.setForeground(new java.awt.Color(0, 0, 0));
+        btnRestablecerMedCambios.setText("Restablecer");
+        btnRestablecerMedCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestablecerMedCambiosActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(255, 153, 0));
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("Editar");
+        btnEditarMedCambios.setBackground(new java.awt.Color(255, 153, 0));
+        btnEditarMedCambios.setForeground(new java.awt.Color(0, 0, 0));
+        btnEditarMedCambios.setText("Editar");
+        btnEditarMedCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarMedCambiosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,73 +169,114 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cajaSSNCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRestablecerMedCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnEditarMedCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cajaNombreCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField3))
+                            .addComponent(cajaPaternoCambios))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField4))
+                            .addComponent(cajaMaternoCambios))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbEspecialidadCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cajaExperienciaCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cajaSSNCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaNombreCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaPaternoCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaMaternoCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbEspecialidadCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cajaExperienciaCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRestablecerMedCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarMedCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRestablecerMedCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedCambiosActionPerformed
+        
+        habilitarCamposEdicion(false);
+            if (cajaSSNCambios.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"No hay datos para borrar");
+            }
+            limpiarCampos();
+    }//GEN-LAST:event_btnRestablecerMedCambiosActionPerformed
+
+    private void btnBuscarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCambiosActionPerformed
+        
+        if (cajaSSNCambios.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"Campo vacio, verifica campo 'SSN'");
+            } else {
+
+                obtenerDatosMedico();
+            }
+    }//GEN-LAST:event_btnBuscarCambiosActionPerformed
+
+    private void btnEditarMedCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMedCambiosActionPerformed
+        
+        
+        Medico m = new Medico(cajaSSNCambios.getText().trim(),
+                cajaNombreCambios.getText(),
+                cajaPaternoCambios.getText(),
+                cajaMaternoCambios.getText(),
+                cbEspecialidadCambios.getSelectedItem().toString(),
+                Byte.parseByte(cajaExperienciaCambios.getText()));
+        
+        
+        if (medicoDAO.editarMedico(m)) {
+                JOptionPane.showMessageDialog(this,"Registro Editado CORRECTAMENTE");
+                medicoDAO.actualizarTabla(tablaRegMedicos);
+                
+        }else{
+                    JOptionPane.showMessageDialog(this,"ERROR, al editar registro");
+                  
+             }
+    }//GEN-LAST:event_btnEditarMedCambiosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -200,20 +317,20 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton btnBuscarCambios;
+    private javax.swing.JButton btnEditarMedCambios;
+    private javax.swing.JButton btnRestablecerMedCambios;
+    private javax.swing.JTextField cajaExperienciaCambios;
+    private javax.swing.JTextField cajaMaternoCambios;
+    private javax.swing.JTextField cajaNombreCambios;
+    private javax.swing.JTextField cajaPaternoCambios;
+    private javax.swing.JTextField cajaSSNCambios;
+    private javax.swing.JComboBox<String> cbEspecialidadCambios;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

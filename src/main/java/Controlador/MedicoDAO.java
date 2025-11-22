@@ -115,4 +115,18 @@ public class MedicoDAO {
         String sql = "DELETE FROM Medicos WHERE SSN = ?";
         return conexionBD.ejecutarInstruccionLMD(sql, SSN);
     }
+    
+    //=====================CAMBIOS==========================
+    public boolean editarMedico(Medico medico){
+        String sql = "UPDATE Medicos SET Nombre = ?, Ape_Paterno = ?, Ape_Materno = ?, Especialidad = ?, Años_Experiencia = ? WHERE SSN = ?";
+
+        
+        return conexionBD.ejecutarInstruccionLMD(sql, 
+                medico.getNombre(),
+                medico.getApePaterno(),
+                medico.getApeMaterno(),
+                medico.getEspecialidad(),
+                medico.getAños(),
+                medico.getSsn());
+    }
 }

@@ -37,6 +37,13 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         setSize(380, 450);           
         setLocationRelativeTo(null);  
         setResizable(false); 
+        
+        
+        cajaNombreBajas.setEnabled(false);
+        cajaPaternoBajas.setEnabled(false);
+        cajaMaternoBajas.setEnabled(false);
+        cbEspecialidadBajas.setEnabled(false);
+        cajaExperienciaBajas.setEnabled(false);
     }
     
     
@@ -66,12 +73,12 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
                 cbEspecialidadBajas.setSelectedItem(rs.getString("Especialidad"));
                 cajaExperienciaBajas.setText(rs.getString("Años_Experiencia"));
 
-}           else {
+        }   else {
                 JOptionPane.showMessageDialog(null, "No se encontró un medico con ese SSN.");
-}
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos del vehiculo.");
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del Medico.");
         }
         
         
