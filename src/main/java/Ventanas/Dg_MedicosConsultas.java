@@ -4,8 +4,13 @@
  */
 package Ventanas;
 
+import ConexionBD.ConexionBD;
 import Controlador.MedicoDAO;
+import Modelo.Medico;
 import Modelo.ResultSetTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -22,6 +27,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
      */
     
     MedicoDAO medicoDAO = MedicoDAO.getInstancia();
+    
     private javax.swing.JTable tablaRegMedicos;
     
     public Dg_MedicosConsultas(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegMedicos) {
@@ -47,6 +53,8 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         cajaMaternoConsultas.setEnabled(false);
         cbEspecialidadConsultas.setEnabled(false);
         cajaExperienciaConsultas.setEnabled(false);
+        
+        listaMedicos = añadirMedicos();
     }
     
     
@@ -80,7 +88,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
                rbEspecialidad.isSelected() || rbExperiencia.isSelected();
     }
     */
-     public void limpiarCampos(){
+    public void limpiarCampos(){
         
         cajaNombreConsultas.setText("");
         cajaPaternoConsultas.setText("");
@@ -98,6 +106,78 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         cbEspecialidadConsultas.setEnabled(false);
         cajaExperienciaConsultas.setEnabled(false);
         
+    }
+     
+    ArrayList<Medico> listaMedicos = new ArrayList<>();
+    int posActual = -1;
+    
+    
+    public ArrayList<Medico> añadirMedicos(){
+        
+        
+        String sql = "SELECT * FROM Medicos";
+        ResultSet rs = null;
+        
+        try {
+            rs = ConexionBD.getInstancia().ejecutarConsultaSQL(sql);
+            
+            if (rs != null && rs.next()){
+                do{
+                    String ssn = rs.getString("SSN");
+                    String nom = rs.getString("Nombre");
+                    String app = rs.getString("Ape_Paterno");
+                    String apm = rs.getString("Ape_Materno");
+                    String esp = rs.getString("Especialidad");
+                    Byte exp = rs.getByte("Años_Experiencia");
+                    
+                    Medico m = new Medico(ssn, nom, app, apm, esp, exp);
+                    listaMedicos.add(m);
+                }while (rs.next());
+            }else {
+                 JOptionPane.showMessageDialog(this, "No se encontraron registros de Medico");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar los medicos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaMedicos;
+    }
+    
+    public void mostrarRegistros(int indice){
+        if (indice >= 0 && indice < listaMedicos.size()){
+            Medico reg = listaMedicos.get(indice);
+            
+            cajaNombreConsultas.setText(reg.getNombre());
+            cajaPaternoConsultas.setText(reg.getApePaterno());
+            cajaMaternoConsultas.setText(reg.getApeMaterno());
+            cbEspecialidadConsultas.setSelectedItem(reg.getEspecialidad());
+            cajaExperienciaConsultas.setText(String.valueOf(reg.getAños()));
+            
+            cajaIndiceMed.setText(String.valueOf(indice + 1));
+            cajaIndiceMed.setEnabled(false);
+            posActual = indice;
+            
+            actualizarEstadoBotones();
+        }
+    }
+    
+    public void actualizarEstadoBotones(){
+        
+        if (posActual != 0 || listaMedicos.isEmpty()){
+            btnPrimerRegMedicos.setEnabled(true);
+        } else {
+            btnPrimerRegMedicos.setEnabled(false);
+        }
+        
+        btnAnteriorRegMedicos.setEnabled(posActual > 0);
+        btnSiguienteRegMedicos.setEnabled(posActual < listaMedicos.size() - 1);
+        btnUltimoRegMedicos.setEnabled(posActual < listaMedicos.size() - 1);
     }
 
     /**
@@ -174,12 +254,32 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         });
 
         btnPrimerRegMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\doble_flecha_izq.png")); // NOI18N
+        btnPrimerRegMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimerRegMedicosActionPerformed(evt);
+            }
+        });
 
         btnAnteriorRegMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\flecha_izq.png")); // NOI18N
+        btnAnteriorRegMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorRegMedicosActionPerformed(evt);
+            }
+        });
 
         btnSiguienteRegMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\flecha_der.png")); // NOI18N
+        btnSiguienteRegMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteRegMedicosActionPerformed(evt);
+            }
+        });
 
         btnUltimoRegMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\doble_flecha_der.png")); // NOI18N
+        btnUltimoRegMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoRegMedicosActionPerformed(evt);
+            }
+        });
 
         cajaIndiceMed.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         cajaIndiceMed.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -399,7 +499,37 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         
         limpiarCampos();
         rbTodos.setSelected(true);
+        posActual = -1;
+        actualizarEstadoBotones();
     }//GEN-LAST:event_btnRestablecerMedConsultasActionPerformed
+
+    private void btnPrimerRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerRegMedicosActionPerformed
+        
+        if (!listaMedicos.isEmpty()) {
+                mostrarRegistros(0);
+            }
+    }//GEN-LAST:event_btnPrimerRegMedicosActionPerformed
+
+    private void btnAnteriorRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorRegMedicosActionPerformed
+        
+        if (posActual > 0) {
+                mostrarRegistros(posActual - 1);
+            }
+    }//GEN-LAST:event_btnAnteriorRegMedicosActionPerformed
+
+    private void btnSiguienteRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRegMedicosActionPerformed
+        
+        if (posActual < listaMedicos.size() - 1) {
+                mostrarRegistros(posActual + 1);
+            }
+    }//GEN-LAST:event_btnSiguienteRegMedicosActionPerformed
+
+    private void btnUltimoRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoRegMedicosActionPerformed
+        
+        if (!listaMedicos.isEmpty()) {
+                mostrarRegistros(listaMedicos.size() - 1);
+            }
+    }//GEN-LAST:event_btnUltimoRegMedicosActionPerformed
 
     /**
      * @param args the command line arguments

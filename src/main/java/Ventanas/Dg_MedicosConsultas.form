@@ -177,6 +177,9 @@
           <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\doble_flecha_izq.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrimerRegMedicosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAnteriorRegMedicos">
       <Properties>
@@ -184,6 +187,9 @@
           <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\flecha_izq.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorRegMedicosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSiguienteRegMedicos">
       <Properties>
@@ -191,6 +197,9 @@
           <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\flecha_der.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSiguienteRegMedicosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnUltimoRegMedicos">
       <Properties>
@@ -198,6 +207,9 @@
           <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\doble_flecha_der.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoRegMedicosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaIndiceMed">
       <Properties>
