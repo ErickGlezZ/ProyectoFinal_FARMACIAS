@@ -6,6 +6,7 @@ package com.mycompany.proyectofinal_farmacias;
 
 
 import Ventanas.VentanaMedicos;
+import Ventanas.VentanaPacientes;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -31,7 +32,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         initComponents();
         
         setLocationRelativeTo(null);
-        setSize(950, 700);
+        setSize(1100, 700);
         setVisible(true);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         // 1. Configura el JFrame para BorderLayout
@@ -56,6 +57,11 @@ public class VentanaInicio extends javax.swing.JFrame {
         panelMedicos.setBackground(new Color(30, 41, 59)); // color del fondo
         panelMedicos.setBorder(null);
         panelMedicos.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        panelPacientes.setOpaque(true);
+        panelPacientes.setBackground(new Color(30, 41, 59)); // color del fondo
+        panelPacientes.setBorder(null);
+        panelPacientes.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 
         
@@ -125,6 +131,38 @@ public class VentanaInicio extends javax.swing.JFrame {
     }
 });
     
+    //==================LABEL PACIENTES====================
+    
+    lblPacientes.setOpaque(false);
+
+    // Evento del botón-panel
+    panelPacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent e) {
+         if (panelSeleccionado != panelPacientes) {
+        panelPacientes.setBackground(new Color(30, 41, 59));
+    }
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent e) {
+         if (panelSeleccionado != panelPacientes) {
+        panelPacientes.setBackground(new Color(30, 41, 59));
+    }
+    }
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent e) {
+        System.out.println("Click en Pacientes");
+        seleccionarPanel(panelPacientes);
+        
+        panelInicio.setBackground(new Color(30, 41, 59));
+        panelContenido.removeAll();
+        panelContenido.add(new VentanaPacientes());
+        panelContenido.revalidate();
+        panelContenido.repaint();    
+    }
+});
     
        
 
@@ -165,7 +203,6 @@ public class VentanaInicio extends javax.swing.JFrame {
         panelContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 700));
 
         panelMenu.setBackground(new java.awt.Color(30, 41, 59));
         panelMenu.setPreferredSize(new java.awt.Dimension(190, 700));
@@ -241,7 +278,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         lblSalir.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblSalir.setForeground(new java.awt.Color(255, 255, 255));
         lblSalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
-        lblSalir.setText("SALIR");
+        lblSalir.setText("CERRAR SESIÓN");
 
         javax.swing.GroupLayout panelSalirLayout = new javax.swing.GroupLayout(panelSalir);
         panelSalir.setLayout(panelSalirLayout);

@@ -3,9 +3,15 @@ C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\ConexionBD\ConexionBD.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Controlador\MedicoDAO.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Modelo\Medico.java
+C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Modelo\Paciente.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Modelo\ResultSetTableModel.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_MedicosAltas.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_MedicosBajas.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_MedicosCambios.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_MedicosConsultas.java
+C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_PacientesAltas.java
+C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_PacientesBajas.java
+C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_PacientesCambios.java
+C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\Dg_PacientesConsultas.java
 C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\VentanaMedicos.java
+C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\Ventanas\VentanaPacientes.java
