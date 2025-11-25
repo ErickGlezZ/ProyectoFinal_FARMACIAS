@@ -4,6 +4,14 @@
  */
 package Ventanas;
 
+import Controlador.MedicoDAO;
+import Controlador.PacienteDAO;
+import Modelo.Paciente;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
 /**
  *
  * @author erick
@@ -15,10 +23,70 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
     /**
      * Creates new form Dg_PacientesAltas
      */
-    public Dg_PacientesAltas(java.awt.Frame parent, boolean modal) {
+    
+    PacienteDAO pacienteDAO = PacienteDAO.getInstancia();
+    
+    private javax.swing.JTable tablaRegPacientes;
+    
+    public Dg_PacientesAltas(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegPacientes) {
         super(parent, modal);
+        this.tablaRegPacientes = tablaRegPacientes;
         initComponents();
+        setTitle("Agregar Paciente");  
+        setSize(380, 640);           
+        setLocationRelativeTo(null);  
+        setResizable(false); 
+        
+        cargarMedicosEnCombo(); 
     }
+    
+    
+    public void cargarMedicosEnCombo() {
+    cbSSNMedicoAltas.removeAllItems();  // Limpia combo antes de recargar
+
+    ResultSet rs = pacienteDAO.obtenerTodosLosMedicos();
+
+    try {
+        while (rs.next()) {
+            String ssn = rs.getString("SSN");
+            //String nombre = rs.getString("Nombre");
+
+            
+            //cbSSNMedicoAltas.addItem(ssn + " - " + nombre);
+            cbSSNMedicoAltas.addItem(ssn);
+            //lblNombreMedAltas.setText("Medico asignado: " + nombre);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al cargar médicos");
+    }
+}
+    
+    private void actualizarLabelMedico() {
+    if (cbSSNMedicoAltas.getSelectedItem() == null) return;
+
+    String ssn = cbSSNMedicoAltas.getSelectedItem().toString();
+
+    String nombre = MedicoDAO.getInstancia().obtenerNombreCompleto(ssn);
+
+    lblNombreMedAltas.setText("Médico asignado: " + nombre);
+}
+    
+    public void limpiarCampos(){
+        cajaSSNAltas.setText("");
+        cajaNombreAltas.setText("");
+        cajaPaternoAltas.setText("");
+        cajaMaternoAltas.setText("");
+        spEdadAltas.setValue(0);
+        cbSSNMedicoAltas.setSelectedIndex(0);
+        cajaCalleAltas.setText("");
+        cajaNumAltas.setText("");
+        cajaColoniaAltas.setText("");
+        cajaCodPostalAltas.setText("");
+    }
+    
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,21 +97,205 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        btnRestablecerPacAltas = new javax.swing.JButton();
+        cajaSSNAltas = new javax.swing.JTextField();
+        cajaNombreAltas = new javax.swing.JTextField();
+        cajaPaternoAltas = new javax.swing.JTextField();
+        cajaMaternoAltas = new javax.swing.JTextField();
+        spEdadAltas = new javax.swing.JSpinner();
+        cbSSNMedicoAltas = new javax.swing.JComboBox<>();
+        cajaCalleAltas = new javax.swing.JTextField();
+        cajaNumAltas = new javax.swing.JTextField();
+        cajaColoniaAltas = new javax.swing.JTextField();
+        cajaCodPostalAltas = new javax.swing.JTextField();
+        btnAgregarPacAltas = new javax.swing.JButton();
+        lblNombreMedAltas = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("SSN");
+
+        jLabel2.setText("Nombre");
+
+        jLabel3.setText("Apellido Paterno");
+
+        jLabel4.setText("Apellido Materno");
+
+        jLabel5.setText("Edad");
+
+        jLabel6.setText("SSN Medico");
+
+        jLabel7.setText("Calle");
+
+        jLabel8.setText("Numero");
+
+        jLabel9.setText("Colonia");
+
+        jLabel10.setText("Codigo Postal");
+
+        btnRestablecerPacAltas.setBackground(new java.awt.Color(0, 255, 51));
+        btnRestablecerPacAltas.setForeground(new java.awt.Color(0, 0, 0));
+        btnRestablecerPacAltas.setText("Restablecer");
+        btnRestablecerPacAltas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestablecerPacAltasActionPerformed(evt);
+            }
+        });
+
+        cbSSNMedicoAltas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSSNMedicoAltasActionPerformed(evt);
+            }
+        });
+
+        btnAgregarPacAltas.setBackground(new java.awt.Color(0, 255, 51));
+        btnAgregarPacAltas.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgregarPacAltas.setText("Agregar");
+        btnAgregarPacAltas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPacAltasActionPerformed(evt);
+            }
+        });
+
+        lblNombreMedAltas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRestablecerPacAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95)
+                        .addComponent(btnAgregarPacAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblNombreMedAltas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(41, 41, 41)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cajaSSNAltas)
+                                .addComponent(cajaNombreAltas)
+                                .addComponent(cajaPaternoAltas)
+                                .addComponent(cajaMaternoAltas)
+                                .addComponent(spEdadAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbSSNMedicoAltas, 0, 200, Short.MAX_VALUE)
+                                .addComponent(cajaCalleAltas)
+                                .addComponent(cajaNumAltas)
+                                .addComponent(cajaColoniaAltas)
+                                .addComponent(cajaCodPostalAltas)))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaSSNAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaNombreAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaPaternoAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaMaternoAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spEdadAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombreMedAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbSSNMedicoAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaCalleAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaNumAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaColoniaAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaCodPostalAltas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRestablecerPacAltas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgregarPacAltas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAgregarPacAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPacAltasActionPerformed
+        
+        Paciente p = new Paciente(cajaSSNAltas.getText(),
+                cajaNombreAltas.getText(),
+                cajaPaternoAltas.getText(),
+                cajaMaternoAltas.getText(),
+                Byte.parseByte(spEdadAltas.getValue().toString()),
+                cbSSNMedicoAltas.getSelectedItem().toString(),
+                cajaCalleAltas.getText(),
+                Integer.parseInt(cajaNumAltas.getText()),
+                cajaColoniaAltas.getText(),
+                Integer.parseInt(cajaCodPostalAltas.getText()));
+        
+        if (pacienteDAO.agregarPaciente(p)) {
+                JOptionPane.showMessageDialog(this,"Registro Agregado CORRECTAMENTE");
+                System.out.println("Registro Agregado CORRECTAMENTE");
+                
+                pacienteDAO.actualizarTabla(tablaRegPacientes);
+        }else{
+                    JOptionPane.showMessageDialog(this,"Error en la insercion");
+                    System.out.println("ERROR en la insercion");
+             }
+        
+    }//GEN-LAST:event_btnAgregarPacAltasActionPerformed
+
+    private void cbSSNMedicoAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSSNMedicoAltasActionPerformed
+        actualizarLabelMedico();
+    }//GEN-LAST:event_cbSSNMedicoAltasActionPerformed
+
+    private void btnRestablecerPacAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerPacAltasActionPerformed
+        
+       limpiarCampos();
+    }//GEN-LAST:event_btnRestablecerPacAltasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,9 +320,10 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            JTable tablaDummy = new JTable();
             @Override
             public void run() {
-                Dg_PacientesAltas dialog = new Dg_PacientesAltas(new javax.swing.JFrame(), true);
+                Dg_PacientesAltas dialog = new Dg_PacientesAltas(new javax.swing.JFrame(), true, tablaDummy);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -83,5 +336,28 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarPacAltas;
+    private javax.swing.JButton btnRestablecerPacAltas;
+    private javax.swing.JTextField cajaCalleAltas;
+    private javax.swing.JTextField cajaCodPostalAltas;
+    private javax.swing.JTextField cajaColoniaAltas;
+    private javax.swing.JTextField cajaMaternoAltas;
+    private javax.swing.JTextField cajaNombreAltas;
+    private javax.swing.JTextField cajaNumAltas;
+    private javax.swing.JTextField cajaPaternoAltas;
+    private javax.swing.JTextField cajaSSNAltas;
+    private javax.swing.JComboBox<String> cbSSNMedicoAltas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblNombreMedAltas;
+    private javax.swing.JSpinner spEdadAltas;
     // End of variables declaration//GEN-END:variables
 }

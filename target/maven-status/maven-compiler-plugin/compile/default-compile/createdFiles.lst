@@ -8,14 +8,15 @@ Ventanas\VentanaMedicos$4.class
 Ventanas\Dg_MedicosConsultas$7.class
 Modelo\Paciente.class
 Ventanas\Dg_MedicosBajas$3.class
+Ventanas\Dg_PacientesAltas$2.class
 Ventanas\Dg_MedicosConsultas$11.class
 Ventanas\VentanaPacientes.class
+Ventanas\Dg_PacientesAltas$4$1.class
 Ventanas\Dg_PacientesCambios$1.class
 Ventanas\Dg_MedicosConsultas$9.class
 Ventanas\Dg_MedicosCambios$1.class
 Ventanas\Dg_MedicosBajas.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio.class
-Ventanas\Dg_PacientesAltas$1$1.class
 Ventanas\Dg_PacientesConsultas.class
 Ventanas\Dg_MedicosBajas$5$1.class
 Ventanas\Dg_MedicosCambios$4.class
@@ -27,6 +28,8 @@ Ventanas\VentanaMedicos$3.class
 ConexionBD\ConexionBD.class
 Ventanas\Dg_MedicosConsultas$3.class
 Ventanas\Dg_MedicosBajas$4.class
+Ventanas\Dg_PacientesAltas$3.class
+Controlador\PacienteDAO.class
 Modelo\ResultSetTableModel.class
 Ventanas\VentanaMedicos.class
 Ventanas\Dg_MedicosAltas$1.class
@@ -40,6 +43,7 @@ Ventanas\Dg_MedicosConsultas$1.class
 Ventanas\Dg_PacientesCambios.class
 Ventanas\Dg_MedicosCambios$3.class
 Ventanas\Dg_MedicosConsultas$2.class
+Ventanas\Dg_PacientesAltas$4.class
 Ventanas\VentanaMedicos$2.class
 Ventanas\Dg_PacientesConsultas$1$1.class
 Ventanas\VentanaMedicos$1.class
@@ -50,6 +54,7 @@ Ventanas\Dg_MedicosAltas$2.class
 Ventanas\Dg_MedicosConsultas.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio$2.class
 Ventanas\Dg_PacientesConsultas$1.class
+Ventanas\VentanaPacientes$1.class
 Ventanas\Dg_PacientesAltas.class
 Ventanas\Dg_PacientesAltas$1.class
 Ventanas\Dg_MedicosConsultas$13$1.class

@@ -99,7 +99,7 @@ public class VentanaMedicos extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "SSN", "Nombre(s)", "Apellido Paterno", "Apellido Materno", "Especialidad", "Años"
+                "SSN", "NOMBRE", "APE_PATERNO", "APE_MATERNO", "ESPECIALIDAD", "AÑOS_EXPERIENCIA"
             }
         ));
         jScrollPane1.setViewportView(tablaRegMedicos);

@@ -4,6 +4,10 @@
  */
 package Ventanas;
 
+import Controlador.PacienteDAO;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author erick
@@ -13,8 +17,12 @@ public class VentanaPacientes extends javax.swing.JPanel {
     /**
      * Creates new form VentanaPacientes
      */
+    
+    PacienteDAO pacienteDAO = PacienteDAO.getInstancia();
     public VentanaPacientes() {
         initComponents();
+        
+        pacienteDAO.actualizarTabla(tablaRegPacientes);
     }
 
     /**
@@ -27,12 +35,12 @@ public class VentanaPacientes extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnAgregarPacientes = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaRegPacientes = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(69, 104, 130));
         setPreferredSize(new java.awt.Dimension(695, 643));
@@ -41,9 +49,14 @@ public class VentanaPacientes extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("PACIENTES");
 
-        jButton1.setBackground(new java.awt.Color(102, 255, 51));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("AGREGAR");
+        btnAgregarPacientes.setBackground(new java.awt.Color(102, 255, 51));
+        btnAgregarPacientes.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgregarPacientes.setText("AGREGAR");
+        btnAgregarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPacientesActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 0, 51));
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
@@ -57,9 +70,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
         jButton4.setText("CONSULTAR");
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(456, 406));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaRegPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -67,11 +78,10 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SSN", "Nombre", "Ape_Paterno", "Ape_Materno", "Edad", "SSN Medico ", "Calle", "Numero", "Colonia", "Codigo Postal"
+                "SSN", "NOMBRE", "APE_PATERNO", "APE_MATERNO", "EDAD", "SSN_MEDICO_CABECERA", "CALLE", "NUMERO", "COLONIA", "CODIGO_POSTAL"
             }
         ));
-        jTable1.setPreferredSize(new java.awt.Dimension(450, 80));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaRegPacientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,7 +91,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgregarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -89,9 +99,9 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(8, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -100,24 +110,30 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAgregarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPacientesActionPerformed
+        JFrame parent5 = (JFrame) SwingUtilities.getWindowAncestor(this);
+        Dg_PacientesAltas dialog = new Dg_PacientesAltas(parent5, true, tablaRegPacientes);
+        dialog.setVisible(true);
+        
+    }//GEN-LAST:event_btnAgregarPacientesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAgregarPacientes;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tablaRegPacientes;
     // End of variables declaration//GEN-END:variables
 }

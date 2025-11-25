@@ -174,4 +174,24 @@ public class MedicoDAO {
             throw new RuntimeException("Error al obtener medicos", e);
         }
     }
+    
+    
+    //=========================
+    public String obtenerNombreCompleto(String ssn) {
+    String sql = "SELECT Nombre, Ape_Paterno, Ape_Materno FROM Medicos WHERE SSN = ?";
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, ssn);
+
+    try {
+        if (rs != null && rs.next()) {
+            return rs.getString("Nombre") + " " +
+                   rs.getString("Ape_Paterno") + " " +
+                   rs.getString("Ape_Materno");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return "No encontrado";
+}
+
 }
