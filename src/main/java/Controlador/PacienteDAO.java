@@ -121,5 +121,26 @@ public class PacienteDAO {
 
     return conexionBD.ejecutarConsultaSQL(sql);
     }
+    
+    
+    //==========================BAJAS==========================
+    public boolean eliminarPaciente(String SSN){
+        String sql = "DELETE FROM Pacientes WHERE SSN = ?";
+        return conexionBD.ejecutarInstruccionLMD(sql, SSN);
+    }
+    
+    public ResultSetTableModel actualizarTablaFiltrada(String campo, String valor){
+    String consulta = "SELECT * FROM Pacientes WHERE " + campo + " LIKE ?";
+    try {
+        return new ResultSetTableModel(
+                conexionBD.getDriver(),
+                conexionBD.getURL(),
+                consulta,
+                "%" + valor + "%"  
+        );
+    } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException("Error al obtener pacientes filtrados", e);
+    }
+}
 
 }

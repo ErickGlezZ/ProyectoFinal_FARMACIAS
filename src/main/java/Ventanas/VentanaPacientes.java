@@ -36,8 +36,8 @@ public class VentanaPacientes extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         btnAgregarPacientes = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEliminarPacientes = new javax.swing.JButton();
+        btnEditarPacientes = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaRegPacientes = new javax.swing.JTable();
@@ -58,13 +58,23 @@ public class VentanaPacientes extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 0, 51));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("ELIMINAR");
+        btnEliminarPacientes.setBackground(new java.awt.Color(255, 0, 51));
+        btnEliminarPacientes.setForeground(new java.awt.Color(0, 0, 0));
+        btnEliminarPacientes.setText("ELIMINAR");
+        btnEliminarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPacientesActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(255, 153, 0));
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("MODIFICAR");
+        btnEditarPacientes.setBackground(new java.awt.Color(255, 153, 0));
+        btnEditarPacientes.setForeground(new java.awt.Color(0, 0, 0));
+        btnEditarPacientes.setText("MODIFICAR");
+        btnEditarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarPacientesActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(0, 153, 255));
         jButton4.setForeground(new java.awt.Color(0, 0, 0));
@@ -93,9 +103,9 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(btnAgregarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(8, Short.MAX_VALUE))
@@ -111,8 +121,8 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -126,11 +136,25 @@ public class VentanaPacientes extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnAgregarPacientesActionPerformed
 
+    private void btnEliminarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacientesActionPerformed
+        
+        JFrame parent6 = (JFrame) SwingUtilities.getWindowAncestor(this);
+        Dg_PacientesBajas dialog = new Dg_PacientesBajas(parent6, true, tablaRegPacientes);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnEliminarPacientesActionPerformed
+
+    private void btnEditarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacientesActionPerformed
+        
+        JFrame parent7 = (JFrame) SwingUtilities.getWindowAncestor(this);
+        Dg_PacientesCambios dialog = new Dg_PacientesCambios(parent7, true, tablaRegPacientes);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btnEditarPacientesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPacientes;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnEditarPacientes;
+    private javax.swing.JButton btnEliminarPacientes;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
