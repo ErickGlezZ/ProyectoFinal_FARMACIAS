@@ -163,4 +163,55 @@ public class PacienteDAO {
     }
     
 
+    //===================CONSULTAS================
+    
+     public ResultSetTableModel obtenerPacientesFiltrados(String campo, Object valor){
+        String consulta = "SELECT * FROM Pacientes WHERE " + campo + " = ?";
+        try {
+
+            return new ResultSetTableModel(
+                    conexionBD.getDriver(),
+                    conexionBD.getURL(),
+                    consulta,
+                    valor
+            );
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException("Error al obtener medicos filtrados", e);
+        }
+    }
+    
+    
+    public ResultSetTableModel obtenerPacientes() {
+        String consulta = "SELECT * FROM Pacientes";
+        try {
+            return new ResultSetTableModel(
+                    conexionBD.getDriver(),
+                    conexionBD.getURL(),
+                    consulta
+            );
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new RuntimeException("Error al obtener medicos", e);
+        }
+    }
+    
+    
+    //=========================
+    
+    public String obtenerNombreCompleto(String ssn) {
+    String sql = "SELECT Nombre, Ape_Paterno, Ape_Materno FROM Pacientes WHERE SSN = ?";
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, ssn);
+
+    try {
+        if (rs != null && rs.next()) {
+            return rs.getString("Nombre") + " " +
+                   rs.getString("Ape_Paterno") + " " +
+                   rs.getString("Ape_Materno");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return "No encontrado";
+}
+    
 }

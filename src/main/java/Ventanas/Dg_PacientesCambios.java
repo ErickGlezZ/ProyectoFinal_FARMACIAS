@@ -67,11 +67,19 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
             cajaPaternoCambios.setText(rs.getString("Ape_Paterno"));
             cajaMaternoCambios.setText(rs.getString("Ape_Materno"));
             spEdadCambios.setValue(rs.getInt("Edad"));
-            cbSSNMedicoCambios.setSelectedItem(rs.getString("SSN_Medico_Cabecera"));
+            //cbSSNMedicoCambios.setSelectedItem(rs.getString("SSN_Medico_Cabecera"));
             cajaCalleCambios.setText(rs.getString("Calle"));
             cajaNumCambios.setText(String.valueOf(rs.getInt("Numero")));
             cajaColoniaCambios.setText(rs.getString("Colonia"));
             cajaCodPostalCambios.setText(rs.getString("Codigo_Postal"));
+            
+            String ssnMedico = rs.getString("SSN_Medico_Cabecera");
+
+            // Primero carga todos los médicos
+            cargarMedicosEnCombo();
+
+            // Luego selecciona el correcto
+            cbSSNMedicoCambios.setSelectedItem(ssnMedico);
             
             habilitarCamposEdicion(true);
             
@@ -133,15 +141,17 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
     
     
     public void limpiarCampos(){
+        /*
         if (cbSSNMedicoCambios.getItemCount() > 0) {
                 cbSSNMedicoCambios.setSelectedIndex(0);
             }
+        */
+        cbSSNMedicoCambios.setSelectedIndex(-1);
         cajaSSNCambios.setText("");
         cajaNombreCambios.setText("");
         cajaPaternoCambios.setText("");
         cajaMaternoCambios.setText("");
         spEdadCambios.setValue(0);
-      
         cajaCalleCambios.setText("");
         cajaNumCambios.setText("");
         cajaColoniaCambios.setText("");
@@ -340,7 +350,7 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this,"No hay datos para borrar");
             }
             limpiarCampos();
-             ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
+            ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
         tablaRegPacientes.setModel(modelo);
         
     }//GEN-LAST:event_btnRestablecerPacCambiosActionPerformed
@@ -376,7 +386,7 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
             } else {
 
                 obtenerDatosPaciente();
-                cargarMedicosEnCombo();
+                //cargarMedicosEnCombo();
             }
         
     }//GEN-LAST:event_btnBuscarCambiosActionPerformed

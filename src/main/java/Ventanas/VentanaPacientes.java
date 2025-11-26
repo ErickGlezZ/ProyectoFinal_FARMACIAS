@@ -38,7 +38,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
         btnAgregarPacientes = new javax.swing.JButton();
         btnEliminarPacientes = new javax.swing.JButton();
         btnEditarPacientes = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnConsultarPacientes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaRegPacientes = new javax.swing.JTable();
 
@@ -76,9 +76,14 @@ public class VentanaPacientes extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(0, 153, 255));
-        jButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jButton4.setText("CONSULTAR");
+        btnConsultarPacientes.setBackground(new java.awt.Color(0, 153, 255));
+        btnConsultarPacientes.setForeground(new java.awt.Color(0, 0, 0));
+        btnConsultarPacientes.setText("CONSULTAR");
+        btnConsultarPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarPacientesActionPerformed(evt);
+            }
+        });
 
         tablaRegPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,7 +112,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
                 .addGap(29, 29, 29)
                 .addComponent(btnEditarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConsultarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(8, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -123,7 +128,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
                     .addComponent(btnAgregarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConsultarPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -133,6 +138,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
         JFrame parent5 = (JFrame) SwingUtilities.getWindowAncestor(this);
         Dg_PacientesAltas dialog = new Dg_PacientesAltas(parent5, true, tablaRegPacientes);
         dialog.setVisible(true);
+        pacienteDAO.actualizarTabla(tablaRegPacientes);
         
     }//GEN-LAST:event_btnAgregarPacientesActionPerformed
 
@@ -141,6 +147,7 @@ public class VentanaPacientes extends javax.swing.JPanel {
         JFrame parent6 = (JFrame) SwingUtilities.getWindowAncestor(this);
         Dg_PacientesBajas dialog = new Dg_PacientesBajas(parent6, true, tablaRegPacientes);
         dialog.setVisible(true);
+        pacienteDAO.actualizarTabla(tablaRegPacientes);
     }//GEN-LAST:event_btnEliminarPacientesActionPerformed
 
     private void btnEditarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacientesActionPerformed
@@ -148,14 +155,23 @@ public class VentanaPacientes extends javax.swing.JPanel {
         JFrame parent7 = (JFrame) SwingUtilities.getWindowAncestor(this);
         Dg_PacientesCambios dialog = new Dg_PacientesCambios(parent7, true, tablaRegPacientes);
         dialog.setVisible(true);
+        pacienteDAO.actualizarTabla(tablaRegPacientes);
     }//GEN-LAST:event_btnEditarPacientesActionPerformed
+
+    private void btnConsultarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarPacientesActionPerformed
+        
+        JFrame parent8 = (JFrame) SwingUtilities.getWindowAncestor(this);
+        Dg_PacientesConsultas dialog = new Dg_PacientesConsultas(parent8, true, tablaRegPacientes);
+        dialog.setVisible(true);
+        pacienteDAO.actualizarTabla(tablaRegPacientes);
+    }//GEN-LAST:event_btnConsultarPacientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarPacientes;
+    private javax.swing.JButton btnConsultarPacientes;
     private javax.swing.JButton btnEditarPacientes;
     private javax.swing.JButton btnEliminarPacientes;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaRegPacientes;

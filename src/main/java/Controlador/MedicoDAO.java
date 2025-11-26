@@ -193,6 +193,7 @@ public class MedicoDAO {
     
     
     //=========================
+    
     public String obtenerNombreCompleto(String ssn) {
     String sql = "SELECT Nombre, Ape_Paterno, Ape_Materno FROM Medicos WHERE SSN = ?";
     ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, ssn);

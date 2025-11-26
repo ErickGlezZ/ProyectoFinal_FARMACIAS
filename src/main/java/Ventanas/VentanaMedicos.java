@@ -102,6 +102,11 @@ public class VentanaMedicos extends javax.swing.JPanel {
                 "SSN", "NOMBRE", "APE_PATERNO", "APE_MATERNO", "ESPECIALIDAD", "AÑOS_EXPERIENCIA"
             }
         ));
+        tablaRegMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablaRegMedicosMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaRegMedicos);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -172,6 +177,11 @@ public class VentanaMedicos extends javax.swing.JPanel {
           dialog.setVisible(true);
           medicoDAO.actualizarTabla(tablaRegMedicos);
     }//GEN-LAST:event_btnConsultarMedicosActionPerformed
+
+    private void tablaRegMedicosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaRegMedicosMouseReleased
+        String ssn = (String) tablaRegMedicos.getValueAt(tablaRegMedicos.getSelectedRow(), 0);
+        //cajaSSN.setText(nc);
+    }//GEN-LAST:event_tablaRegMedicosMouseReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

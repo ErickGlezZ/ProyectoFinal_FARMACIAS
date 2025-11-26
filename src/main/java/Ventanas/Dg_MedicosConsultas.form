@@ -32,11 +32,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="rbNombres" max="32767" attributes="0"/>
-                          <Component id="rbPaterno" max="32767" attributes="0"/>
                           <Component id="rbMaterno" max="32767" attributes="0"/>
                           <Component id="rbEspecialidad" max="32767" attributes="0"/>
                           <Component id="rbExperiencia" max="32767" attributes="0"/>
+                          <Component id="rbNombres" max="32767" attributes="0"/>
+                          <Component id="rbPaterno" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -49,10 +49,10 @@
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="rbTodos" min="-2" pref="90" max="-2" attributes="0"/>
-                              <EmptySpace pref="7" max="32767" attributes="0"/>
+                              <Component id="rbTodos" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnPrimerRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnAnteriorRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
@@ -79,25 +79,31 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="btnAnteriorRegMedicos" alignment="0" pref="39" max="32767" attributes="0"/>
+                  <Component id="btnSiguienteRegMedicos" alignment="0" pref="39" max="32767" attributes="0"/>
+                  <Component id="btnUltimoRegMedicos" alignment="0" pref="39" max="32767" attributes="0"/>
+                  <Component id="rbTodos" max="32767" attributes="0"/>
+                  <Component id="btnPrimerRegMedicos" max="32767" attributes="0"/>
+                  <Component id="cajaIndiceMed" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnPrimerRegMedicos" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="btnAnteriorRegMedicos" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="cajaIndiceMed" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="btnSiguienteRegMedicos" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="btnUltimoRegMedicos" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="rbTodos" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="cajaNombreConsultas" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                      <Component id="rbNombres" min="-2" pref="39" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rbNombres" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="cajaNombreConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="cajaPaternoConsultas" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                      <Component id="rbPaterno" min="-2" pref="39" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rbPaterno" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="cajaPaternoConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="rbMaterno" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="cajaMaternoConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
@@ -221,6 +227,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaNombreConsultas">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreConsultasKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaPaternoConsultas">
     </Component>

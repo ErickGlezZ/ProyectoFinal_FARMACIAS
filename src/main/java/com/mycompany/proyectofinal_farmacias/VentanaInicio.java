@@ -198,8 +198,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         lblMedicos = new javax.swing.JLabel();
         panelPacientes = new javax.swing.JPanel();
         lblPacientes = new javax.swing.JLabel();
-        panelSalir = new javax.swing.JPanel();
-        lblSalir = new javax.swing.JLabel();
+        panelCerrarSesion = new javax.swing.JPanel();
+        lblCerrarSesion = new javax.swing.JLabel();
         panelContenido = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -273,25 +273,25 @@ public class VentanaInicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelSalir.setBackground(new java.awt.Color(30, 41, 59));
+        panelCerrarSesion.setBackground(new java.awt.Color(30, 41, 59));
 
-        lblSalir.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        lblSalir.setForeground(new java.awt.Color(255, 255, 255));
-        lblSalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
-        lblSalir.setText("CERRAR SESIÓN");
+        lblCerrarSesion.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        lblCerrarSesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblCerrarSesion.setText("CERRAR SESIÓN");
 
-        javax.swing.GroupLayout panelSalirLayout = new javax.swing.GroupLayout(panelSalir);
-        panelSalir.setLayout(panelSalirLayout);
-        panelSalirLayout.setHorizontalGroup(
-            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSalirLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelCerrarSesionLayout = new javax.swing.GroupLayout(panelCerrarSesion);
+        panelCerrarSesion.setLayout(panelCerrarSesionLayout);
+        panelCerrarSesionLayout.setHorizontalGroup(
+            panelCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCerrarSesionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        panelSalirLayout.setVerticalGroup(
-            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSalirLayout.createSequentialGroup()
-                .addComponent(lblSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+        panelCerrarSesionLayout.setVerticalGroup(
+            panelCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCerrarSesionLayout.createSequentialGroup()
+                .addComponent(lblCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -306,7 +306,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             .addComponent(panelInicio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelMedicos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelPacientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCerrarSesion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelMenuLayout.setVerticalGroup(
             panelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,7 +320,7 @@ public class VentanaInicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(panelPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(188, Short.MAX_VALUE))
         );
 
@@ -370,16 +370,16 @@ public class VentanaInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblCerrarSesion;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMedicos;
     private javax.swing.JLabel lblPacientes;
-    private javax.swing.JLabel lblSalir;
+    private javax.swing.JPanel panelCerrarSesion;
     private javax.swing.JPanel panelContenido;
     private javax.swing.JPanel panelInicio;
     private javax.swing.JPanel panelMedicos;
     private javax.swing.JPanel panelMenu;
     private javax.swing.JPanel panelPacientes;
-    private javax.swing.JPanel panelSalir;
     // End of variables declaration//GEN-END:variables
 }

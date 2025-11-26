@@ -37,7 +37,7 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
         setLocationRelativeTo(null);  
         setResizable(false); 
         
-        cargarMedicosEnCombo();
+        //cargarMedicosEnCombo();
         
         cajaNombreBajas.setEnabled(false);
         cajaPaternoBajas.setEnabled(false);
@@ -71,15 +71,18 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
 }
     
     public void limpiarCampos(){
+        /*
         if (cbSSNMedicoBajas.getItemCount() > 0) {
                 cbSSNMedicoBajas.setSelectedIndex(0);
             }
+        */
+        cbSSNMedicoBajas.setSelectedIndex(-1); // sin selección
+
         cajaSSNBajas.setText("");
         cajaNombreBajas.setText("");
         cajaPaternoBajas.setText("");
         cajaMaternoBajas.setText("");
         spEdadBajas.setValue(0);
-      
         cajaCalleBajas.setText("");
         cajaNumBajas.setText("");
         cajaColoniaBajas.setText("");
@@ -106,11 +109,19 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
             cajaPaternoBajas.setText(rs.getString("Ape_Paterno"));
             cajaMaternoBajas.setText(rs.getString("Ape_Materno"));
             spEdadBajas.setValue(rs.getInt("Edad"));
-            cbSSNMedicoBajas.setSelectedItem(rs.getString("SSN_Medico_Cabecera"));
+            //cbSSNMedicoBajas.setSelectedItem(rs.getString("SSN_Medico_Cabecera"));
             cajaCalleBajas.setText(rs.getString("Calle"));
             cajaNumBajas.setText(String.valueOf(rs.getInt("Numero")));
             cajaColoniaBajas.setText(rs.getString("Colonia"));
             cajaCodPostalBajas.setText(rs.getString("Codigo_Postal"));
+            
+            String ssnMedico = rs.getString("SSN_Medico_Cabecera");
+
+            // Primero carga todos los médicos
+            cargarMedicosEnCombo();
+
+            // Luego selecciona el correcto
+            cbSSNMedicoBajas.setSelectedItem(ssnMedico);
             
         } else {
             // No hay coincidencias → limpiar
@@ -327,6 +338,7 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
     private void btnRestablecerPacBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerPacBajasActionPerformed
         
         limpiarCampos();
+        //cargarMedicosEnCombo();
         ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN", cajaSSNBajas.getText());
         tablaRegPacientes.setModel(modelo);
         
@@ -340,6 +352,7 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
             }
             try {
                 obtenerDatosPaciente();
+                //cargarMedicosEnCombo();
             } catch (RuntimeException ex) {
                 JOptionPane.showMessageDialog(this,"Campo vacio, verifica los datos");
             }
