@@ -105,7 +105,7 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         cajaPaternoCambios.setEnabled(habilitar);
         cajaMaternoCambios.setEnabled(habilitar);
         spEdadCambios.setEnabled(habilitar);
-        cbSSNMedicoCambios.setEnabled(habilitar);
+        cbSSNMedicoCambios.setEnabled(false);
         cajaCalleCambios.setEnabled(habilitar);
         cajaNumCambios.setEnabled(habilitar);
         cajaColoniaCambios.setEnabled(habilitar);
