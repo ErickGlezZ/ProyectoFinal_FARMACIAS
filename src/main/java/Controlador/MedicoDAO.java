@@ -54,7 +54,7 @@ public class MedicoDAO {
 
             try {
 
-                Thread.sleep(2000); // 2 segundos
+                Thread.sleep(1000); // 1 segundos
 
                 ResultSetTableModel modelo = new ResultSetTableModel(CONTROLADOR_JDBC, URL, CONSULTA);
 
@@ -128,7 +128,23 @@ public class MedicoDAO {
     } catch (SQLException | ClassNotFoundException e) {
         throw new RuntimeException("Error al obtener medicos filtrados", e);
     }
+    
+    }
+    
+    public int contarPacientesDeMedico(String ssnMedico) {
+    String sql = "SELECT COUNT(*) AS total FROM pacientes WHERE ssn_medico_cabecera = ?";
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, ssnMedico);
+
+    try {
+        if (rs.next()) {
+            return rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0;
 }
+
 
     //=====================CAMBIOS==========================
     public boolean editarMedico(Medico medico){

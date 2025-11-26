@@ -142,5 +142,25 @@ public class PacienteDAO {
         throw new RuntimeException("Error al obtener pacientes filtrados", e);
     }
 }
+    //"INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) "
+    //========================CAMBIOS=======================
+    
+    public boolean editarPaciente(Paciente paciente){
+        String sql = "UPDATE Pacientes SET Nombre = ?, Ape_Paterno = ?, Ape_Materno = ?, Edad = ?, SSN_Medico_Cabecera = ?, Calle = ?, Numero = ?, Colonia = ?, Codigo_Postal = ? WHERE SSN = ?";
+
+        
+        return conexionBD.ejecutarInstruccionLMD(sql, 
+                paciente.getNombre(),
+                paciente.getApePaterno(),
+                paciente.getApeMaterno(),
+                paciente.getEdad(),
+                paciente.getSsnMedicoCabecera(),
+                paciente.getCalle(),
+                paciente.getNumero(),
+                paciente.getColonia(),
+                paciente.getCodigoPostal(),
+                paciente.getSsn());
+    }
+    
 
 }

@@ -149,24 +149,28 @@ public class VentanaMedicos extends javax.swing.JPanel {
           JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(this);
           Dg_MedicosAltas dialog = new Dg_MedicosAltas(parent, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
+          medicoDAO.actualizarTabla(tablaRegMedicos);
     }//GEN-LAST:event_btnAgregarMedicosActionPerformed
 
     private void btnEliminarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMedicosActionPerformed
           JFrame parent2 = (JFrame) SwingUtilities.getWindowAncestor(this);
           Dg_MedicosBajas dialog = new Dg_MedicosBajas(parent2, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
+          medicoDAO.actualizarTabla(tablaRegMedicos);
     }//GEN-LAST:event_btnEliminarMedicosActionPerformed
 
     private void btnEditarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMedicosActionPerformed
           JFrame parent3 = (JFrame) SwingUtilities.getWindowAncestor(this);
           Dg_MedicosCambios dialog = new Dg_MedicosCambios(parent3, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
+          medicoDAO.actualizarTabla(tablaRegMedicos);
     }//GEN-LAST:event_btnEditarMedicosActionPerformed
 
     private void btnConsultarMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarMedicosActionPerformed
           JFrame parent4 = (JFrame) SwingUtilities.getWindowAncestor(this);
           Dg_MedicosConsultas dialog = new Dg_MedicosConsultas(parent4, true, tablaRegMedicos); // modal
           dialog.setVisible(true);
+          medicoDAO.actualizarTabla(tablaRegMedicos);
     }//GEN-LAST:event_btnConsultarMedicosActionPerformed
 
 

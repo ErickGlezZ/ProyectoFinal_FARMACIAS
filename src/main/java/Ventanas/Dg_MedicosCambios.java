@@ -33,7 +33,7 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         super(parent, modal);
         this.tablaRegMedicos = tablaRegMedicos;
         initComponents();
-        setTitle("Modificaciones Médico");  
+        setTitle("Modificar Médico");  
         setSize(380, 450);           
         setLocationRelativeTo(null);  
         setResizable(false); 

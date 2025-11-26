@@ -1,7 +1,7 @@
 com\mycompany\proyectofinal_farmacias\VentanaInicio$3.class
+Ventanas\Dg_PacientesCambios$2.class
 Ventanas\Dg_MedicosCambios.class
 Ventanas\Dg_MedicosCambios$5.class
-Ventanas\Dg_PacientesCambios$1$1.class
 Ventanas\VentanaPacientes$2.class
 Ventanas\Dg_MedicosBajas$2.class
 Ventanas\VentanaMedicos$4.class
@@ -31,6 +31,7 @@ Ventanas\VentanaMedicos$3.class
 ConexionBD\ConexionBD.class
 Ventanas\Dg_MedicosConsultas$3.class
 Ventanas\Dg_MedicosBajas$4.class
+Ventanas\Dg_PacientesCambios$5.class
 Ventanas\Dg_PacientesAltas$3.class
 Controlador\PacienteDAO.class
 Modelo\ResultSetTableModel.class
@@ -44,6 +45,7 @@ Ventanas\Dg_MedicosConsultas$5.class
 Ventanas\Dg_MedicosAltas$3$1.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio$1.class
 Ventanas\Dg_MedicosConsultas$1.class
+Ventanas\Dg_PacientesCambios$4.class
 Ventanas\Dg_PacientesCambios.class
 Ventanas\Dg_MedicosCambios$3.class
 Ventanas\Dg_MedicosConsultas$2.class
@@ -62,6 +64,7 @@ Ventanas\Dg_PacientesConsultas$1.class
 Ventanas\VentanaPacientes$1.class
 Ventanas\Dg_PacientesAltas.class
 Ventanas\Dg_PacientesAltas$1.class
+Ventanas\Dg_PacientesCambios$3.class
 Ventanas\Dg_MedicosConsultas$13$1.class
 Ventanas\Dg_MedicosConsultas$10.class
 Ventanas\Dg_PacientesBajas$5$1.class
@@ -69,5 +72,6 @@ Ventanas\Dg_MedicosCambios$5$1.class
 Ventanas\Dg_MedicosCambios$2.class
 Ventanas\Dg_PacientesBajas.class
 Modelo\Medico.class
+Ventanas\Dg_PacientesCambios$5$1.class
 Ventanas\Dg_MedicosConsultas$8.class
 com\mycompany\proyectofinal_farmacias\ProyectoFinal_FARMACIAS.class

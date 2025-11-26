@@ -287,6 +287,33 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
 
     private void btnEliminarMedBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMedBajasActionPerformed
         
+        String ssn = cajaSSNBajas.getText().trim();
+
+        if (ssn.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Primero ingrese un SSN.");
+            return;
+        }
+
+        // 1. Verificar si tiene pacientes
+        int pacientes = medicoDAO.contarPacientesDeMedico(ssn);
+
+        if (pacientes > 0) {
+            // 2. Mostrar advertencia
+            int opcion = JOptionPane.showConfirmDialog(
+                this,
+                "Este médico tiene " + pacientes + " pacientes asignados.\n" +
+                "¿Seguro que desea eliminarlo?\n\n" +
+                "(Esto también eliminará a los pacientes que dependan de él.)",
+                "Advertencia",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (opcion != JOptionPane.YES_OPTION) {
+            return; // CANCELÓ
+        }
+    }
+        
          if (medicoDAO.eliminarMedico(cajaSSNBajas.getText())){
 
                 medicoDAO.actualizarTabla(tablaRegMedicos);

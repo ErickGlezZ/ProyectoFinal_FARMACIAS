@@ -4,7 +4,13 @@
  */
 package Ventanas;
 
+import ConexionBD.ConexionBD;
 import Controlador.PacienteDAO;
+import Modelo.Paciente;
+import Modelo.ResultSetTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -19,16 +25,129 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
      * Creates new form Dg_PacientesCambios
      */
     PacienteDAO pacienteDAO = PacienteDAO.getInstancia();
+    ConexionBD conexionBD = ConexionBD.getInstancia();
     
     private javax.swing.JTable tablaRegPacientes;
     public Dg_PacientesCambios(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegPacientes) {
         super(parent, modal);
         this.tablaRegPacientes = tablaRegPacientes;
         initComponents();
-        setTitle("Editar Paciente");  
+        setTitle("Modificar Paciente");  
         setSize(380, 620);           
         setLocationRelativeTo(null);  
         setResizable(false); 
+        
+        cajaNombreCambios.setEnabled(false);
+        cajaPaternoCambios.setEnabled(false);
+        cajaMaternoCambios.setEnabled(false);
+        spEdadCambios.setEnabled(false);
+        cbSSNMedicoCambios.setEnabled(false);
+        cajaCalleCambios.setEnabled(false);
+        cajaNumCambios.setEnabled(false);
+        cajaColoniaCambios.setEnabled(false);
+        cajaCodPostalCambios.setEnabled(false);
+        
+    }
+    
+    
+    public void obtenerDatosPaciente() {
+
+    String sql = "SELECT * FROM Pacientes WHERE SSN LIKE ?";
+    String texto = cajaSSNCambios.getText().trim() + "%";
+
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, texto);
+
+    // Actualizar tabla según coincidencias
+    pacienteDAO.actualizarTablaFiltrada(cajaSSNCambios.getText(), texto);
+    
+    try {
+        if (rs != null && rs.next()) {
+            // Mostrar datos del primero, si coincide
+            cajaNombreCambios.setText(rs.getString("Nombre"));
+            cajaPaternoCambios.setText(rs.getString("Ape_Paterno"));
+            cajaMaternoCambios.setText(rs.getString("Ape_Materno"));
+            spEdadCambios.setValue(rs.getInt("Edad"));
+            cbSSNMedicoCambios.setSelectedItem(rs.getString("SSN_Medico_Cabecera"));
+            cajaCalleCambios.setText(rs.getString("Calle"));
+            cajaNumCambios.setText(String.valueOf(rs.getInt("Numero")));
+            cajaColoniaCambios.setText(rs.getString("Colonia"));
+            cajaCodPostalCambios.setText(rs.getString("Codigo_Postal"));
+            
+            habilitarCamposEdicion(true);
+            
+        } else {
+            // No hay coincidencias → limpiar
+            cajaNombreCambios.setText("");
+            cajaPaternoCambios.setText("");
+            cajaMaternoCambios.setText("");
+            spEdadCambios.setValue(0);
+
+            // ⭐ IMPORTANTE: solo limpiar si el combo NO está vacío
+            if (cbSSNMedicoCambios.getItemCount() > 0) {
+                cbSSNMedicoCambios.setSelectedIndex(0);
+            }
+
+            cajaCalleCambios.setText("");
+            cajaNumCambios.setText("");
+            cajaColoniaCambios.setText("");
+            cajaCodPostalCambios.setText("");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al obtener los datos del Paciente.");
+    }
+}
+    
+    public void habilitarCamposEdicion(boolean habilitar){
+        
+        cajaNombreCambios.setEnabled(habilitar);
+        cajaPaternoCambios.setEnabled(habilitar);
+        cajaMaternoCambios.setEnabled(habilitar);
+        spEdadCambios.setEnabled(habilitar);
+        cbSSNMedicoCambios.setEnabled(habilitar);
+        cajaCalleCambios.setEnabled(habilitar);
+        cajaNumCambios.setEnabled(habilitar);
+        cajaColoniaCambios.setEnabled(habilitar);
+        cajaCodPostalCambios.setEnabled(habilitar);
+    }
+    
+    
+    public void cargarMedicosEnCombo() {
+    cbSSNMedicoCambios.removeAllItems(); 
+
+    ResultSet rs = pacienteDAO.obtenerTodosLosMedicos();
+
+    try {
+        while (rs.next()) {
+            String ssn = rs.getString("SSN");
+            
+            cbSSNMedicoCambios.addItem(ssn);
+            
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al cargar médicos");
+    }
+}
+    
+    
+    public void limpiarCampos(){
+        if (cbSSNMedicoCambios.getItemCount() > 0) {
+                cbSSNMedicoCambios.setSelectedIndex(0);
+            }
+        cajaSSNCambios.setText("");
+        cajaNombreCambios.setText("");
+        cajaPaternoCambios.setText("");
+        cajaMaternoCambios.setText("");
+        spEdadCambios.setValue(0);
+      
+        cajaCalleCambios.setText("");
+        cajaNumCambios.setText("");
+        cajaColoniaCambios.setText("");
+        cajaCodPostalCambios.setText("");
+        
+        
     }
 
     /**
@@ -87,16 +206,36 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         jLabel10.setText("Codigo Postal");
 
         cajaSSNCambios.setBackground(new java.awt.Color(51, 153, 255));
+        cajaSSNCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaSSNCambiosKeyReleased(evt);
+            }
+        });
 
         btnRestablecerPacCambios.setBackground(new java.awt.Color(255, 153, 0));
         btnRestablecerPacCambios.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerPacCambios.setText("Restablecer");
+        btnRestablecerPacCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestablecerPacCambiosActionPerformed(evt);
+            }
+        });
 
         btnEditarPacCambios.setBackground(new java.awt.Color(255, 153, 0));
         btnEditarPacCambios.setForeground(new java.awt.Color(0, 0, 0));
         btnEditarPacCambios.setText("Editar");
+        btnEditarPacCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarPacCambiosActionPerformed(evt);
+            }
+        });
 
         btnBuscarCambios.setText("Buscar");
+        btnBuscarCambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarCambiosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,10 +281,11 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cajaSSNCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscarCambios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cajaSSNCambios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,6 +331,61 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRestablecerPacCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerPacCambiosActionPerformed
+        
+        
+        habilitarCamposEdicion(false);
+            if (cajaSSNCambios.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"No hay datos para borrar");
+            }
+            limpiarCampos();
+             ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
+        tablaRegPacientes.setModel(modelo);
+        
+    }//GEN-LAST:event_btnRestablecerPacCambiosActionPerformed
+
+    private void btnEditarPacCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacCambiosActionPerformed
+        
+        Paciente p = new Paciente(cajaSSNCambios.getText(),
+                cajaNombreCambios.getText(),
+                cajaPaternoCambios.getText(),
+                cajaMaternoCambios.getText(),
+                Byte.parseByte(spEdadCambios.getValue().toString()),
+                cbSSNMedicoCambios.getSelectedItem().toString(),
+                cajaCalleCambios.getText(),
+                Integer.parseInt(cajaNumCambios.getText()),
+                cajaColoniaCambios.getText(),
+                Integer.parseInt(cajaCodPostalCambios.getText()));
+        
+        if (pacienteDAO.editarPaciente(p)) {
+                JOptionPane.showMessageDialog(this,"Registro Editado CORRECTAMENTE");
+                System.out.println("Registro Agregado CORRECTAMENTE");
+                
+                pacienteDAO.actualizarTabla(tablaRegPacientes);
+        }else{
+                    JOptionPane.showMessageDialog(this,"Error en la insercion");
+                    System.out.println("ERROR en la insercion");
+             }
+    }//GEN-LAST:event_btnEditarPacCambiosActionPerformed
+
+    private void btnBuscarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCambiosActionPerformed
+        
+         if (cajaSSNCambios.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this,"Campo vacio, verifica campo 'SSN'");
+            } else {
+
+                obtenerDatosPaciente();
+                cargarMedicosEnCombo();
+            }
+        
+    }//GEN-LAST:event_btnBuscarCambiosActionPerformed
+
+    private void cajaSSNCambiosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNCambiosKeyReleased
+        
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
+        tablaRegPacientes.setModel(modelo);
+    }//GEN-LAST:event_cajaSSNCambiosKeyReleased
 
     /**
      * @param args the command line arguments
