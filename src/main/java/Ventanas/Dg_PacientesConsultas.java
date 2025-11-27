@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -60,7 +61,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }
     
     
-    
+    /*
     public void actualizarTablaFiltro(JTable tabla){
         ResultSetTableModel modelo;
         //"INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) "
@@ -74,6 +75,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             }else if (rbEdad.isSelected()){
                 modelo = pacienteDAO.obtenerPacientesFiltrados("Edad", (Integer) spEdadConsultas.getValue());
             }else if (rbSSNMedico.isSelected()){
+                cargarMedicosEnCombo();
                 modelo = pacienteDAO.obtenerPacientesFiltrados("SSN_Medico_Cabecera", cbSSNMedicoConsultas.getSelectedItem().toString());
             }else if(rbCalle.isSelected()){
                 modelo = pacienteDAO.obtenerPacientesFiltrados("Calle", cajaCalleConsultas.getText());
@@ -92,7 +94,100 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
+    */
+    public void actualizarTablaFiltro(JTable tabla) {
+    ResultSetTableModel modelo;
+
+    try {
+        if (rbNombre.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Nombre", cajaNombreConsultas.getText()
+            );
+
+        } else if (rbPaterno.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Ape_Paterno", cajaPaternoConsultas.getText()
+            );
+
+        } else if (rbMaterno.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Ape_Materno", cajaMaternoConsultas.getText()
+            );
+
+        } else if (rbEdad.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Edad", spEdadConsultas.getValue().toString()
+            );
+
+        } else if (rbSSNMedico.isSelected()) {
+            // ❗ NO llamar cargarMedicosEnCombo() aquí
+            // Solo usamos lo que ya contiene el combo.
+            Object seleccionado = cbSSNMedicoConsultas.getSelectedItem();
+            String valor = (seleccionado != null) ? seleccionado.toString() : "";
+
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "SSN_Medico_Cabecera", valor
+            );
+
+        } else if (rbCalle.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Calle", cajaCalleConsultas.getText()
+            );
+
+        } else if (rbNumero.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Numero", cajaNumeroConsultas.getText()
+            );
+
+        } else if (rbColonia.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Colonia", cajaColoniaConsultas.getText()
+            );
+
+        } else if (rbCodPostal.isSelected()) {
+            modelo = pacienteDAO.obtenerPacientesFiltrados(
+                "Codigo_Postal", cajaCodPostalConsultas.getText()
+            );
+
+        } else {
+            modelo = pacienteDAO.obtenerPacientes();
+        }
+
+        tabla.setModel(modelo);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, 
+            "Error al filtrar pacientes: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
+
     
+    public void limpiarCampos(){
+        cajaNombreConsultas.setText("");
+        cajaPaternoConsultas.setText("");
+        cajaMaternoConsultas.setText("");
+        spEdadConsultas.setValue(0);
+        cbSSNMedicoConsultas.setSelectedIndex(-1);
+        cajaCalleConsultas.setText("");
+        cajaNumeroConsultas.setText("");
+        cajaColoniaConsultas.setText("");
+        cajaCodPostalConsultas.setText("");
+        
+    }
+    
+    private void desactivarCampos() {
+        cajaNombreConsultas.setEnabled(false);
+        cajaPaternoConsultas.setEnabled(false);
+        cajaMaternoConsultas.setEnabled(false);
+        spEdadConsultas.setEnabled(false);
+        cbSSNMedicoConsultas.setEnabled(false);
+        cajaCalleConsultas.setEnabled(false);
+        cajaNumeroConsultas.setEnabled(false);
+        cajaColoniaConsultas.setEnabled(false);
+        cajaCodPostalConsultas.setEnabled(false);
+    }
+
     
     public void cargarMedicosEnCombo() {
     cbSSNMedicoConsultas.removeAllItems(); 
@@ -250,6 +345,30 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             }
         });
 
+        cajaCalleConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaCalleConsultasKeyReleased(evt);
+            }
+        });
+
+        cajaNumeroConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaNumeroConsultasKeyReleased(evt);
+            }
+        });
+
+        cajaColoniaConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaColoniaConsultasKeyReleased(evt);
+            }
+        });
+
+        cajaCodPostalConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaCodPostalConsultasKeyReleased(evt);
+            }
+        });
+
         btnRestablecerPacConsultas.setText("Restablecer");
 
         jButton2.setText("jButton2");
@@ -365,83 +484,68 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cajaNombreConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreConsultasKeyReleased
-        
-        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Nombre", cajaNombreConsultas.getText());
-        tablaRegPacientes.setModel(modelo);
-        
+    
+            ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Nombre", cajaNombreConsultas.getText());
+            tablaRegPacientes.setModel(modelo);
     }//GEN-LAST:event_cajaNombreConsultasKeyReleased
 
     private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+       
     }//GEN-LAST:event_rbTodosActionPerformed
 
     private void rbNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNombreActionPerformed
+       
+        limpiarCampos();
+        desactivarCampos();
+
         cajaNombreConsultas.setEnabled(true);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbNombreActionPerformed
 
     private void rbPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPaternoActionPerformed
-        cajaNombreConsultas.setEnabled(false);
+       
+        limpiarCampos();
+        desactivarCampos();
+
         cajaPaternoConsultas.setEnabled(true);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegPacientes);
+        
     }//GEN-LAST:event_rbPaternoActionPerformed
 
     private void rbMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMaternoActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
+    
+        limpiarCampos();
+        desactivarCampos();
+
         cajaMaternoConsultas.setEnabled(true);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbMaternoActionPerformed
 
     private void rbEdadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEdadActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
+       
+        
+        limpiarCampos();
+        desactivarCampos();
+
         spEdadConsultas.setEnabled(true);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbEdadActionPerformed
 
     private void rbSSNMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSSNMedicoActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
+    
+        limpiarCampos();
+        desactivarCampos();
         cbSSNMedicoConsultas.setEnabled(true);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+
+        // MUY IMPORTANTE
         cargarMedicosEnCombo();
+        cbSSNMedicoConsultas.setSelectedIndex(-1);
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbSSNMedicoActionPerformed
 
     private void rbCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCalleActionPerformed
@@ -454,6 +558,16 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaNumeroConsultas.setEnabled(false);
         cajaColoniaConsultas.setEnabled(false);
         cajaCodPostalConsultas.setEnabled(false);
+        
+        cajaNombreConsultas.setText("");
+        cajaPaternoConsultas.setText("");
+        cajaMaternoConsultas.setText("");
+        spEdadConsultas.setValue(0);
+        cbSSNMedicoConsultas.setSelectedIndex(-1);
+       
+        cajaNumeroConsultas.setText("");
+        cajaColoniaConsultas.setText("");
+        cajaCodPostalConsultas.setText("");
     }//GEN-LAST:event_rbCalleActionPerformed
 
     private void rbNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNumeroActionPerformed
@@ -466,6 +580,16 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaNumeroConsultas.setEnabled(true);
         cajaColoniaConsultas.setEnabled(false);
         cajaCodPostalConsultas.setEnabled(false);
+        
+        cajaNombreConsultas.setText("");
+        cajaPaternoConsultas.setText("");
+        cajaMaternoConsultas.setText("");
+        spEdadConsultas.setValue(0);
+        cbSSNMedicoConsultas.setSelectedIndex(-1);
+        cajaCalleConsultas.setText("");
+        
+        cajaColoniaConsultas.setText("");
+        cajaCodPostalConsultas.setText("");
     }//GEN-LAST:event_rbNumeroActionPerformed
 
     private void rbColoniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbColoniaActionPerformed
@@ -478,6 +602,16 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaNumeroConsultas.setEnabled(false);
         cajaColoniaConsultas.setEnabled(true);
         cajaCodPostalConsultas.setEnabled(false);
+        
+        cajaNombreConsultas.setText("");
+        cajaPaternoConsultas.setText("");
+        cajaMaternoConsultas.setText("");
+        spEdadConsultas.setValue(0);
+        cbSSNMedicoConsultas.setSelectedIndex(-1);
+        cajaCalleConsultas.setText("");
+        cajaNumeroConsultas.setText("");
+        
+        cajaCodPostalConsultas.setText("");
     }//GEN-LAST:event_rbColoniaActionPerformed
 
     private void rbCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCodPostalActionPerformed
@@ -490,6 +624,16 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaNumeroConsultas.setEnabled(false);
         cajaColoniaConsultas.setEnabled(false);
         cajaCodPostalConsultas.setEnabled(true);
+        
+        cajaNombreConsultas.setText("");
+        cajaPaternoConsultas.setText("");
+        cajaMaternoConsultas.setText("");
+        spEdadConsultas.setValue(0);
+        cbSSNMedicoConsultas.setSelectedIndex(-1);
+        cajaCalleConsultas.setText("");
+        cajaNumeroConsultas.setText("");
+        cajaColoniaConsultas.setText("");
+        
     }//GEN-LAST:event_rbCodPostalActionPerformed
 //"INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) "
     private void cajaPaternoConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoConsultasKeyReleased
@@ -509,10 +653,38 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }//GEN-LAST:event_spEdadConsultasStateChanged
 
     private void cbSSNMedicoConsultasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSSNMedicoConsultasItemStateChanged
-        
+        /*
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN_Medico_Cabecera", cbSSNMedicoConsultas.getSelectedItem().toString());
+        tablaRegPacientes.setModel(modelo);
+        */
+        if (cbSSNMedicoConsultas.getSelectedItem() == null) {
+        tablaRegPacientes.setModel(new DefaultTableModel()); // opcional, tabla vacía
+        return;
+        }
+
         ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN_Medico_Cabecera", cbSSNMedicoConsultas.getSelectedItem().toString());
         tablaRegPacientes.setModel(modelo);
     }//GEN-LAST:event_cbSSNMedicoConsultasItemStateChanged
+
+    private void cajaCalleConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCalleConsultasKeyReleased
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Calle", cajaCalleConsultas.getText());
+        tablaRegPacientes.setModel(modelo); 
+    }//GEN-LAST:event_cajaCalleConsultasKeyReleased
+
+    private void cajaNumeroConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNumeroConsultasKeyReleased
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Numero", cajaNumeroConsultas.getText());
+        tablaRegPacientes.setModel(modelo);
+    }//GEN-LAST:event_cajaNumeroConsultasKeyReleased
+
+    private void cajaColoniaConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColoniaConsultasKeyReleased
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Colonia", cajaColoniaConsultas.getText());
+        tablaRegPacientes.setModel(modelo);
+    }//GEN-LAST:event_cajaColoniaConsultasKeyReleased
+
+    private void cajaCodPostalConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCodPostalConsultasKeyReleased
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Codigo_Postal", cajaCodPostalConsultas.getText());
+        tablaRegPacientes.setModel(modelo);
+    }//GEN-LAST:event_cajaCodPostalConsultasKeyReleased
 
     /**
      * @param args the command line arguments

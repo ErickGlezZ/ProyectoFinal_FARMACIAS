@@ -128,7 +128,7 @@ public class PacienteDAO {
         String sql = "DELETE FROM Pacientes WHERE SSN = ?";
         return conexionBD.ejecutarInstruccionLMD(sql, SSN);
     }
-    
+    /*
     public ResultSetTableModel actualizarTablaFiltrada(String campo, String valor){
     String consulta = "SELECT * FROM Pacientes WHERE " + campo + " LIKE ?";
     try {
@@ -142,6 +142,22 @@ public class PacienteDAO {
         throw new RuntimeException("Error al obtener pacientes filtrados", e);
     }
 }
+    */
+    
+    public ResultSetTableModel actualizarTablaFiltrada(String campo, String valor){
+    String consulta = "SELECT * FROM Pacientes WHERE LOWER(" + campo + ") LIKE ?";
+    try {
+        return new ResultSetTableModel(
+                conexionBD.getDriver(),
+                conexionBD.getURL(),
+                consulta,
+                "%" + valor.toLowerCase() + "%"  // 🔥 filtro insensible a mayúsculas
+        );
+    } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException("Error al obtener pacientes filtrados", e);
+    }
+}
+
     //"INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) "
     //========================CAMBIOS=======================
     
@@ -164,7 +180,7 @@ public class PacienteDAO {
     
 
     //===================CONSULTAS================
-    
+    /*
      public ResultSetTableModel obtenerPacientesFiltrados(String campo, Object valor){
         String consulta = "SELECT * FROM Pacientes WHERE " + campo + " = ?";
         try {
@@ -179,7 +195,32 @@ public class PacienteDAO {
             throw new RuntimeException("Error al obtener medicos filtrados", e);
         }
     }
-    
+*/
+    public ResultSetTableModel obtenerPacientesFiltrados(String campo, Object valor){
+    String consulta;
+
+    // Si el valor es texto -> LIKE
+    if (valor instanceof String) {
+        consulta = "SELECT * FROM Pacientes WHERE LOWER(" + campo + ") LIKE ?";
+        valor = "%" + valor.toString().toLowerCase() + "%";
+    } 
+    // Si es número -> '=' exacto
+    else {
+        consulta = "SELECT * FROM Pacientes WHERE " + campo + " = ?";
+    }
+
+    try {
+        return new ResultSetTableModel(
+            conexionBD.getDriver(),
+            conexionBD.getURL(),
+            consulta,
+            valor
+        );
+    } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException("Error al filtrar pacientes", e);
+    }
+}
+
     
     public ResultSetTableModel obtenerPacientes() {
         String consulta = "SELECT * FROM Pacientes";

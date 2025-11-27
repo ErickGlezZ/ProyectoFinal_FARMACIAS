@@ -164,6 +164,41 @@ public class VentanaInicio extends javax.swing.JFrame {
     }
 });
     
+    //=================LABEL CERRAR SESION==============
+    lblCerrarSesion.setOpaque(false);
+
+    // Evento del botón-panel
+    panelCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseEntered(java.awt.event.MouseEvent e) {
+         if (panelSeleccionado != panelCerrarSesion) {
+        panelCerrarSesion.setBackground(new Color(30, 41, 59));
+    }
+    }
+
+    @Override
+    public void mouseExited(java.awt.event.MouseEvent e) {
+         if (panelSeleccionado != panelCerrarSesion) {
+        panelCerrarSesion.setBackground(new Color(30, 41, 59));
+    }
+    }
+
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent e) {
+        System.out.println("Click en Cerrar Sesion");
+        seleccionarPanel(panelPacientes);
+        
+        panelInicio.setBackground(new Color(30, 41, 59));
+        /*
+        panelContenido.removeAll();
+        panelContenido.add(new VentanaPacientes());
+        panelContenido.revalidate();
+        panelContenido.repaint();  
+        */
+        VentanaInicio.this.dispose();
+    }
+});
+    
        
 
     }
