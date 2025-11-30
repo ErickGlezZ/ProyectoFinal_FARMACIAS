@@ -27,10 +27,23 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="103" max="32767" attributes="0"/>
+              <Component id="btnPrimerRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnAnteriorRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="cajaIndiceMed" min="-2" pref="40" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnSiguienteRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnUltimoRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="rbMaterno" max="32767" attributes="0"/>
                           <Component id="rbEspecialidad" max="32767" attributes="0"/>
@@ -46,32 +59,13 @@
                           <Component id="cajaExperienciaConsultas" max="32767" attributes="0"/>
                           <Component id="cbEspecialidadConsultas" pref="184" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="rbTodos" min="-2" pref="91" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnPrimerRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnAnteriorRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cajaIndiceMed" min="-2" pref="40" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnSiguienteRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnUltimoRegMedicos" min="-2" pref="42" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="btnRestablecerMedConsultas" min="-2" pref="125" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnBuscarMedConsultas" min="-2" pref="125" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="btnRestablecerMedConsultas" min="-2" pref="140" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,7 +77,6 @@
                   <Component id="btnAnteriorRegMedicos" alignment="0" pref="39" max="32767" attributes="0"/>
                   <Component id="btnSiguienteRegMedicos" alignment="0" pref="39" max="32767" attributes="0"/>
                   <Component id="btnUltimoRegMedicos" alignment="0" pref="39" max="32767" attributes="0"/>
-                  <Component id="rbTodos" max="32767" attributes="0"/>
                   <Component id="btnPrimerRegMedicos" max="32767" attributes="0"/>
                   <Component id="cajaIndiceMed" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -119,24 +112,13 @@
                   <Component id="cajaExperienciaConsultas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnRestablecerMedConsultas" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="btnBuscarMedConsultas" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnRestablecerMedConsultas" min="-2" pref="35" max="-2" attributes="0"/>
               <EmptySpace pref="70" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JRadioButton" name="rbTodos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Todos"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbTodosActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JRadioButton" name="rbNombres">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre(s)"/>
@@ -232,10 +214,19 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaPaternoConsultas">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoConsultasKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaMaternoConsultas">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoConsultasKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaExperienciaConsultas">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaExperienciaConsultasKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbEspecialidadConsultas">
       <Properties>
@@ -253,6 +244,10 @@
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbEspecialidadConsultasItemStateChanged"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cbEspecialidadConsultasKeyReleased"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -269,20 +264,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRestablecerMedConsultasActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnBuscarMedConsultas">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="66" red="0" type="rgb"/>
-        </Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="0" red="0" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarMedConsultasActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

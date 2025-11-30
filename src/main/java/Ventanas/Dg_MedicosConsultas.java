@@ -39,20 +39,18 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         setLocationRelativeTo(null);  
         setResizable(false); 
         
-        buttonGroup1.add(rbTodos);
         buttonGroup1.add(rbNombres);
         buttonGroup1.add(rbPaterno);
         buttonGroup1.add(rbMaterno);
         buttonGroup1.add(rbEspecialidad);
         buttonGroup1.add(rbExperiencia);
+
         
-        rbTodos.setSelected(true);
+
         
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        cbEspecialidadConsultas.setEnabled(false);
-        cajaExperienciaConsultas.setEnabled(false);
+       
+        
+        desactivarCampos();
         
         listaMedicos = añadirMedicos();
     }
@@ -81,13 +79,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             e.printStackTrace();
         }
     }
-    /*
-    public boolean algunaOpcionSeleccionada(){
-        return rbTodos.isSelected() || rbNombres.isSelected() || 
-               rbPaterno.isSelected() || rbMaterno.isSelected() || 
-               rbEspecialidad.isSelected() || rbExperiencia.isSelected();
-    }
-    */
+    
     public void limpiarCampos(){
         
         cajaNombreConsultas.setText("");
@@ -96,16 +88,19 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         cbEspecialidadConsultas.setSelectedIndex(0);
         cajaExperienciaConsultas.setText("");
         cajaIndiceMed.setText("0");
-        buttonGroup1.clearSelection();
         //posActual = -1;
         actualizarTablaFiltro(tablaRegMedicos);
         
+        desactivarCampos();
+        
+    }
+    
+    public void desactivarCampos(){
         cajaNombreConsultas.setEnabled(false);
         cajaPaternoConsultas.setEnabled(false);
         cajaMaternoConsultas.setEnabled(false);
         cbEspecialidadConsultas.setEnabled(false);
         cajaExperienciaConsultas.setEnabled(false);
-        
     }
      
     ArrayList<Medico> listaMedicos = new ArrayList<>();
@@ -190,7 +185,6 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        rbTodos = new javax.swing.JRadioButton();
         rbNombres = new javax.swing.JRadioButton();
         rbPaterno = new javax.swing.JRadioButton();
         rbMaterno = new javax.swing.JRadioButton();
@@ -207,16 +201,8 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         cajaExperienciaConsultas = new javax.swing.JTextField();
         cbEspecialidadConsultas = new javax.swing.JComboBox<>();
         btnRestablecerMedConsultas = new javax.swing.JButton();
-        btnBuscarMedConsultas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        rbTodos.setText("Todos");
-        rbTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbTodosActionPerformed(evt);
-            }
-        });
 
         rbNombres.setText("Nombre(s)");
         rbNombres.addActionListener(new java.awt.event.ActionListener() {
@@ -291,7 +277,35 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             }
         });
 
+        cajaPaternoConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaPaternoConsultasKeyReleased(evt);
+            }
+        });
+
+        cajaMaternoConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaMaternoConsultasKeyReleased(evt);
+            }
+        });
+
+        cajaExperienciaConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cajaExperienciaConsultasKeyReleased(evt);
+            }
+        });
+
         cbEspecialidadConsultas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
+        cbEspecialidadConsultas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbEspecialidadConsultasItemStateChanged(evt);
+            }
+        });
+        cbEspecialidadConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cbEspecialidadConsultasKeyReleased(evt);
+            }
+        });
 
         btnRestablecerMedConsultas.setBackground(new java.awt.Color(0, 102, 255));
         btnRestablecerMedConsultas.setForeground(new java.awt.Color(0, 0, 0));
@@ -302,23 +316,26 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             }
         });
 
-        btnBuscarMedConsultas.setBackground(new java.awt.Color(0, 102, 255));
-        btnBuscarMedConsultas.setForeground(new java.awt.Color(0, 0, 0));
-        btnBuscarMedConsultas.setText("Buscar");
-        btnBuscarMedConsultas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarMedConsultasActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnPrimerRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAnteriorRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cajaIndiceMed, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSiguienteRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnUltimoRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(rbMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rbEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -331,27 +348,11 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
                             .addComponent(cajaPaternoConsultas)
                             .addComponent(cajaNombreConsultas)
                             .addComponent(cajaExperienciaConsultas)
-                            .addComponent(cbEspecialidadConsultas, 0, 184, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rbTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnPrimerRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAnteriorRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cajaIndiceMed, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSiguienteRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUltimoRegMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRestablecerMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBuscarMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32))))
+                            .addComponent(cbEspecialidadConsultas, 0, 184, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(btnRestablecerMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +362,6 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
                     .addComponent(btnAnteriorRegMedicos, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(btnSiguienteRegMedicos, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(btnUltimoRegMedicos, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(rbTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPrimerRegMedicos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cajaIndiceMed, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -389,128 +389,70 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
                     .addComponent(rbExperiencia, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cajaExperienciaConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRestablecerMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnRestablecerMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
-        
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        cbEspecialidadConsultas.setEnabled(false);
-        cajaExperienciaConsultas.setEnabled(false);
-    }//GEN-LAST:event_rbTodosActionPerformed
-
     private void rbNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNombresActionPerformed
+        limpiarCampos();
+        desactivarCampos();
+
         cajaNombreConsultas.setEnabled(true);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        cbEspecialidadConsultas.setEnabled(false);
-        cajaExperienciaConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegMedicos);
     }//GEN-LAST:event_rbNombresActionPerformed
 
     private void rbPaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPaternoActionPerformed
        
-        cajaNombreConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cajaPaternoConsultas.setEnabled(true);
-        cajaMaternoConsultas.setEnabled(false);
-        cbEspecialidadConsultas.setEnabled(false);
-        cajaExperienciaConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegMedicos);
     }//GEN-LAST:event_rbPaternoActionPerformed
 
     private void rbMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMaternoActionPerformed
         
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cajaMaternoConsultas.setEnabled(true);
-        cbEspecialidadConsultas.setEnabled(false);
-        cajaExperienciaConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegMedicos);
     }//GEN-LAST:event_rbMaternoActionPerformed
 
     private void rbEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEspecialidadActionPerformed
         
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cbEspecialidadConsultas.setEnabled(true);
-        cajaExperienciaConsultas.setEnabled(false);
+
+        actualizarTablaFiltro(tablaRegMedicos);
     }//GEN-LAST:event_rbEspecialidadActionPerformed
 
     private void rbExperienciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbExperienciaActionPerformed
         
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        cbEspecialidadConsultas.setEnabled(false);
-        cajaExperienciaConsultas.setEnabled(true);
-    }//GEN-LAST:event_rbExperienciaActionPerformed
+        limpiarCampos();
+        desactivarCampos();
 
-    private void btnBuscarMedConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarMedConsultasActionPerformed
-        //Validacion de los RdioButtons
-        /*
-        if (!algunaOpcionSeleccionada()) {
-                    JOptionPane.showMessageDialog(this, "¡Selecciona alguna opción de búsqueda!");
-                    return;
-                }
-            */
-            if (rbNombres.isSelected()){
-                String nombre = cajaNombreConsultas.getText();
-                if (nombre.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Asegurate de llenar el campo 'Nombre(s)'");
-                    return;
-                }
-                if (nombre.length() > 11){
-                    JOptionPane.showMessageDialog(this, "El campo 'Nombre(s)' no debe exceder los 11 caracteres");
-                    return;
-                }
-                    
-            }
-            
-            if (rbPaterno.isSelected()){
-                String apPaterno = cajaPaternoConsultas.getText();
-                if (apPaterno.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Asegurate de llenar el campo 'Apellido Paterno'");
-                    return;
-                }
-            }
-            
-            if (rbMaterno.isSelected()){
-                String apMaterno = cajaMaternoConsultas.getText();
-                if (apMaterno.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Asegurate de llenar el campo 'Apellido Materno'");
-                    return;
-                }
-            }
-            
-            if (rbEspecialidad.isSelected() && cbEspecialidadConsultas.getSelectedItem().toString().equals("Elige Especialidad...")){
-                JOptionPane.showMessageDialog(this, "Asegurate de Seleccionar una Especialidad valida");
-                return;
-            }
-            
-            if (rbExperiencia.isSelected()){
-                String experiencia = cajaExperienciaConsultas.getText();
-                if (experiencia.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Asegurate de llenar el campo 'Años Experiencia'");
-                    return;
-                }
-            }
-            
-            
-            actualizarTablaFiltro(tablaRegMedicos);
-    }//GEN-LAST:event_btnBuscarMedConsultasActionPerformed
+        cajaExperienciaConsultas.setEnabled(true);
+
+        actualizarTablaFiltro(tablaRegMedicos);
+    }//GEN-LAST:event_rbExperienciaActionPerformed
 
     private void btnRestablecerMedConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedConsultasActionPerformed
         
         limpiarCampos();
-        rbTodos.setSelected(true);
+        desactivarCampos();
         posActual = -1;
         actualizarEstadoBotones();
+        buttonGroup1.clearSelection();
+        
     }//GEN-LAST:event_btnRestablecerMedConsultasActionPerformed
 
     private void btnPrimerRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerRegMedicosActionPerformed
@@ -542,31 +484,50 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnUltimoRegMedicosActionPerformed
 
     private void cajaNombreConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreConsultasKeyReleased
-        // TODO add your handling code here:
+        
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("Nombre", cajaNombreConsultas.getText());
+        tablaRegMedicos.setModel(modelo);
+        
     }//GEN-LAST:event_cajaNombreConsultasKeyReleased
+
+    private void cajaPaternoConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoConsultasKeyReleased
+        
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("Ape_Paterno", cajaPaternoConsultas.getText());
+        tablaRegMedicos.setModel(modelo);
+    }//GEN-LAST:event_cajaPaternoConsultasKeyReleased
+
+    private void cajaMaternoConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoConsultasKeyReleased
+        
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("Ape_Materno", cajaMaternoConsultas.getText());
+        tablaRegMedicos.setModel(modelo);
+    }//GEN-LAST:event_cajaMaternoConsultasKeyReleased
+
+    private void cbEspecialidadConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbEspecialidadConsultasKeyReleased
+        
+        
+    }//GEN-LAST:event_cbEspecialidadConsultasKeyReleased
+
+    private void cajaExperienciaConsultasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaExperienciaConsultasKeyReleased
+        
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("Años_Experiencia", cajaExperienciaConsultas.getText());
+        tablaRegMedicos.setModel(modelo);
+    }//GEN-LAST:event_cajaExperienciaConsultasKeyReleased
+
+    private void cbEspecialidadConsultasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbEspecialidadConsultasItemStateChanged
+        
+        ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("Especialidad", cbEspecialidadConsultas.getSelectedItem().toString());
+        tablaRegMedicos.setModel(modelo);
+    }//GEN-LAST:event_cbEspecialidadConsultasItemStateChanged
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        
 
         /* Create and display the dialog */
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             JTable tablaDummy = new JTable();
             @Override
@@ -585,7 +546,6 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnteriorRegMedicos;
-    private javax.swing.JButton btnBuscarMedConsultas;
     private javax.swing.JButton btnPrimerRegMedicos;
     private javax.swing.JButton btnRestablecerMedConsultas;
     private javax.swing.JButton btnSiguienteRegMedicos;
@@ -602,6 +562,5 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbMaterno;
     private javax.swing.JRadioButton rbNombres;
     private javax.swing.JRadioButton rbPaterno;
-    private javax.swing.JRadioButton rbTodos;
     // End of variables declaration//GEN-END:variables
 }

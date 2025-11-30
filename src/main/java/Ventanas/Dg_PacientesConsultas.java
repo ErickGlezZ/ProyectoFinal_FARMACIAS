@@ -4,10 +4,13 @@
  */
 package Ventanas;
 
+import ConexionBD.ConexionBD;
 import Controlador.PacienteDAO;
+import Modelo.Paciente;
 import Modelo.ResultSetTableModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +28,8 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
      */
     PacienteDAO pacienteDAO = PacienteDAO.getInstancia();
     private javax.swing.JTable tablaRegPacientes;
+    ArrayList<Paciente> listaPacientes = new ArrayList<>();
+    int posActual = -1;
     public Dg_PacientesConsultas(java.awt.Frame parent, boolean modal, javax.swing.JTable tablaRegPacientes) {
         super(parent, modal);
         this.tablaRegPacientes = tablaRegPacientes;
@@ -36,7 +41,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         
         //cargarMedicosEnCombo();
         
-        buttonGroup1.add(rbTodos);
+        
         buttonGroup1.add(rbNombre);
         buttonGroup1.add(rbPaterno);
         buttonGroup1.add(rbMaterno);
@@ -47,54 +52,118 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         buttonGroup1.add(rbColonia);
         buttonGroup1.add(rbCodPostal);
         
-        rbTodos.setSelected(true);
-        
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
+       
+        desactivarCampos();
+        listaPacientes = añadirPacientes();
     }
     
+
     
     /*
-    public void actualizarTablaFiltro(JTable tabla){
-        ResultSetTableModel modelo;
-        //"INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) "
+    cajaNombreBajas.setText(rs.getString("Nombre"));
+            cajaPaternoBajas.setText(rs.getString("Ape_Paterno"));
+            cajaMaternoBajas.setText(rs.getString("Ape_Materno"));
+            spEdadBajas.setValue(rs.getInt("Edad"));
+            //cbSSNMedicoBajas.setSelectedItem(rs.getString("SSN_Medico_Cabecera"));
+            cajaCalleBajas.setText(rs.getString("Calle"));
+            cajaNumBajas.setText(String.valueOf(rs.getInt("Numero")));
+            cajaColoniaBajas.setText(rs.getString("Colonia"));
+            cajaCodPostalBajas.setText(rs.getString("Codigo_Postal"));
+            
+            String ssnMedico = rs.getString("SSN_Medico_Cabecera");
+
+            // Primero carga todos los médicos
+            cargarMedicosEnCombo();
+
+            // Luego selecciona el correcto
+            cbSSNMedicoBajas.setSelectedItem(ssnMedico);
+    */
+    
+    public ArrayList<Paciente> añadirPacientes(){
+        
+        cargarMedicosEnCombo();
+        String sql = "SELECT * FROM Pacientes";
+        ResultSet rs = null;
+        
         try {
-            if (rbNombre.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Nombre", cajaNombreConsultas.getText());
-            }else if (rbPaterno.isSelected()) {
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Ape_Paterno", cajaPaternoConsultas.getText());
-            }else if (rbMaterno.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Ape_Materno", cajaMaternoConsultas.getText());
-            }else if (rbEdad.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Edad", (Integer) spEdadConsultas.getValue());
-            }else if (rbSSNMedico.isSelected()){
-                cargarMedicosEnCombo();
-                modelo = pacienteDAO.obtenerPacientesFiltrados("SSN_Medico_Cabecera", cbSSNMedicoConsultas.getSelectedItem().toString());
-            }else if(rbCalle.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Calle", cajaCalleConsultas.getText());
-            }else if (rbNumero.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Numero", cajaNumeroConsultas.getText());
-            }else if (rbColonia.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Colonia", cajaColoniaConsultas.getText());
-            }else if (rbCodPostal.isSelected()){
-                modelo = pacienteDAO.obtenerPacientesFiltrados("Codigo_Postal", cajaCodPostalConsultas.getText());
-            }else{
-                modelo = pacienteDAO.obtenerPacientes();
+            rs = ConexionBD.getInstancia().ejecutarConsultaSQL(sql);
+            
+            if (rs != null && rs.next()){
+                do{
+                    String ssn = rs.getString("SSN");
+                    String nom = rs.getString("Nombre");
+                    String app = rs.getString("Ape_Paterno");
+                    String apm = rs.getString("Ape_Materno");
+                    Byte edad = rs.getByte("Edad");
+                    String ssnMedico = rs.getString("SSN_Medico_Cabecera");
+                    String calle = rs.getString("Calle");
+                    int num = rs.getInt("Numero");
+                    String col = rs.getString("Colonia");
+                    int codPostal = rs.getInt("Codigo_Postal");
+                    
+                    
+                    Paciente p = new Paciente(ssn, nom, app, apm, edad, ssnMedico, calle, num, col, codPostal);
+                    listaPacientes.add(p);
+                }while (rs.next());
+            }else {
+                 JOptionPane.showMessageDialog(this, "No se encontraron registros de Medico");
             }
-            tabla.setModel(modelo);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(null, "Error al filtrar medicos: " + e.getMessage());
+        } catch (SQLException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar los medicos: " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaPacientes;
+    }
+    
+    
+    
+    public void mostrarRegistros(int indice){
+        if (indice >= 0 && indice < listaPacientes.size()){
+            Paciente reg = listaPacientes.get(indice);
+            
+           
+            cajaNombreConsultas.setText(reg.getNombre());
+            cajaPaternoConsultas.setText(reg.getApePaterno());
+            cajaMaternoConsultas.setText(reg.getApeMaterno());
+            spEdadConsultas.setValue(reg.getEdad());
+            cbSSNMedicoConsultas.setSelectedItem(reg.getSsnMedicoCabecera());
+            cajaCalleConsultas.setText(reg.getCalle());
+            cajaNumeroConsultas.setText(String.valueOf(reg.getNumero()));
+            cajaColoniaConsultas.setText(reg.getColonia());
+            cajaCodPostalConsultas.setText(String.valueOf(reg.getCodigoPostal()));
+            
+            cajaIndicePac.setText(String.valueOf(indice + 1));
+            cajaIndicePac.setEnabled(false);
+            posActual = indice;
+            
+            actualizarEstadoBotones();
         }
     }
-    */
+    
+    
+    
+    
+    public void actualizarEstadoBotones(){
+        
+        if (posActual != 0 || listaPacientes.isEmpty()){
+            btnPrimerRegPacientes.setEnabled(true);
+        } else {
+            btnPrimerRegPacientes.setEnabled(false);
+        }
+        
+        btnAnteriorRegPacientes.setEnabled(posActual > 0);
+        btnSiguienteRegPacientes.setEnabled(posActual < listaPacientes.size() - 1);
+        btnUltimoRegPacientes.setEnabled(posActual < listaPacientes.size() - 1);
+    }
+    
+    
+    
     public void actualizarTablaFiltro(JTable tabla) {
     ResultSetTableModel modelo;
 
@@ -120,8 +189,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             );
 
         } else if (rbSSNMedico.isSelected()) {
-            // ❗ NO llamar cargarMedicosEnCombo() aquí
-            // Solo usamos lo que ya contiene el combo.
+            
             Object seleccionado = cbSSNMedicoConsultas.getSelectedItem();
             String valor = (seleccionado != null) ? seleccionado.toString() : "";
 
@@ -173,6 +241,8 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaNumeroConsultas.setText("");
         cajaColoniaConsultas.setText("");
         cajaCodPostalConsultas.setText("");
+        cajaIndicePac.setText("0");
+        actualizarTablaFiltro(tablaRegPacientes);
         
     }
     
@@ -206,6 +276,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Error al cargar médicos");
     }
 }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -217,7 +288,6 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        rbTodos = new javax.swing.JRadioButton();
         rbNombre = new javax.swing.JRadioButton();
         rbPaterno = new javax.swing.JRadioButton();
         rbMaterno = new javax.swing.JRadioButton();
@@ -237,20 +307,13 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaColoniaConsultas = new javax.swing.JTextField();
         cajaCodPostalConsultas = new javax.swing.JTextField();
         btnRestablecerPacConsultas = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jTextField8 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnPrimerRegPacientes = new javax.swing.JButton();
+        btnAnteriorRegPacientes = new javax.swing.JButton();
+        cajaIndicePac = new javax.swing.JTextField();
+        btnSiguienteRegPacientes = new javax.swing.JButton();
+        btnUltimoRegPacientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        rbTodos.setText("Todos");
-        rbTodos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbTodosActionPerformed(evt);
-            }
-        });
 
         rbNombre.setText("Nombre");
         rbNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -370,35 +433,63 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         });
 
         btnRestablecerPacConsultas.setText("Restablecer");
+        btnRestablecerPacConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestablecerPacConsultasActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        btnPrimerRegPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\doble_flecha_izq.png")); // NOI18N
+        btnPrimerRegPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimerRegPacientesActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        btnAnteriorRegPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\flecha_izq.png")); // NOI18N
+        btnAnteriorRegPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorRegPacientesActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton4");
+        cajaIndicePac.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        cajaIndicePac.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        cajaIndicePac.setText("0");
 
-        jButton6.setText("jButton6");
+        btnSiguienteRegPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\flecha_der.png")); // NOI18N
+        btnSiguienteRegPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteRegPacientesActionPerformed(evt);
+            }
+        });
+
+        btnUltimoRegPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\doble_flecha_der.png")); // NOI18N
+        btnUltimoRegPacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoRegPacientesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rbTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(btnPrimerRegPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAnteriorRegPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cajaIndicePac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSiguienteRegPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUltimoRegPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(rbCodPostal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rbColonia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -419,27 +510,24 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
                             .addComponent(cajaCalleConsultas)
                             .addComponent(cajaNumeroConsultas)
                             .addComponent(cajaColoniaConsultas)
-                            .addComponent(cajaCodPostalConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cajaCodPostalConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(btnRestablecerPacConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(53, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(btnRestablecerPacConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAnteriorRegPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cajaIndicePac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(rbTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
+                        .addComponent(btnUltimoRegPacientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSiguienteRegPacientes, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPrimerRegPacientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cajaNombreConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -488,10 +576,6 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Nombre", cajaNombreConsultas.getText());
             tablaRegPacientes.setModel(modelo);
     }//GEN-LAST:event_cajaNombreConsultasKeyReleased
-
-    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
-       
-    }//GEN-LAST:event_rbTodosActionPerformed
 
     private void rbNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNombreActionPerformed
        
@@ -549,90 +633,39 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }//GEN-LAST:event_rbSSNMedicoActionPerformed
 
     private void rbCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCalleActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cajaCalleConsultas.setEnabled(true);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
-        
-        cajaNombreConsultas.setText("");
-        cajaPaternoConsultas.setText("");
-        cajaMaternoConsultas.setText("");
-        spEdadConsultas.setValue(0);
-        cbSSNMedicoConsultas.setSelectedIndex(-1);
-       
-        cajaNumeroConsultas.setText("");
-        cajaColoniaConsultas.setText("");
-        cajaCodPostalConsultas.setText("");
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbCalleActionPerformed
 
     private void rbNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNumeroActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cajaNumeroConsultas.setEnabled(true);
-        cajaColoniaConsultas.setEnabled(false);
-        cajaCodPostalConsultas.setEnabled(false);
-        
-        cajaNombreConsultas.setText("");
-        cajaPaternoConsultas.setText("");
-        cajaMaternoConsultas.setText("");
-        spEdadConsultas.setValue(0);
-        cbSSNMedicoConsultas.setSelectedIndex(-1);
-        cajaCalleConsultas.setText("");
-        
-        cajaColoniaConsultas.setText("");
-        cajaCodPostalConsultas.setText("");
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbNumeroActionPerformed
 
     private void rbColoniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbColoniaActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cajaColoniaConsultas.setEnabled(true);
-        cajaCodPostalConsultas.setEnabled(false);
-        
-        cajaNombreConsultas.setText("");
-        cajaPaternoConsultas.setText("");
-        cajaMaternoConsultas.setText("");
-        spEdadConsultas.setValue(0);
-        cbSSNMedicoConsultas.setSelectedIndex(-1);
-        cajaCalleConsultas.setText("");
-        cajaNumeroConsultas.setText("");
-        
-        cajaCodPostalConsultas.setText("");
+
+        actualizarTablaFiltro(tablaRegPacientes);
     }//GEN-LAST:event_rbColoniaActionPerformed
 
     private void rbCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCodPostalActionPerformed
-        cajaNombreConsultas.setEnabled(false);
-        cajaPaternoConsultas.setEnabled(false);
-        cajaMaternoConsultas.setEnabled(false);
-        spEdadConsultas.setEnabled(false);
-        cbSSNMedicoConsultas.setEnabled(false);
-        cajaCalleConsultas.setEnabled(false);
-        cajaNumeroConsultas.setEnabled(false);
-        cajaColoniaConsultas.setEnabled(false);
+        limpiarCampos();
+        desactivarCampos();
+
         cajaCodPostalConsultas.setEnabled(true);
-        
-        cajaNombreConsultas.setText("");
-        cajaPaternoConsultas.setText("");
-        cajaMaternoConsultas.setText("");
-        spEdadConsultas.setValue(0);
-        cbSSNMedicoConsultas.setSelectedIndex(-1);
-        cajaCalleConsultas.setText("");
-        cajaNumeroConsultas.setText("");
-        cajaColoniaConsultas.setText("");
+
+        actualizarTablaFiltro(tablaRegPacientes);
         
     }//GEN-LAST:event_rbCodPostalActionPerformed
 //"INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) "
@@ -647,16 +680,13 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }//GEN-LAST:event_cajaMaternoConsultasKeyReleased
 
     private void spEdadConsultasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spEdadConsultasStateChanged
-        int edad = (Integer) spEdadConsultas.getValue(); 
-        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Edad", String.valueOf(edad));
+       // byte edad = (byte) spEdadConsultas.getValue(); 
+        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("Edad", spEdadConsultas.getValue().toString());
         tablaRegPacientes.setModel(modelo);
     }//GEN-LAST:event_spEdadConsultasStateChanged
 
     private void cbSSNMedicoConsultasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSSNMedicoConsultasItemStateChanged
-        /*
-        ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN_Medico_Cabecera", cbSSNMedicoConsultas.getSelectedItem().toString());
-        tablaRegPacientes.setModel(modelo);
-        */
+ 
         if (cbSSNMedicoConsultas.getSelectedItem() == null) {
         tablaRegPacientes.setModel(new DefaultTableModel()); // opcional, tabla vacía
         return;
@@ -686,26 +716,43 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         tablaRegPacientes.setModel(modelo);
     }//GEN-LAST:event_cajaCodPostalConsultasKeyReleased
 
+    private void btnRestablecerPacConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerPacConsultasActionPerformed
+        limpiarCampos();
+        desactivarCampos();
+        posActual = -1;
+        actualizarEstadoBotones();
+        buttonGroup1.clearSelection();
+    }//GEN-LAST:event_btnRestablecerPacConsultasActionPerformed
+
+    private void btnPrimerRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerRegPacientesActionPerformed
+       if (!listaPacientes.isEmpty()) {
+                mostrarRegistros(0);
+            }
+               
+    }//GEN-LAST:event_btnPrimerRegPacientesActionPerformed
+
+    private void btnAnteriorRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorRegPacientesActionPerformed
+        if (posActual > 0) {
+                mostrarRegistros(posActual - 1);
+            }
+    }//GEN-LAST:event_btnAnteriorRegPacientesActionPerformed
+
+    private void btnSiguienteRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRegPacientesActionPerformed
+        if (posActual < listaPacientes.size() - 1) {
+                mostrarRegistros(posActual + 1);
+            }
+    }//GEN-LAST:event_btnSiguienteRegPacientesActionPerformed
+
+    private void btnUltimoRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoRegPacientesActionPerformed
+        if (!listaPacientes.isEmpty()) {
+                mostrarRegistros(listaPacientes.size() - 1);
+            }
+    }//GEN-LAST:event_btnUltimoRegPacientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -725,21 +772,21 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnteriorRegPacientes;
+    private javax.swing.JButton btnPrimerRegPacientes;
     private javax.swing.JButton btnRestablecerPacConsultas;
+    private javax.swing.JButton btnSiguienteRegPacientes;
+    private javax.swing.JButton btnUltimoRegPacientes;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField cajaCalleConsultas;
     private javax.swing.JTextField cajaCodPostalConsultas;
     private javax.swing.JTextField cajaColoniaConsultas;
+    private javax.swing.JTextField cajaIndicePac;
     private javax.swing.JTextField cajaMaternoConsultas;
     private javax.swing.JTextField cajaNombreConsultas;
     private javax.swing.JTextField cajaNumeroConsultas;
     private javax.swing.JTextField cajaPaternoConsultas;
     private javax.swing.JComboBox<String> cbSSNMedicoConsultas;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JRadioButton rbCalle;
     private javax.swing.JRadioButton rbCodPostal;
     private javax.swing.JRadioButton rbColonia;
@@ -749,7 +796,6 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbNumero;
     private javax.swing.JRadioButton rbPaterno;
     private javax.swing.JRadioButton rbSSNMedico;
-    private javax.swing.JRadioButton rbTodos;
     private javax.swing.JSpinner spEdadConsultas;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,22 +28,21 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="rbTodos" min="-2" pref="91" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      <Component id="btnPrimerRegPacientes" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="btnAnteriorRegPacientes" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField8" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="cajaIndicePac" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton6" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="btnSiguienteRegPacientes" min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnUltimoRegPacientes" min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="rbCodPostal" alignment="0" max="32767" attributes="0"/>
                           <Component id="rbColonia" alignment="0" max="32767" attributes="0"/>
@@ -68,33 +67,29 @@
                           <Component id="cajaCodPostalConsultas" min="-2" pref="200" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                      <Component id="btnRestablecerPacConsultas" min="-2" pref="120" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="53" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
-              <Component id="btnRestablecerPacConsultas" min="-2" pref="120" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton3" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="jTextField8" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="btnAnteriorRegPacientes" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="cajaIndicePac" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jButton6" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jButton4" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="btnUltimoRegPacientes" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnSiguienteRegPacientes" alignment="0" min="-2" pref="38" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="jButton2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      <Component id="rbTodos" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btnPrimerRegPacientes" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="rbNombre" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="cajaNombreConsultas" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
@@ -147,14 +142,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JRadioButton" name="rbTodos">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Todos"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbTodosActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JRadioButton" name="rbNombre">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre"/>
@@ -284,28 +271,58 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Restablecer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRestablecerPacConsultasActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnPrimerRegPacientes">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\doble_flecha_izq.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrimerRegPacientesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnAnteriorRegPacientes">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\flecha_izq.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorRegPacientesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="cajaIndicePac">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="24" style="1"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="btnSiguienteRegPacientes">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton3"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\flecha_der.png"/>
+        </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSiguienteRegPacientesActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField8">
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="btnUltimoRegPacientes">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton4"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\doble_flecha_der.png"/>
+        </Property>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton6"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoRegPacientesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

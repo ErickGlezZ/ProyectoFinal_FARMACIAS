@@ -151,7 +151,7 @@ public class PacienteDAO {
                 conexionBD.getDriver(),
                 conexionBD.getURL(),
                 consulta,
-                "%" + valor.toLowerCase() + "%"  // 🔥 filtro insensible a mayúsculas
+                "%" + valor.toLowerCase() + "%"  
         );
     } catch (SQLException | ClassNotFoundException e) {
         throw new RuntimeException("Error al obtener pacientes filtrados", e);

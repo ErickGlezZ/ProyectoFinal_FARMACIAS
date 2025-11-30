@@ -115,7 +115,7 @@ public class MedicoDAO {
         String sql = "DELETE FROM Medicos WHERE SSN = ?";
         return conexionBD.ejecutarInstruccionLMD(sql, SSN);
     }
-    
+    /*
     public ResultSetTableModel actualizarTablaFiltrada(String campo, String valor){
     String consulta = "SELECT * FROM Medicos WHERE " + campo + " LIKE ?";
     try {
@@ -130,6 +130,20 @@ public class MedicoDAO {
     }
     
     }
+    */
+    public ResultSetTableModel actualizarTablaFiltrada(String campo, String valor){
+    String consulta = "SELECT * FROM Medicos WHERE LOWER(" + campo + ") LIKE ?";
+    try {
+        return new ResultSetTableModel(
+                conexionBD.getDriver(),
+                conexionBD.getURL(),
+                consulta,
+                "%" + valor.toLowerCase() + "%"  
+        );
+    } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException("Error al obtener medicos filtrados", e);
+    }
+}
     
     public int contarPacientesDeMedico(String ssnMedico) {
     String sql = "SELECT COUNT(*) AS total FROM pacientes WHERE ssn_medico_cabecera = ?";
@@ -161,7 +175,7 @@ public class MedicoDAO {
     }
     
     //====================CONSULTAS===================
-    
+    /*
     public ResultSetTableModel obtenerMedicosFiltrados(String campo, Object valor){
         String consulta = "SELECT * FROM Medicos WHERE " + campo + " = ?";
         try {
@@ -176,6 +190,32 @@ public class MedicoDAO {
             throw new RuntimeException("Error al obtener medicos filtrados", e);
         }
     }
+    */
+    
+    public ResultSetTableModel obtenerMedicosFiltrados(String campo, Object valor){
+    String consulta;
+
+    // Si el valor es texto -> LIKE
+    if (valor instanceof String) {
+        consulta = "SELECT * FROM Medicos WHERE LOWER(" + campo + ") LIKE ?";
+        valor = "%" + valor.toString().toLowerCase() + "%";
+    } 
+    // Si es número -> '=' exacto
+    else {
+        consulta = "SELECT * FROM Medicos WHERE " + campo + " = ?";
+    }
+
+    try {
+        return new ResultSetTableModel(
+            conexionBD.getDriver(),
+            conexionBD.getURL(),
+            consulta,
+            valor
+        );
+    } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException("Error al filtrar medicos", e);
+    }
+}
     
     
     public ResultSetTableModel obtenerMedicos() {
