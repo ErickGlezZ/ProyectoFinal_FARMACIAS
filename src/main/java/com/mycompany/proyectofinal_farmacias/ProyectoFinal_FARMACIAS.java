@@ -4,6 +4,7 @@
 
 package com.mycompany.proyectofinal_farmacias;
 
+import Login.Login;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;
 import java.awt.Font;
@@ -36,8 +37,9 @@ public class ProyectoFinal_FARMACIAS {
             System.err.println("Error al cargar FlatLaf");
         }
 
-        // 3️⃣ CREAR la ventana al final
-        new VentanaInicio().setVisible(true);
+        
+        //new VentanaInicio().setVisible(true);
+        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 }
 

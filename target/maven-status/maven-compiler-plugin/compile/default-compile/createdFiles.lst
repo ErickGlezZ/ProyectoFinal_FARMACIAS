@@ -18,6 +18,7 @@ Ventanas\Dg_MedicosConsultas$9.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio.class
 Ventanas\Dg_MedicosBajas$5$1.class
 Ventanas\Dg_PacientesConsultas$6.class
+Login\Login$2.class
 Ventanas\Dg_PacientesConsultas$24.class
 Ventanas\Dg_MedicosBajas$1.class
 Ventanas\Dg_MedicosConsultas$6.class
@@ -28,6 +29,7 @@ ConexionBD\ConexionBD.class
 Ventanas\Dg_MedicosConsultas$3.class
 Modelo\ResultSetTableModel.class
 Ventanas\VentanaMedicos.class
+Login\Login.class
 Ventanas\Dg_MedicosConsultas$12.class
 Ventanas\Dg_PacientesConsultas$7.class
 Ventanas\Dg_MedicosConsultas$5.class
@@ -44,6 +46,7 @@ Ventanas\Dg_MedicosConsultas.class
 Ventanas\Dg_PacientesConsultas$1.class
 Ventanas\Dg_PacientesConsultas$20.class
 Ventanas\Dg_PacientesAltas.class
+Login\Login$3.class
 Ventanas\Dg_PacientesConsultas$14.class
 Ventanas\Dg_PacientesBajas$5$1.class
 Ventanas\Dg_PacientesCambios$5$1.class
@@ -54,6 +57,7 @@ Ventanas\Dg_MedicosBajas$2.class
 Ventanas\VentanaMedicos$4.class
 Ventanas\Dg_MedicosConsultas$7.class
 Ventanas\Dg_MedicosConsultas$17$1.class
+Login\Login$1.class
 Ventanas\Dg_PacientesAltas$4$1.class
 Ventanas\Dg_PacientesConsultas$10.class
 Ventanas\Dg_MedicosCambios$1.class
