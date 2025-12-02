@@ -4,10 +4,14 @@
  */
 package Ventanas;
 
+import Recursos.EstadisticasPacienteDAO;
+import Recursos.GraficaEdadPacientes;
+import Recursos.IEstadisticasPaciente;
+import Recursos.IGraficador;
+import Recursos.Reporte;
 import VentanasBD.Dg_MedicosEliminados;
 import VentanasBD.Dg_PacientesEliminados;
 import VentanasBD.Dg_Vista_PacientesMedicos;
-import VentanasBD.Dg_Vista_PacientesPorMedico;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -20,6 +24,7 @@ public class VentanaPrincipal extends javax.swing.JPanel {
     /**
      * Creates new form VentanaPrincipal
      */
+    Reporte reporte = new Reporte();
     public VentanaPrincipal() {
         initComponents();
     }
@@ -45,8 +50,6 @@ public class VentanaPrincipal extends javax.swing.JPanel {
         btnReporteReg = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         btnVistaPacMed = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        btnVistaPacPorMed = new javax.swing.JButton();
 
         panelPrincipal.setBackground(new java.awt.Color(252, 248, 221));
         panelPrincipal.setPreferredSize(new java.awt.Dimension(450, 300));
@@ -85,9 +88,19 @@ public class VentanaPrincipal extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Reporte de registros");
 
-        btnGraficarReg.setText("Mostrar Backup");
+        btnGraficarReg.setText("Mostrar Grafica");
+        btnGraficarReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarRegActionPerformed(evt);
+            }
+        });
 
-        btnReporteReg.setText("Mostrar Backup");
+        btnReporteReg.setText("Mostrar Reporte");
+        btnReporteReg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteRegActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -100,25 +113,10 @@ public class VentanaPrincipal extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Vista Pacientes por Medico");
-
-        btnVistaPacPorMed.setText("Mostrar Vista");
-        btnVistaPacPorMed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVistaPacPorMedActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPrincipalLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelPrincipalLayout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,9 +128,7 @@ public class VentanaPrincipal extends javax.swing.JPanel {
                                 .addComponent(btnTablaMedEliminados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(panelPrincipalLayout.createSequentialGroup()
                                 .addGap(5, 5, 5)
-                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnVistaPacMed, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnGraficarReg, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnGraficarReg, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                         .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,14 +142,18 @@ public class VentanaPrincipal extends javax.swing.JPanel {
                                     .addComponent(btnReporteReg, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(174, 174, 174)))
                             .addGroup(panelPrincipalLayout.createSequentialGroup()
-                                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel7)
-                                    .addComponent(btnVistaPacPorMed, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())))
+                                .addComponent(jLabel3)
+                                .addGap(55, 55, 55))))
                     .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addContainerGap())))
+                        .addGap(5, 5, 5)
+                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnVistaPacMed, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(panelPrincipalLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,17 +176,10 @@ public class VentanaPrincipal extends javax.swing.JPanel {
                 .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGraficarReg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReporteReg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(105, 105, 105)
-                .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGroup(panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnVistaPacPorMed, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPrincipalLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(btnVistaPacMed, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(99, 99, 99)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVistaPacMed, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
@@ -230,12 +223,19 @@ public class VentanaPrincipal extends javax.swing.JPanel {
         dialog.setVisible(true);
     }//GEN-LAST:event_btnVistaPacMedActionPerformed
 
-    private void btnVistaPacPorMedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVistaPacPorMedActionPerformed
+    private void btnReporteRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteRegActionPerformed
         
-        JFrame parent4 = (JFrame) SwingUtilities.getWindowAncestor(this);
-        Dg_Vista_PacientesPorMedico dialog = new Dg_Vista_PacientesPorMedico(parent4, true);
-        dialog.setVisible(true);
-    }//GEN-LAST:event_btnVistaPacPorMedActionPerformed
+        reporte.generarReportePacientesPorMedico();
+               
+    }//GEN-LAST:event_btnReporteRegActionPerformed
+
+    private void btnGraficarRegActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficarRegActionPerformed
+        
+        IEstadisticasPaciente dao = new EstadisticasPacienteDAO();
+        IGraficador grafica = new GraficaEdadPacientes(dao);
+
+        grafica.graficar(); 
+    }//GEN-LAST:event_btnGraficarRegActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -244,14 +244,12 @@ public class VentanaPrincipal extends javax.swing.JPanel {
     private javax.swing.JButton btnTablaMedEliminados;
     private javax.swing.JButton btnTablaPacEliminados;
     private javax.swing.JButton btnVistaPacMed;
-    private javax.swing.JButton btnVistaPacPorMed;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel panelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

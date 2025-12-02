@@ -101,5 +101,31 @@ public class ConexionBD {
         ConexionBD conexion = ConexionBD.getInstancia();
         new ConexionBD();
     }
+    
+    // Reconectar si la conexión está cerrada o es nula
+    public boolean reconectar() {
+        try {
+            if (conexion == null || conexion.isClosed()) {
+
+                // Cargar el driver
+                Class.forName("oracle.jdbc.OracleDriver");
+
+                // Reconexión
+                conexion = DriverManager.getConnection(URL, USUARIO, CONTRASEÑA);
+                System.out.println("Reconexión exitosa a Oracle");
+                return true;
+
+            } else {
+                System.out.println("La conexión ya está activa, no es necesario reconectar.");
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al reconectar con Oracle");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
 

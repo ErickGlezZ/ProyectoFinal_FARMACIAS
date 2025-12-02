@@ -1,7 +1,8 @@
 com\mycompany\proyectofinal_farmacias\VentanaInicio$3.class
+Ventanas\VentanaPrincipal$5.class
 Ventanas\Dg_MedicosCambios.class
+Recursos\GraficaEdadPacientes.class
 Ventanas\Dg_MedicosCambios$5.class
-VentanasBD\Dg_Vista_PacientesPorMedico$1$1.class
 Ventanas\VentanaPacientes$2.class
 Ventanas\Dg_MedicosConsultas$17.class
 Modelo\Paciente.class
@@ -25,6 +26,7 @@ Ventanas\Dg_MedicosBajas$5$1.class
 Ventanas\Dg_PacientesConsultas$6.class
 Login\Login$2.class
 Ventanas\Dg_PacientesConsultas$24.class
+Recursos\Reporte.class
 Ventanas\Dg_MedicosBajas$1.class
 Ventanas\Dg_MedicosConsultas$6.class
 VentanasBD\Dg_MedicosEliminados$1.class
@@ -42,6 +44,7 @@ Ventanas\Dg_PacientesConsultas$7.class
 Ventanas\Dg_MedicosConsultas$5.class
 Ventanas\Dg_MedicosAltas$3$1.class
 Ventanas\VentanaMedicos$5.class
+Recursos\IEstadisticasPaciente.class
 VentanasBD\Dg_Vista_PacientesMedicos.class
 Ventanas\VentanaPrincipal$3.class
 Ventanas\Dg_PacientesAltas$4.class
@@ -55,11 +58,13 @@ Ventanas\Dg_MedicosConsultas.class
 Ventanas\Dg_PacientesConsultas$1.class
 Ventanas\Dg_PacientesConsultas$20.class
 Ventanas\Dg_PacientesAltas.class
+Recursos\IGraficador.class
 Login\Login$3.class
 Ventanas\Dg_PacientesConsultas$14.class
 VentanasBD\Dg_Vista_PacientesMedicos$1.class
 Ventanas\Dg_PacientesBajas$5$1.class
 Ventanas\Dg_PacientesCambios$5$1.class
+Recursos\EstadisticasPacienteDAO.class
 Ventanas\VentanaPrincipal$4.class
 Ventanas\Dg_PacientesCambios$2.class
 Ventanas\Dg_PacientesConsultas$2.class
@@ -77,7 +82,6 @@ Ventanas\Dg_MedicosBajas.class
 VentanasBD\Dg_PacientesEliminados$1$1.class
 Ventanas\Dg_PacientesConsultas.class
 Ventanas\Dg_MedicosCambios$4.class
-VentanasBD\Dg_Vista_PacientesPorMedico$1.class
 Ventanas\VentanaPacientes$3.class
 Ventanas\Dg_PacientesConsultas$19.class
 Ventanas\Dg_PacientesBajas$1.class
@@ -107,7 +111,6 @@ Ventanas\VentanaMedicos$2.class
 Ventanas\Dg_PacientesConsultas$4.class
 Ventanas\VentanaMedicos$1.class
 Ventanas\Dg_PacientesConsultas$17.class
-VentanasBD\Dg_Vista_PacientesPorMedico.class
 Ventanas\Dg_MedicosAltas$2.class
 Ventanas\Dg_PacientesBajas$2.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio$2.class
