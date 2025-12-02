@@ -8,10 +8,14 @@ package com.mycompany.proyectofinal_farmacias;
 import Login.Login;
 import Ventanas.VentanaMedicos;
 import Ventanas.VentanaPacientes;
+import Ventanas.VentanaPrincipal;
+import VentanasBD.Dg_MedicosEliminados;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -30,6 +34,8 @@ public class VentanaInicio extends javax.swing.JFrame {
     public VentanaInicio() {
         initComponents();
         
+        
+        
         setLocationRelativeTo(null);
         setSize(1100, 700);
         setVisible(true);
@@ -44,7 +50,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         getContentPane().add(panelContenido, BorderLayout.CENTER);
 
         panelContenido.setLayout(new BorderLayout());
-
+        cargarPanelInicio();
         
         // Panel tipo botón "sin contorno"
         panelInicio.setOpaque(true);
@@ -91,6 +97,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         panelMedicos.setBackground(new Color(30, 41, 59));
 
         panelContenido.removeAll();
+        panelContenido.add(new VentanaPrincipal());
         panelContenido.revalidate();
         panelContenido.repaint();    
     }
@@ -202,6 +209,14 @@ public class VentanaInicio extends javax.swing.JFrame {
        
 
     }
+    
+    public void cargarPanelInicio() {
+    panelContenido.removeAll();
+    panelContenido.add(new VentanaPrincipal(), BorderLayout.CENTER);
+    panelContenido.revalidate();
+    panelContenido.repaint();
+}
+
     
     private void seleccionarPanel(JPanel panel) {
 
@@ -362,6 +377,17 @@ public class VentanaInicio extends javax.swing.JFrame {
         panelContenido.setBackground(new java.awt.Color(252, 248, 221));
         panelContenido.setPreferredSize(new java.awt.Dimension(450, 300));
 
+        javax.swing.GroupLayout panelContenidoLayout = new javax.swing.GroupLayout(panelContenido);
+        panelContenido.setLayout(panelContenidoLayout);
+        panelContenidoLayout.setHorizontalGroup(
+            panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 804, Short.MAX_VALUE)
+        );
+        panelContenidoLayout.setVerticalGroup(
+            panelContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -374,7 +400,7 @@ public class VentanaInicio extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelContenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelContenido, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
@@ -401,7 +427,9 @@ public class VentanaInicio extends javax.swing.JFrame {
         }
         //</editor-fold>
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new VentanaInicio().setVisible(true));
+        //java.awt.EventQueue.invokeLater(() -> new VentanaInicio().setVisible(true));
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
