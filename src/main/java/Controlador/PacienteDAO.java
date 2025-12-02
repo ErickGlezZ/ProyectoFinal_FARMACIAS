@@ -7,6 +7,8 @@ package Controlador;
 import ConexionBD.ConexionBD;
 import Modelo.Paciente;
 import Modelo.ResultSetTableModel;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JDialog;
@@ -85,6 +87,7 @@ public class PacienteDAO {
     
     
     //============================ALTAS=====================
+    /*
     public boolean agregarPaciente(Paciente paciente){
     String sql = "INSERT INTO pacientes (SSN, Nombre, Ape_Paterno, Ape_Materno, Edad, SSN_Medico_Cabecera, Calle, Numero, Colonia, Codigo_Postal) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -101,6 +104,58 @@ public class PacienteDAO {
             paciente.getColonia(),
             paciente.getCodigoPostal());
 }
+    */
+    public boolean agregarPaciente(Paciente paciente) {
+    Connection con = null;
+    CallableStatement cs = null;
+
+    try {
+        con = conexionBD.getConexion(); 
+
+        cs = con.prepareCall("{ call sp_insertar_paciente(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }");
+
+        cs.setString(1, paciente.getSsn());
+        cs.setString(2, paciente.getNombre());
+        cs.setString(3, paciente.getApePaterno());
+        cs.setString(4, paciente.getApeMaterno());
+        cs.setByte(5, paciente.getEdad());
+        cs.setString(6, paciente.getSsnMedicoCabecera());
+        cs.setString(7, paciente.getCalle());
+        cs.setInt(8, paciente.getNumero());
+        cs.setString(9, paciente.getColonia());
+        cs.setInt(10, paciente.getCodigoPostal());
+
+        cs.execute();
+        return true;
+
+    } catch (SQLException ex) {
+
+        String msg = ex.getMessage();
+
+        if (msg.contains("ORA-00001")) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: Ya existe un paciente con ese SSN.",
+                    "SSN duplicado", JOptionPane.WARNING_MESSAGE);
+        }
+        else if (msg.contains("ORA-20030")) {
+            JOptionPane.showMessageDialog(null,
+                    "Error desde el procedimiento: El SSN del paciente ya existe.",
+                    "SSN duplicado", JOptionPane.WARNING_MESSAGE);
+        }
+        else {
+            JOptionPane.showMessageDialog(null,
+                    "Error al insertar el paciente:\n" + msg,
+                    "Error SQL", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return false;
+
+    } finally {
+        try { if (cs != null) cs.close(); } catch (Exception e) {}
+    }
+}
+
+
 
     
     

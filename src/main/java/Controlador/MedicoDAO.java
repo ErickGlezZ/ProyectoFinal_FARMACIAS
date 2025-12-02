@@ -7,6 +7,8 @@ package Controlador;
 import ConexionBD.ConexionBD;
 import Modelo.Medico;
 import Modelo.ResultSetTableModel;
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JDialog;
@@ -84,6 +86,7 @@ public class MedicoDAO {
     
     
     //============================ALTAS=====================
+    /*
     public boolean agregarMedico(Medico medico){
         String sql = "INSERT INTO Medicos (SSN, Nombre, Ape_Paterno, Ape_Materno, Especialidad, Años_Experiencia) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
@@ -96,6 +99,56 @@ public class MedicoDAO {
                 medico.getEspecialidad(),
                 medico.getAños());
     }
+    */
+    
+    public boolean agregarMedico(Medico medico) {
+        Connection con = null;
+        CallableStatement cs = null;
+
+        try {
+            con = conexionBD.getConexion(); 
+
+            cs = con.prepareCall("{ call sp_insertar_medico(?, ?, ?, ?, ?, ?) }");
+            cs.setString(1, medico.getSsn());
+            cs.setString(2, medico.getNombre());
+            cs.setString(3, medico.getApePaterno());
+            cs.setString(4, medico.getApeMaterno());
+            cs.setString(5, medico.getEspecialidad());
+            cs.setInt(6, medico.getAños());
+
+            cs.execute();
+            return true;
+
+        } catch (SQLException ex) {
+
+            String msg = ex.getMessage();
+
+            if (msg.contains("ORA-00001")) {
+                JOptionPane.showMessageDialog(null,
+                        "Error: Ya existe un médico con ese SSN.",
+                        "SSN duplicado", JOptionPane.WARNING_MESSAGE);
+            }
+            else if (msg.contains("ORA-20020")) {
+                JOptionPane.showMessageDialog(null,
+                        "Error desde el procedimiento: El SSN del Medico ya existe.",
+                        "SSN duplicado", JOptionPane.WARNING_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null,
+                        "Error al insertar el médico:\n" + msg,
+                        "Error SQL", JOptionPane.ERROR_MESSAGE);
+            }
+
+        return false;
+
+        } finally {
+            try { if (cs != null) cs.close(); } catch (Exception e) {}
+            
+        }
+}
+
+    
+    
     
     
     public boolean existeMedico(String SSN) {
@@ -108,6 +161,10 @@ public class MedicoDAO {
             return false;
         }
     }
+    
+    
+
+
     
     
     //==========================BAJAS==========================
