@@ -168,7 +168,7 @@ public class Login extends javax.swing.JFrame {
         String password = new String(cajaPassword.getPassword());
         
         if (usuario.equals("") && password.equals("")){
-                JOptionPane.showMessageDialog(this,"¡Bienvenido!");
+                //JOptionPane.showMessageDialog(this,"¡Bienvenido!");
 
                 SwingUtilities.invokeLater(new Runnable() {
 
@@ -186,7 +186,7 @@ public class Login extends javax.swing.JFrame {
                 this.setVisible(false);
 
             } else {
-                JOptionPane.showMessageDialog(this, "Usuario o clave incorrectos DEJAVU!!");
+                JOptionPane.showMessageDialog(this, "Usuario o password incorrectos DEJAVU!!");
             }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 

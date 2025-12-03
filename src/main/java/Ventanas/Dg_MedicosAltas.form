@@ -131,12 +131,24 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaSSNAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaSSNAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaNombreAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaPaternoAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaMaternoAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbEspecialidadAltas">
       <Properties>
@@ -159,6 +171,9 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaExperienciaAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaExperienciaAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAgregarMedAltas">
       <Properties>

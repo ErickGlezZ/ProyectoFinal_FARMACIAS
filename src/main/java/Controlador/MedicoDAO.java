@@ -52,7 +52,7 @@ public class MedicoDAO {
         new Thread(() -> {
             final String CONTROLADOR_JDBC = conexionBD.getDriver();
             final String URL = conexionBD.getURL();
-            final String CONSULTA = "SELECT * FROM medicos";
+            final String CONSULTA = "SELECT * FROM medicos ORDER BY SSN";
 
             try {
 
@@ -215,6 +215,30 @@ public class MedicoDAO {
     }
     return 0;
 }
+    
+    
+    public Medico buscarMedicoPorSSN(String ssn) {
+    String sql = "SELECT * FROM Medicos WHERE SSN = ?";
+    ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, ssn.trim());
+
+    try {
+        if (rs != null && rs.next()) {
+            return new Medico(
+                rs.getString("SSN"),
+                rs.getString("Nombre"),
+                rs.getString("Ape_Paterno"),
+                rs.getString("Ape_Materno"),
+                rs.getString("Especialidad"),
+                rs.getByte("Años_Experiencia")
+            );
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return null;  // Si no existe
+}
+
 
 
     //=====================CAMBIOS==========================

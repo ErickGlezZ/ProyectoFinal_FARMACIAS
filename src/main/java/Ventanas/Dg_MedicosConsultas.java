@@ -8,6 +8,8 @@ import ConexionBD.ConexionBD;
 import Controlador.MedicoDAO;
 import Modelo.Medico;
 import Modelo.ResultSetTableModel;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         buttonGroup1.add(rbEspecialidad);
         buttonGroup1.add(rbExperiencia);
 
-        
+        btnAnteriorRegMedicos.setEnabled(false);
 
         
        
@@ -88,7 +90,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         cbEspecialidadConsultas.setSelectedIndex(0);
         cajaExperienciaConsultas.setText("");
         cajaIndiceMed.setText("0");
-        //posActual = -1;
+        posActual = -1;
         actualizarTablaFiltro(tablaRegMedicos);
         
         desactivarCampos();
@@ -275,11 +277,17 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaNombreConsultasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreConsultasKeyTyped(evt);
+            }
         });
 
         cajaPaternoConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaPaternoConsultasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaPaternoConsultasKeyTyped(evt);
             }
         });
 
@@ -287,11 +295,17 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaMaternoConsultasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaMaternoConsultasKeyTyped(evt);
+            }
         });
 
         cajaExperienciaConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaExperienciaConsultasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaExperienciaConsultasKeyTyped(evt);
             }
         });
 
@@ -399,7 +413,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
     private void rbNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNombresActionPerformed
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaNombreConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegMedicos);
@@ -409,7 +423,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
        
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaPaternoConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegMedicos);
@@ -419,7 +433,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaMaternoConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegMedicos);
@@ -429,7 +443,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cbEspecialidadConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegMedicos);
@@ -439,7 +453,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaExperienciaConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegMedicos);
@@ -447,6 +461,13 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
 
     private void btnRestablecerMedConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedConsultasActionPerformed
         
+        if (cajaNombreConsultas.getText().isEmpty() && cajaPaternoConsultas.getText().isEmpty() 
+                && cajaMaternoConsultas.getText().isEmpty() && cbEspecialidadConsultas.getSelectedItem().toString().equals("Elige Especialidad...")
+                && cajaExperienciaConsultas.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "No hay datos para eliminar");
+            
+        }
         limpiarCampos();
         desactivarCampos();
         posActual = -1;
@@ -518,6 +539,97 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("Especialidad", cbEspecialidadConsultas.getSelectedItem().toString());
         tablaRegMedicos.setModel(modelo);
     }//GEN-LAST:event_cbEspecialidadConsultasItemStateChanged
+
+    private void cajaNombreConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreConsultasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaNombreConsultasKeyTyped
+
+    private void cajaPaternoConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoConsultasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaPaternoConsultasKeyTyped
+
+    private void cajaMaternoConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoConsultasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaMaternoConsultasKeyTyped
+
+    private void cajaExperienciaConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaExperienciaConsultasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaExperienciaConsultas.getText().length() >= 2) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 2 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaExperienciaConsultasKeyTyped
 
     /**
      * @param args the command line arguments

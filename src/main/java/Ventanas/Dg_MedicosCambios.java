@@ -8,6 +8,8 @@ import ConexionBD.ConexionBD;
 import Controlador.MedicoDAO;
 import Modelo.Medico;
 import Modelo.ResultSetTableModel;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -44,6 +46,8 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         cajaMaternoCambios.setEnabled(false);
         cbEspecialidadCambios.setEnabled(false);
         cajaExperienciaCambios.setEnabled(false);
+        btnEditarMedCambios.setEnabled(false);
+        btnRestablecerMedCambios.setEnabled(false);
     }
     
     /*
@@ -130,6 +134,8 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         cajaMaternoCambios.setText("");
         cbEspecialidadCambios.setSelectedIndex(0);
         cajaExperienciaCambios.setText("");
+        btnEditarMedCambios.setEnabled(false);
+        btnRestablecerMedCambios.setEnabled(false);
     }
 
     /**
@@ -175,6 +181,9 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         cajaSSNCambios.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaSSNCambiosKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSSNCambiosKeyTyped(evt);
             }
         });
 
@@ -287,9 +296,11 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
     private void btnRestablecerMedCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedCambiosActionPerformed
         
         habilitarCamposEdicion(false);
+        /*
             if (cajaSSNCambios.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"No hay datos para borrar");
             }
+            */
             limpiarCampos();
              ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
         tablaRegMedicos.setModel(modelo);
@@ -298,32 +309,115 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
     private void btnBuscarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCambiosActionPerformed
         
         if (cajaSSNCambios.getText().isEmpty()){
-                JOptionPane.showMessageDialog(this,"Campo vacio, verifica campo 'SSN'");
-            } else {
-
-                obtenerDatosMedico();
+                JOptionPane.showMessageDialog(this,"Campo vacio, verifica el campo 'SSN'");
             }
+         
+         
+        if (cajaSSNCambios.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
+            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
+         
+         
+          Medico medico = MedicoDAO.getInstancia().buscarMedicoPorSSN(cajaSSNCambios.getText());
+
+        if (medico == null) {
+            JOptionPane.showMessageDialog(this,
+                "No existe un médico con ese SSN.",
+                "Sin resultados",
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+            
+        try {   
+            obtenerDatosMedico(); 
+            btnEditarMedCambios.setEnabled(true);
+            btnRestablecerMedCambios.setEnabled(true);
+        } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(this,"Error al obtener los datos del médico");
+        }
     }//GEN-LAST:event_btnBuscarCambiosActionPerformed
 
     private void btnEditarMedCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMedCambiosActionPerformed
         
         
-        Medico m = new Medico(cajaSSNCambios.getText().trim(),
+        if (cajaSSNCambios.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Primero ingrese un SSN válido",
+                    "Dato inválido",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String ssn = cajaSSNCambios.getText().trim();
+
+        
+        boolean camposHabilitados = cajaNombreCambios.isEnabled();
+
+        byte experiencia = 0;  
+
+        
+        if (camposHabilitados) {
+
+            
+            if (cajaNombreCambios.getText().trim().isEmpty() ||
+                cajaPaternoCambios.getText().trim().isEmpty() ||
+                cajaMaternoCambios.getText().trim().isEmpty() ||
+                cajaExperienciaCambios.getText().trim().isEmpty()) {
+
+                Toolkit.getDefaultToolkit().beep();
+                JOptionPane.showMessageDialog(this,
+                        "Asegúrate de llenar TODOS los campos correctamente.",
+                        "Campo inválido",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        
+        try {
+            experiencia = Byte.parseByte(cajaExperienciaCambios.getText().trim());
+
+            if (experiencia <= 0 || experiencia >= 60) {
+                JOptionPane.showMessageDialog(this,
+                        "Los años de experiencia deben ser entre 1 y 60.",
+                        "Valor inválido",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "La experiencia debe ser un número válido.",
+                    "Formato incorrecto",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+    } 
+
+    
+        Medico m = new Medico(
+                ssn,
                 cajaNombreCambios.getText(),
                 cajaPaternoCambios.getText(),
                 cajaMaternoCambios.getText(),
                 cbEspecialidadCambios.getSelectedItem().toString(),
-                Byte.parseByte(cajaExperienciaCambios.getText()));
-        
-        
+                experiencia
+        );
+
+
         if (medicoDAO.editarMedico(m)) {
-                JOptionPane.showMessageDialog(this,"Registro Editado CORRECTAMENTE");
-                medicoDAO.actualizarTabla(tablaRegMedicos);
-                
-        }else{
-                    JOptionPane.showMessageDialog(this,"ERROR, al editar registro");
-                  
-             }
+            JOptionPane.showMessageDialog(this,
+                    "Registro Editado CORRECTAMENTE");
+            medicoDAO.actualizarTabla(tablaRegMedicos);
+
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No existe ese SSN.",
+                    "Error al editar",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditarMedCambiosActionPerformed
 
     private void cajaSSNCambiosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNCambiosKeyReleased
@@ -331,6 +425,29 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
         tablaRegMedicos.setModel(modelo);
     }//GEN-LAST:event_cajaSSNCambiosKeyReleased
+
+    private void cajaSSNCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+        
+        if (cajaSSNCambios.getText().length() >= 11) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
+            return;
+        }
+
+        if (!Character.isDigit(c) && c != '-') {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+        }
+    }//GEN-LAST:event_cajaSSNCambiosKeyTyped
 
     /**
      * @param args the command line arguments

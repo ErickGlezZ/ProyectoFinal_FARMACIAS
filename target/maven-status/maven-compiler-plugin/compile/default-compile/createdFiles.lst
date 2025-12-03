@@ -2,6 +2,7 @@ com\mycompany\proyectofinal_farmacias\VentanaInicio$3.class
 Ventanas\VentanaPrincipal$5.class
 Ventanas\Dg_MedicosCambios.class
 Recursos\GraficaEdadPacientes.class
+Ventanas\Dg_MedicosAltas$8$1.class
 Ventanas\Dg_MedicosCambios$5.class
 Ventanas\VentanaPacientes$2.class
 Ventanas\Dg_MedicosConsultas$17.class
@@ -30,6 +31,7 @@ Recursos\Reporte.class
 Ventanas\Dg_MedicosBajas$1.class
 Ventanas\Dg_MedicosConsultas$6.class
 VentanasBD\Dg_MedicosEliminados$1.class
+Ventanas\Dg_MedicosAltas$6.class
 VentanasBD\Dg_MedicosEliminados$1$1.class
 Ventanas\Dg_PacientesConsultas$3.class
 Ventanas\Dg_MedicosAltas$3.class
@@ -42,9 +44,10 @@ Login\Login.class
 Ventanas\Dg_MedicosConsultas$12.class
 Ventanas\Dg_PacientesConsultas$7.class
 Ventanas\Dg_MedicosConsultas$5.class
-Ventanas\Dg_MedicosAltas$3$1.class
 Ventanas\VentanaMedicos$5.class
 Recursos\IEstadisticasPaciente.class
+Ventanas\Dg_MedicosAltas$5.class
+Ventanas\Dg_MedicosAltas$4.class
 VentanasBD\Dg_Vista_PacientesMedicos.class
 Ventanas\VentanaPrincipal$3.class
 Ventanas\Dg_PacientesAltas$4.class
@@ -75,6 +78,7 @@ Ventanas\Dg_MedicosConsultas$7.class
 Ventanas\Dg_MedicosConsultas$17$1.class
 Login\Login$1.class
 Ventanas\Dg_PacientesAltas$4$1.class
+Ventanas\Dg_MedicosAltas$7.class
 Ventanas\Dg_PacientesConsultas$10.class
 Ventanas\Dg_MedicosCambios$1.class
 com\mycompany\proyectofinal_farmacias\VentanaInicio$4.class
@@ -93,6 +97,7 @@ Ventanas\Dg_MedicosBajas$4.class
 Ventanas\Dg_PacientesCambios$5.class
 Ventanas\Dg_PacientesAltas$3.class
 Controlador\PacienteDAO.class
+Ventanas\Dg_MedicosAltas$8.class
 Ventanas\Dg_PacientesConsultas$11.class
 Ventanas\Dg_PacientesBajas$3.class
 Ventanas\Dg_MedicosAltas$1.class

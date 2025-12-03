@@ -211,21 +211,25 @@
     <Component class="javax.swing.JTextField" name="cajaNombreConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaPaternoConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaMaternoConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaExperienciaConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaExperienciaConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaExperienciaConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbEspecialidadConsultas">

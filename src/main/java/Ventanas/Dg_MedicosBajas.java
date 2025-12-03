@@ -6,8 +6,11 @@ package Ventanas;
 
 import ConexionBD.ConexionBD;
 import Controlador.MedicoDAO;
+import Modelo.Medico;
 import Modelo.ResultSetTableModel;
 import com.sun.source.tree.CatchTree;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -45,6 +48,8 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         cajaMaternoBajas.setEnabled(false);
         cbEspecialidadBajas.setEnabled(false);
         cajaExperienciaBajas.setEnabled(false);
+        btnEliminarMedBajas.setEnabled(false);
+        btnRestablecerMedBajas.setEnabled(false);
     }
     
     
@@ -55,6 +60,8 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         cajaMaternoBajas.setText("");
         cbEspecialidadBajas.setSelectedIndex(0);
         cajaExperienciaBajas.setText("");
+        btnEliminarMedBajas.setEnabled(false);
+        btnRestablecerMedBajas.setEnabled(false);
     }
     
     /*
@@ -168,6 +175,9 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaSSNBajasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSSNBajasKeyTyped(evt);
+            }
         });
 
         btnBuscarBajas.setText("Buscar");
@@ -275,14 +285,35 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
 
     private void btnBuscarBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarBajasActionPerformed
         
-         if (cajaSSNBajas.getText().isEmpty()){
+        if (cajaSSNBajas.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Campo vacio, verifica el campo 'SSN'");
             }
-            try {
-                obtenerDatosMedico();
-            } catch (RuntimeException ex) {
-                JOptionPane.showMessageDialog(this,"Campo vacio, verifica los datos");
+         
+        
+        if (cajaSSNBajas.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
+            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            return;
             }
+         
+         
+        Medico medico = MedicoDAO.getInstancia().buscarMedicoPorSSN(cajaSSNBajas.getText());
+
+        if (medico == null) {
+            JOptionPane.showMessageDialog(this,
+                "No existe un médico con ese SSN.",
+                "Sin resultados",
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+            
+        try {   
+            obtenerDatosMedico();
+            btnEliminarMedBajas.setEnabled(true);
+            btnRestablecerMedBajas.setEnabled(true);
+        } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(this,"Error al obtener los datos del médico");
+        }
     }//GEN-LAST:event_btnBuscarBajasActionPerformed
 
     private void btnEliminarMedBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarMedBajasActionPerformed
@@ -290,9 +321,12 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         String ssn = cajaSSNBajas.getText().trim();
 
         if (ssn.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Primero ingrese un SSN.");
+            JOptionPane.showMessageDialog(this, "Primero ingrese un SSN valido",
+            "Dato invalido", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+        
 
         // 1. Verificar si tiene pacientes
         int pacientes = medicoDAO.contarPacientesDeMedico(ssn);
@@ -310,8 +344,9 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         );
 
         if (opcion != JOptionPane.YES_OPTION) {
-            return; // CANCELÓ
+            return; 
         }
+        
     }
         
          if (medicoDAO.eliminarMedico(cajaSSNBajas.getText())){
@@ -319,7 +354,8 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
                 medicoDAO.actualizarTabla(tablaRegMedicos);
                 JOptionPane.showMessageDialog(this, "Registro eliminado correctamente");
             }else {
-                JOptionPane.showMessageDialog(this, "ERROR al eliminar el registro");
+                JOptionPane.showMessageDialog(this, "ERROR al eliminar el registro",
+                "No existe ese SSN", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnEliminarMedBajasActionPerformed
 
@@ -327,6 +363,29 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         ResultSetTableModel modelo = medicoDAO.actualizarTablaFiltrada("SSN", cajaSSNBajas.getText());
         tablaRegMedicos.setModel(modelo);
     }//GEN-LAST:event_cajaSSNBajasKeyReleased
+
+    private void cajaSSNBajasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNBajasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+        
+        if (cajaSSNBajas.getText().length() >= 11) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
+            return;
+        }
+
+        if (!Character.isDigit(c) && c != '-') {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+        }
+    }//GEN-LAST:event_cajaSSNBajasKeyTyped
 
     /**
      * @param args the command line arguments

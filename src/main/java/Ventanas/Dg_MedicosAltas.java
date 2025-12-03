@@ -6,6 +6,8 @@ package Ventanas;
 
 import Controlador.MedicoDAO;
 import Modelo.Medico;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -85,7 +87,37 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
 
         jLabel6.setText("Años Experiencia");
 
+        cajaSSNAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSSNAltasKeyTyped(evt);
+            }
+        });
+
+        cajaNombreAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreAltasKeyTyped(evt);
+            }
+        });
+
+        cajaPaternoAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaPaternoAltasKeyTyped(evt);
+            }
+        });
+
+        cajaMaternoAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaMaternoAltasKeyTyped(evt);
+            }
+        });
+
         cbEspecialidadAltas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
+
+        cajaExperienciaAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaExperienciaAltasKeyTyped(evt);
+            }
+        });
 
         btnAgregarMedAltas.setBackground(new java.awt.Color(0, 255, 51));
         btnAgregarMedAltas.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
@@ -175,6 +207,47 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
 
     private void btnAgregarMedAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarMedAltasActionPerformed
         
+        if (cajaSSNAltas.getText().isEmpty() || cajaNombreAltas.getText().isEmpty() 
+            || cajaPaternoAltas.getText().isEmpty() 
+            || cajaMaternoAltas.getText().isEmpty() 
+            || cajaExperienciaAltas.getText().isEmpty()){
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this,"Asegurate de llenar TODOS los campos correctamente!",
+                    "Campo inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (cajaSSNAltas.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "El SSN debe contener exactamente 11 caracteres",
+            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (cbEspecialidadAltas.getSelectedItem().toString().equals("Elige Especialidad...")){
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this,"Selecciona una especialidad valida",
+                    "Campo inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        String exp = cajaExperienciaAltas.getText().trim();
+        
+        try {
+            byte experiencia = Byte.parseByte(exp);
+
+            if (experiencia < 1 || experiencia > 60) {
+                JOptionPane.showMessageDialog(this,
+                    "Los años de experiencia deben estar entre 1 y 60.",
+                    "Dato inválido", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                "Introduce un número válido para los años de experiencia.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         
         Medico m = new Medico(cajaSSNAltas.getText().trim(),
                 cajaNombreAltas.getText(),
@@ -199,7 +272,132 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
     private void btnRestablecerMedAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedAltasActionPerformed
         
         limpiarCampos();
+        if (cajaNombreAltas.getText().isEmpty() && cajaPaternoAltas.getText().isEmpty() 
+                && cajaMaternoAltas.getText().isEmpty() && cbEspecialidadAltas.getSelectedItem().toString().equals("Elige Especialidad...")
+                && cajaExperienciaAltas.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(this, "No hay datos para eliminar");
+            
+        }
     }//GEN-LAST:event_btnRestablecerMedAltasActionPerformed
+
+    private void cajaSSNAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaSSNAltas.getText().length() >= 11) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c) && c != '-') {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+        }
+        
+     
+    }//GEN-LAST:event_cajaSSNAltasKeyTyped
+
+    private void cajaNombreAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaNombreAltasKeyTyped
+
+    private void cajaPaternoAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaPaternoAltasKeyTyped
+
+    private void cajaMaternoAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaMaternoAltasKeyTyped
+
+    private void cajaExperienciaAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaExperienciaAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaExperienciaAltas.getText().length() >= 2) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 2 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaExperienciaAltasKeyTyped
 
     /**
      * @param args the command line arguments
