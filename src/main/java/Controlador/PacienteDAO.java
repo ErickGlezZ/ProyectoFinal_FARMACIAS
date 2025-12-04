@@ -310,4 +310,29 @@ public class PacienteDAO {
     return "No encontrado";
 }
     
+    
+    public Paciente buscarPacientePorSSN(String ssn){
+        String sql = "SELECT * FROM Pacientes WHERE SSN = ?";
+        ResultSet rs = conexionBD.ejecutarConsultaSQL(sql, ssn.trim());
+        
+        try {
+            if (rs != null && rs.next()){
+                return new Paciente(
+                rs.getString("SSN"),
+                rs.getString("Nombre"),
+                rs.getString("Ape_Paterno"),
+                rs.getString("Ape_Materno"),
+                rs.getByte("Edad"),
+                rs.getString("SSN_Medico_Cabecera"),
+                rs.getString("Calle"),
+                rs.getInt("Numero"),
+                rs.getString("Colonia"),
+                rs.getInt("Codigo_Postal"));
+                
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+    
 }

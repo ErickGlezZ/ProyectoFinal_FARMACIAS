@@ -24,23 +24,29 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" pref="168" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnAgregarPacientes" min="-2" pref="108" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnEliminarPacientes" min="-2" pref="108" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-              <Component id="btnEditarPacientes" min="-2" pref="108" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnConsultarPacientes" min="-2" pref="108" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel1" min="-2" pref="200" max="-2" attributes="0"/>
+                      <EmptySpace min="696" pref="764" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnAgregarPacientes" min="-2" pref="170" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnEliminarPacientes" min="-2" pref="160" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnEditarPacientes" min="-2" pref="160" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="btnConsultarPacientes" min="-2" pref="170" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,14 +54,15 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="btnAgregarPacientes" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="btnEliminarPacientes" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="btnEditarPacientes" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="btnConsultarPacientes" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="btnAgregarPacientes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEliminarPacientes" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="btnEditarPacientes" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="btnConsultarPacientes" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="151" max="32767" attributes="0"/>
+              <EmptySpace pref="66" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="430" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -70,16 +77,22 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
         </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\icons8-paciente-50.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="PACIENTES"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnAgregarPacientes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="ff" red="66" type="rgb"/>
+          <Color blue="ff" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\icons8-agregar-archivo-50.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="AGREGAR"/>
       </Properties>
@@ -90,10 +103,13 @@
     <Component class="javax.swing.JButton" name="btnEliminarPacientes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="0" red="ff" type="rgb"/>
+          <Color blue="ff" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\icons8-basura-llena-50.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="ELIMINAR"/>
       </Properties>
@@ -104,10 +120,13 @@
     <Component class="javax.swing.JButton" name="btnEditarPacientes">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="0" green="99" red="ff" type="rgb"/>
+          <Color blue="ff" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\icons8-crear-nuevo-50.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="MODIFICAR"/>
       </Properties>
@@ -122,6 +141,9 @@
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\erick\OneDrive\Documentos\NetBeansProjects\ProyectoFinal_FARMACIAS\src\main\java\img\icons8-aplicaci&#xf3;n-para-hacer-de-microsoft-50.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="CONSULTAR"/>
       </Properties>

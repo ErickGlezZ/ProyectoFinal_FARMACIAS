@@ -187,7 +187,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
             }
         });
 
-        btnRestablecerMedBajas.setBackground(new java.awt.Color(255, 51, 51));
+        btnRestablecerMedBajas.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerMedBajas.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerMedBajas.setText("Restablecer");
         btnRestablecerMedBajas.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +196,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
             }
         });
 
-        btnEliminarMedBajas.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminarMedBajas.setBackground(new java.awt.Color(0, 153, 255));
         btnEliminarMedBajas.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarMedBajas.setText("Eliminar");
         btnEliminarMedBajas.addActionListener(new java.awt.event.ActionListener() {
@@ -292,7 +292,7 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
         
         if (cajaSSNBajas.getText().length() != 11) {
             JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
-            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
             return;
             }
          
@@ -304,6 +304,8 @@ public class Dg_MedicosBajas extends javax.swing.JDialog {
                 "No existe un médico con ese SSN.",
                 "Sin resultados",
                 JOptionPane.INFORMATION_MESSAGE);
+            cajaSSNBajas.setText("");
+            medicoDAO.actualizarTabla(tablaRegMedicos);
             return;
         }
             

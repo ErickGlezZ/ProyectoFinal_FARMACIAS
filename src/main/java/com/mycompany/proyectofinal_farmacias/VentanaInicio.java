@@ -261,7 +261,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         lblInicio.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblInicio.setForeground(new java.awt.Color(255, 255, 255));
-        lblInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblInicio.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\icons8-página-principal-50.png")); // NOI18N
         lblInicio.setText("INICIO");
 
         javax.swing.GroupLayout panelInicioLayout = new javax.swing.GroupLayout(panelInicio);
@@ -269,8 +269,8 @@ public class VentanaInicio extends javax.swing.JFrame {
         panelInicioLayout.setHorizontalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicioLayout.createSequentialGroup()
-                .addGap(0, 50, Short.MAX_VALUE)
-                .addComponent(lblInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 28, Short.MAX_VALUE)
+                .addComponent(lblInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelInicioLayout.setVerticalGroup(
             panelInicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +283,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         lblMedicos.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblMedicos.setForeground(new java.awt.Color(255, 255, 255));
-        lblMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblMedicos.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\icons8-doctor-en-medicina-50.png")); // NOI18N
         lblMedicos.setText("MEDICOS");
 
         javax.swing.GroupLayout panelMedicosLayout = new javax.swing.GroupLayout(panelMedicos);
@@ -292,7 +292,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             panelMedicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMedicosLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelMedicosLayout.setVerticalGroup(
             panelMedicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +305,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         lblPacientes.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblPacientes.setForeground(new java.awt.Color(255, 255, 255));
-        lblPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblPacientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\icons8-paciente-50.png")); // NOI18N
         lblPacientes.setText("PACIENTES");
 
         javax.swing.GroupLayout panelPacientesLayout = new javax.swing.GroupLayout(panelPacientes);
@@ -314,7 +314,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             panelPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPacientesLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelPacientesLayout.setVerticalGroup(
             panelPacientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +327,7 @@ public class VentanaInicio extends javax.swing.JFrame {
 
         lblCerrarSesion.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
-        lblCerrarSesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\house.png")); // NOI18N
+        lblCerrarSesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\erick\\OneDrive\\Documentos\\NetBeansProjects\\ProyectoFinal_FARMACIAS\\src\\main\\java\\img\\icons8-cerrar-sesión-50.png")); // NOI18N
         lblCerrarSesion.setText("CERRAR SESIÓN");
 
         javax.swing.GroupLayout panelCerrarSesionLayout = new javax.swing.GroupLayout(panelCerrarSesion);
@@ -336,7 +336,7 @@ public class VentanaInicio extends javax.swing.JFrame {
             panelCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCerrarSesionLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(lblCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         panelCerrarSesionLayout.setVerticalGroup(
             panelCerrarSesionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

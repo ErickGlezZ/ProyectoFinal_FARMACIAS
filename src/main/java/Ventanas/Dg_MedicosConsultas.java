@@ -27,7 +27,8 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
     /**
      * Creates new form Dg_MedicosConsultas
      */
-    
+    boolean bloqueado = false;
+
     MedicoDAO medicoDAO = MedicoDAO.getInstancia();
     
     private javax.swing.JTable tablaRegMedicos;
@@ -150,6 +151,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         if (indice >= 0 && indice < listaMedicos.size()){
             Medico reg = listaMedicos.get(indice);
             
+            bloqueado = true;
             cajaNombreConsultas.setText(reg.getNombre());
             cajaPaternoConsultas.setText(reg.getApePaterno());
             cajaMaternoConsultas.setText(reg.getApeMaterno());
@@ -160,6 +162,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             cajaIndiceMed.setEnabled(false);
             posActual = indice;
             
+            bloqueado = false;
             actualizarEstadoBotones();
         }
     }
@@ -321,7 +324,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
             }
         });
 
-        btnRestablecerMedConsultas.setBackground(new java.awt.Color(0, 102, 255));
+        btnRestablecerMedConsultas.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerMedConsultas.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerMedConsultas.setText("Restablecer");
         btnRestablecerMedConsultas.addActionListener(new java.awt.event.ActionListener() {
@@ -404,7 +407,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
                     .addComponent(cajaExperienciaConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnRestablecerMedConsultas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -463,7 +466,7 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
         
         if (cajaNombreConsultas.getText().isEmpty() && cajaPaternoConsultas.getText().isEmpty() 
                 && cajaMaternoConsultas.getText().isEmpty() && cbEspecialidadConsultas.getSelectedItem().toString().equals("Elige Especialidad...")
-                && cajaExperienciaConsultas.getText().isEmpty()){
+                && cajaExperienciaConsultas.getText().isEmpty() && buttonGroup1.getSelection() == null){
             
             JOptionPane.showMessageDialog(this, "No hay datos para eliminar");
             
@@ -478,27 +481,32 @@ public class Dg_MedicosConsultas extends javax.swing.JDialog {
 
     private void btnPrimerRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerRegMedicosActionPerformed
         
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (!listaMedicos.isEmpty()) {
                 mostrarRegistros(0);
             }
     }//GEN-LAST:event_btnPrimerRegMedicosActionPerformed
 
     private void btnAnteriorRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorRegMedicosActionPerformed
-        
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (posActual > 0) {
                 mostrarRegistros(posActual - 1);
             }
     }//GEN-LAST:event_btnAnteriorRegMedicosActionPerformed
 
     private void btnSiguienteRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRegMedicosActionPerformed
-        
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (posActual < listaMedicos.size() - 1) {
                 mostrarRegistros(posActual + 1);
             }
     }//GEN-LAST:event_btnSiguienteRegMedicosActionPerformed
 
     private void btnUltimoRegMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoRegMedicosActionPerformed
-        
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (!listaMedicos.isEmpty()) {
                 mostrarRegistros(listaMedicos.size() - 1);
             }

@@ -187,6 +187,30 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
             }
         });
 
+        cajaNombreCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaPaternoCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaPaternoCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaMaternoCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaMaternoCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaExperienciaCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaExperienciaCambiosKeyTyped(evt);
+            }
+        });
+
         cbEspecialidadCambios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Elige Especialidad...", "Cardiología", "Pediatría", "Ginecología", "Medicina General", "Dermatología", "Neurología", "Oncología", "Oftalmología" }));
 
         btnBuscarCambios.setText("Buscar");
@@ -196,7 +220,7 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
             }
         });
 
-        btnRestablecerMedCambios.setBackground(new java.awt.Color(255, 153, 0));
+        btnRestablecerMedCambios.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerMedCambios.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerMedCambios.setText("Restablecer");
         btnRestablecerMedCambios.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +229,7 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
             }
         });
 
-        btnEditarMedCambios.setBackground(new java.awt.Color(255, 153, 0));
+        btnEditarMedCambios.setBackground(new java.awt.Color(0, 153, 255));
         btnEditarMedCambios.setForeground(new java.awt.Color(0, 0, 0));
         btnEditarMedCambios.setText("Editar");
         btnEditarMedCambios.addActionListener(new java.awt.event.ActionListener() {
@@ -315,7 +339,7 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
          
         if (cajaSSNCambios.getText().length() != 11) {
             JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
-            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
             return;
             }
          
@@ -327,6 +351,8 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
                 "No existe un médico con ese SSN.",
                 "Sin resultados",
                 JOptionPane.INFORMATION_MESSAGE);
+            cajaSSNCambios.setText("");
+            medicoDAO.actualizarTabla(tablaRegMedicos);
             return;
         }
             
@@ -438,7 +464,8 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
         if (cajaSSNCambios.getText().length() >= 11) {
             evt.consume(); 
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres",
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -448,6 +475,115 @@ public class Dg_MedicosCambios extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
         }
     }//GEN-LAST:event_cajaSSNCambiosKeyTyped
+
+    private void cajaNombreCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        if (cajaNombreCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaNombreCambiosKeyTyped
+
+    private void cajaPaternoCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        if (cajaPaternoCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaPaternoCambiosKeyTyped
+
+    private void cajaMaternoCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        if (cajaMaternoCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaMaternoCambiosKeyTyped
+
+    private void cajaExperienciaCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaExperienciaCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaExperienciaCambios.getText().length() >= 2) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 2 numeros");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaExperienciaCambiosKeyTyped
 
     /**
      * @param args the command line arguments

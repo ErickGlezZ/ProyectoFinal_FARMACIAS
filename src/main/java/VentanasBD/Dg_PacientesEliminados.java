@@ -28,7 +28,7 @@ public class Dg_PacientesEliminados extends javax.swing.JDialog {
         getContentPane().setBackground(new Color(132,157,178));
 
         setTitle("Pacientes Eliminados");  
-        setSize(900, 500);           
+        setSize(1100, 500);           
         setLocationRelativeTo(null);  
         setResizable(false); 
         cargarPacientesEliminados(tablaPacientesEliminados);
@@ -87,13 +87,13 @@ public class Dg_PacientesEliminados extends javax.swing.JDialog {
 
         tablaPacientesEliminados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "SSN", "NOMBRE", "APE_PATERNO", "APE_MATERNO", "EDAD", "SSN_MEDICO_CABECERA", "CALLE", "NUMERO", "COLONIA", "CODIGO_POSTAL"
+                "SSN", "NOMBRE", "AP_PATERNO", "AP_MATERNO", "EDAD", "SSN_MEDICO", "CALLE", "NUMERO", "COLONIA", "COD_POSTAL", "FECHA_ELIMINADO"
             }
         ));
         jScrollPane1.setViewportView(tablaPacientesEliminados);
@@ -105,7 +105,7 @@ public class Dg_PacientesEliminados extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1112, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))

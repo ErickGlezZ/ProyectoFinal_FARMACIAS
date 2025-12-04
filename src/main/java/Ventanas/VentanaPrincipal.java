@@ -66,6 +66,8 @@ public class VentanaPrincipal extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Pacientes Eliminados");
 
+        btnTablaMedEliminados.setBackground(new java.awt.Color(0, 153, 255));
+        btnTablaMedEliminados.setForeground(new java.awt.Color(0, 0, 0));
         btnTablaMedEliminados.setText("Mostrar Backup");
         btnTablaMedEliminados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +75,8 @@ public class VentanaPrincipal extends javax.swing.JPanel {
             }
         });
 
+        btnTablaPacEliminados.setBackground(new java.awt.Color(0, 153, 255));
+        btnTablaPacEliminados.setForeground(new java.awt.Color(0, 0, 0));
         btnTablaPacEliminados.setText("Mostrar Backup");
         btnTablaPacEliminados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +92,8 @@ public class VentanaPrincipal extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Reporte de registros");
 
+        btnGraficarReg.setBackground(new java.awt.Color(0, 153, 255));
+        btnGraficarReg.setForeground(new java.awt.Color(0, 0, 0));
         btnGraficarReg.setText("Mostrar Grafica");
         btnGraficarReg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +101,8 @@ public class VentanaPrincipal extends javax.swing.JPanel {
             }
         });
 
+        btnReporteReg.setBackground(new java.awt.Color(0, 153, 255));
+        btnReporteReg.setForeground(new java.awt.Color(0, 0, 0));
         btnReporteReg.setText("Mostrar Reporte");
         btnReporteReg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +114,8 @@ public class VentanaPrincipal extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Vista Pacientes Medicos");
 
+        btnVistaPacMed.setBackground(new java.awt.Color(0, 153, 255));
+        btnVistaPacMed.setForeground(new java.awt.Color(0, 0, 0));
         btnVistaPacMed.setText("Mostrar Vista");
         btnVistaPacMed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

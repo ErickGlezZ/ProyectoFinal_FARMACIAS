@@ -6,7 +6,10 @@ package Ventanas;
 
 import ConexionBD.ConexionBD;
 import Controlador.PacienteDAO;
+import Modelo.Paciente;
 import Modelo.ResultSetTableModel;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -48,6 +51,8 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
         cajaNumBajas.setEnabled(false);
         cajaColoniaBajas.setEnabled(false);
         cajaCodPostalBajas.setEnabled(false);
+        btnEliminarPacBajas.setEnabled(false);
+        btnRestablecerPacBajas.setEnabled(false);
         
         
     }
@@ -87,6 +92,8 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
         cajaNumBajas.setText("");
         cajaColoniaBajas.setText("");
         cajaCodPostalBajas.setText("");
+        btnEliminarPacBajas.setEnabled(false);
+        btnRestablecerPacBajas.setEnabled(false);
         
         
     }
@@ -193,7 +200,7 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
 
         jLabel5.setText("Edad");
 
-        btnRestablecerPacBajas.setBackground(new java.awt.Color(255, 51, 51));
+        btnRestablecerPacBajas.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerPacBajas.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerPacBajas.setText("Restablecer");
         btnRestablecerPacBajas.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +209,7 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
             }
         });
 
-        btnEliminarPacBajas.setBackground(new java.awt.Color(255, 51, 51));
+        btnEliminarPacBajas.setBackground(new java.awt.Color(0, 153, 255));
         btnEliminarPacBajas.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarPacBajas.setText("Eliminar");
         btnEliminarPacBajas.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +232,9 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
         cajaSSNBajas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaSSNBajasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSSNBajasKeyTyped(evt);
             }
         });
 
@@ -350,9 +360,31 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
         if (cajaSSNBajas.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Campo vacio, verifica el campo 'SSN'");
             }
+         
+        
+        if (cajaSSNBajas.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
+         
+         
+        Paciente paciente = PacienteDAO.getInstancia().buscarPacientePorSSN(cajaSSNBajas.getText());
+
+        if (paciente == null) {
+            JOptionPane.showMessageDialog(this,
+                "No existe un paciente con ese SSN.",
+                "Sin resultados",
+                JOptionPane.INFORMATION_MESSAGE);
+            cajaSSNBajas.setText("");
+            return;
+            
+        }
             try {
                 obtenerDatosPaciente();
-                //cargarMedicosEnCombo();
+                btnEliminarPacBajas.setEnabled(true);
+                btnRestablecerPacBajas.setEnabled(true);
+                
             } catch (RuntimeException ex) {
                 JOptionPane.showMessageDialog(this,"Campo vacio, verifica los datos");
             }
@@ -368,15 +400,47 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
 
     private void btnEliminarPacBajasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPacBajasActionPerformed
         
-          if (pacienteDAO.eliminarPaciente(cajaSSNBajas.getText())){
+        String ssn = cajaSSNBajas.getText().trim();
 
-                pacienteDAO.actualizarTabla(tablaRegPacientes);
-                JOptionPane.showMessageDialog(this, "Registro eliminado correctamente");
-            }else {
-                JOptionPane.showMessageDialog(this, "ERROR al eliminar el registro");
-            }
+        if (ssn.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Primero ingrese un SSN valido",
+            "SSN invalido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (pacienteDAO.eliminarPaciente(cajaSSNBajas.getText())){
+
+            pacienteDAO.actualizarTabla(tablaRegPacientes);
+            JOptionPane.showMessageDialog(this, "Registro eliminado correctamente");
+        }else {
+            JOptionPane.showMessageDialog(this, "ERROR al eliminar el registro",
+            "Registro no existe", JOptionPane.ERROR_MESSAGE);
+        }
         
     }//GEN-LAST:event_btnEliminarPacBajasActionPerformed
+
+    private void cajaSSNBajasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNBajasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+        
+        if (cajaSSNBajas.getText().length() >= 11) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
+            return;
+        }
+
+        if (!Character.isDigit(c) && c != '-') {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+        }
+    }//GEN-LAST:event_cajaSSNBajasKeyTyped
 
     /**
      * @param args the command line arguments

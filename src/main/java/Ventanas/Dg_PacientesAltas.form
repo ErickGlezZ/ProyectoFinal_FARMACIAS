@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -185,7 +185,7 @@
     <Component class="javax.swing.JButton" name="btnRestablecerPacAltas">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="ff" red="0" type="rgb"/>
+          <Color blue="ff" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>
@@ -197,14 +197,31 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaSSNAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaSSNAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaNombreAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaPaternoAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaMaternoAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="spEdadAltas">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="0" maximum="100" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cbSSNMedicoAltas">
       <Properties>
@@ -220,17 +237,29 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaCalleAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaCalleAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaNumAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNumAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaColoniaAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaColoniaAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaCodPostalAltas">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaCodPostalAltasKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAgregarPacAltas">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="ff" red="0" type="rgb"/>
+          <Color blue="ff" green="99" red="0" type="rgb"/>
         </Property>
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="0" type="rgb"/>

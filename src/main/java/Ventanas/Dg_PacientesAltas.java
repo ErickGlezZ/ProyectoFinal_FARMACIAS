@@ -7,9 +7,12 @@ package Ventanas;
 import Controlador.MedicoDAO;
 import Controlador.PacienteDAO;
 import Modelo.Paciente;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 
 /**
@@ -36,7 +39,9 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
         setSize(380, 640);           
         setLocationRelativeTo(null);  
         setResizable(false); 
-        
+        ((JSpinner.DefaultEditor) spEdadAltas.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) spEdadAltas.getEditor()).getTextField().setFocusable(false);
+
         cargarMedicosEnCombo(); 
     }
     
@@ -140,7 +145,7 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
 
         jLabel10.setText("Codigo Postal");
 
-        btnRestablecerPacAltas.setBackground(new java.awt.Color(0, 255, 51));
+        btnRestablecerPacAltas.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerPacAltas.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerPacAltas.setText("Restablecer");
         btnRestablecerPacAltas.addActionListener(new java.awt.event.ActionListener() {
@@ -149,13 +154,63 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
             }
         });
 
+        cajaSSNAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSSNAltasKeyTyped(evt);
+            }
+        });
+
+        cajaNombreAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreAltasKeyTyped(evt);
+            }
+        });
+
+        cajaPaternoAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaPaternoAltasKeyTyped(evt);
+            }
+        });
+
+        cajaMaternoAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaMaternoAltasKeyTyped(evt);
+            }
+        });
+
+        spEdadAltas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 100, 1));
+
         cbSSNMedicoAltas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSSNMedicoAltasActionPerformed(evt);
             }
         });
 
-        btnAgregarPacAltas.setBackground(new java.awt.Color(0, 255, 51));
+        cajaCalleAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaCalleAltasKeyTyped(evt);
+            }
+        });
+
+        cajaNumAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNumAltasKeyTyped(evt);
+            }
+        });
+
+        cajaColoniaAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaColoniaAltasKeyTyped(evt);
+            }
+        });
+
+        cajaCodPostalAltas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaCodPostalAltasKeyTyped(evt);
+            }
+        });
+
+        btnAgregarPacAltas.setBackground(new java.awt.Color(0, 153, 255));
         btnAgregarPacAltas.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregarPacAltas.setText("Agregar");
         btnAgregarPacAltas.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +317,37 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
 
     private void btnAgregarPacAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPacAltasActionPerformed
         
+        int edad = (int) spEdadAltas.getValue();
+        if (cajaSSNAltas.getText().isEmpty() || cajaNombreAltas.getText().isEmpty() 
+                || cajaPaternoAltas.getText().isEmpty() || cajaMaternoAltas.getText().isEmpty()
+                || edad == 0 || cbSSNMedicoAltas.getSelectedItem().toString().isEmpty()
+                || cajaCalleAltas.getText().isEmpty() || cajaNumAltas.getText().isEmpty()
+                || cajaColoniaAltas.getText().isEmpty() || cajaCodPostalAltas.getText().isEmpty()){
+            
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this,"Asegurate de llenar TODOS los campos correctamente!",
+                    "Campo inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+            
+        }
+        
+        if (cajaSSNAltas.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
+            "SSN Invalido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (edad < 1 || edad > 100) {
+            JOptionPane.showMessageDialog(this,
+                "La edad debe estar entre 1 y 100 años.",
+                "Edad inválida",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        
+        
+        
         Paciente p = new Paciente(cajaSSNAltas.getText(),
                 cajaNombreAltas.getText(),
                 cajaPaternoAltas.getText(),
@@ -286,13 +372,242 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAgregarPacAltasActionPerformed
 
     private void cbSSNMedicoAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSSNMedicoAltasActionPerformed
+       
         actualizarLabelMedico();
     }//GEN-LAST:event_cbSSNMedicoAltasActionPerformed
 
     private void btnRestablecerPacAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerPacAltasActionPerformed
-        
+       int edad = (int) spEdadAltas.getValue();
+        if (cajaSSNAltas.getText().isEmpty() &&  cajaNombreAltas.getText().isEmpty() && cajaPaternoAltas.getText().isEmpty() && cajaMaternoAltas.getText().isEmpty()
+                && edad == 0 && cbSSNMedicoAltas.getSelectedIndex() == 0
+                && cajaCalleAltas.getText().isEmpty() && cajaNumAltas.getText().isEmpty()
+                && cajaColoniaAltas.getText().isEmpty() && cajaCodPostalAltas.getText().isEmpty()){
+            
+           
+        JOptionPane.showMessageDialog(this,"No hay elementos que eliminar");
+        return;
+            
+        }
        limpiarCampos();
     }//GEN-LAST:event_btnRestablecerPacAltasActionPerformed
+
+    private void cajaSSNAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaSSNAltas.getText().length() >= 11) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c) && c != '-') {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+        }
+    }//GEN-LAST:event_cajaSSNAltasKeyTyped
+
+    private void cajaNombreAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaNombreAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaNombreAltasKeyTyped
+
+    private void cajaPaternoAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaPaternoAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaPaternoAltasKeyTyped
+
+    private void cajaMaternoAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaMaternoAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaMaternoAltasKeyTyped
+
+    private void cajaCalleAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCalleAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaCalleAltas.getText().length() >= 100) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 100 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaCalleAltasKeyTyped
+
+    private void cajaNumAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNumAltasKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaNumAltas.getText().length() >= 10) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 10 numeros maximo");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaNumAltasKeyTyped
+
+    private void cajaColoniaAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColoniaAltasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaColoniaAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaColoniaAltasKeyTyped
+
+    private void cajaCodPostalAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCodPostalAltasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaCodPostalAltas.getText().length() >= 5) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 5 numeros");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaCodPostalAltasKeyTyped
 
     /**
      * @param args the command line arguments

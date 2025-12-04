@@ -119,7 +119,7 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
             }
         });
 
-        btnAgregarMedAltas.setBackground(new java.awt.Color(0, 255, 51));
+        btnAgregarMedAltas.setBackground(new java.awt.Color(0, 153, 255));
         btnAgregarMedAltas.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         btnAgregarMedAltas.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregarMedAltas.setText("Agregar");
@@ -129,7 +129,7 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
             }
         });
 
-        btnRestablecerMedAltas.setBackground(new java.awt.Color(0, 255, 51));
+        btnRestablecerMedAltas.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerMedAltas.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         btnRestablecerMedAltas.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerMedAltas.setText("Restablecer");
@@ -219,7 +219,7 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
         
         if (cajaSSNAltas.getText().length() != 11) {
             JOptionPane.showMessageDialog(this, "El SSN debe contener exactamente 11 caracteres",
-            "Formato inválido", JOptionPane.ERROR_MESSAGE);
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
@@ -271,7 +271,7 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
 
     private void btnRestablecerMedAltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerMedAltasActionPerformed
         
-        limpiarCampos();
+        
         if (cajaNombreAltas.getText().isEmpty() && cajaPaternoAltas.getText().isEmpty() 
                 && cajaMaternoAltas.getText().isEmpty() && cbEspecialidadAltas.getSelectedItem().toString().equals("Elige Especialidad...")
                 && cajaExperienciaAltas.getText().isEmpty()){
@@ -279,6 +279,7 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "No hay datos para eliminar");
             
         }
+        limpiarCampos();
     }//GEN-LAST:event_btnRestablecerMedAltasActionPerformed
 
     private void cajaSSNAltasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNAltasKeyTyped
@@ -321,8 +322,14 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
         if (c == ' ') {
             return;
         }
-
         
+        if (cajaNombreAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
         if (!Character.isLetter(c)) {
             evt.consume(); 
             Toolkit.getDefaultToolkit().beep();
@@ -344,6 +351,12 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
             return;
         }
 
+        if (cajaPaternoAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
         
         if (!Character.isLetter(c)) {
             evt.consume(); 
@@ -366,6 +379,12 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
             return;
         }
 
+        if (cajaMaternoAltas.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
         
         if (!Character.isLetter(c)) {
             evt.consume(); 

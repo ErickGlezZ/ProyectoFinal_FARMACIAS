@@ -5,6 +5,7 @@
 package com.mycompany.proyectofinal_farmacias;
 
 import Login.Login;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.awt.Color;
 import java.awt.Font;
@@ -20,7 +21,7 @@ public class ProyectoFinal_FARMACIAS {
 
         try {
             FlatMacLightLaf.setup();  
-
+            //FlatMacDarkLaf.setup();
             
             UIManager.put("Component.arc", 20);
             UIManager.put("Button.arc", 20);

@@ -8,9 +8,13 @@ import ConexionBD.ConexionBD;
 import Controlador.PacienteDAO;
 import Modelo.Paciente;
 import Modelo.ResultSetTableModel;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 
 /**
@@ -46,6 +50,10 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         cajaNumCambios.setEnabled(false);
         cajaColoniaCambios.setEnabled(false);
         cajaCodPostalCambios.setEnabled(false);
+        btnEditarPacCambios.setEnabled(false);
+        btnRestablecerPacCambios.setEnabled(false);
+        ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setFocusable(false);
         
     }
     
@@ -156,6 +164,8 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         cajaNumCambios.setText("");
         cajaColoniaCambios.setText("");
         cajaCodPostalCambios.setText("");
+        btnEditarPacCambios.setEnabled(false);
+        btnRestablecerPacCambios.setEnabled(false);
         
         
     }
@@ -220,9 +230,56 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaSSNCambiosKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaSSNCambiosKeyTyped(evt);
+            }
         });
 
-        btnRestablecerPacCambios.setBackground(new java.awt.Color(255, 153, 0));
+        cajaNombreCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaPaternoCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaPaternoCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaMaternoCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaMaternoCambiosKeyTyped(evt);
+            }
+        });
+
+        spEdadCambios.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+
+        cajaCalleCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaCalleCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaNumCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNumCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaColoniaCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaColoniaCambiosKeyTyped(evt);
+            }
+        });
+
+        cajaCodPostalCambios.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaCodPostalCambiosKeyTyped(evt);
+            }
+        });
+
+        btnRestablecerPacCambios.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerPacCambios.setForeground(new java.awt.Color(0, 0, 0));
         btnRestablecerPacCambios.setText("Restablecer");
         btnRestablecerPacCambios.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +288,7 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
             }
         });
 
-        btnEditarPacCambios.setBackground(new java.awt.Color(255, 153, 0));
+        btnEditarPacCambios.setBackground(new java.awt.Color(0, 153, 255));
         btnEditarPacCambios.setForeground(new java.awt.Color(0, 0, 0));
         btnEditarPacCambios.setText("Editar");
         btnEditarPacCambios.addActionListener(new java.awt.event.ActionListener() {
@@ -357,6 +414,35 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
 
     private void btnEditarPacCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPacCambiosActionPerformed
         
+        int edad = (int) spEdadCambios.getValue();
+        if (cajaSSNCambios.getText().isEmpty() || cajaNombreCambios.getText().isEmpty() 
+                || cajaPaternoCambios.getText().isEmpty() || cajaMaternoCambios.getText().isEmpty()
+                || edad == 0 || cbSSNMedicoCambios.getSelectedItem().toString().isEmpty()
+                || cajaCalleCambios.getText().isEmpty() || cajaNumCambios.getText().isEmpty()
+                || cajaColoniaCambios.getText().isEmpty() || cajaCodPostalCambios.getText().isEmpty()){
+            
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this,"Asegurate de llenar TODOS los campos correctamente!",
+                    "Campo inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+            
+        }
+        
+        if (cajaSSNCambios.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
+            "SSN Invalido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (edad < 1 || edad > 100) {
+            JOptionPane.showMessageDialog(this,
+                "La edad debe estar entre 1 y 100 años.",
+                "Edad inválida",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        
         Paciente p = new Paciente(cajaSSNCambios.getText(),
                 cajaNombreCambios.getText(),
                 cajaPaternoCambios.getText(),
@@ -370,8 +456,7 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         
         if (pacienteDAO.editarPaciente(p)) {
                 JOptionPane.showMessageDialog(this,"Registro Editado CORRECTAMENTE");
-                System.out.println("Registro Agregado CORRECTAMENTE");
-                
+                limpiarCampos();
                 pacienteDAO.actualizarTabla(tablaRegPacientes);
         }else{
                     JOptionPane.showMessageDialog(this,"Error en la insercion");
@@ -383,11 +468,35 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         
          if (cajaSSNCambios.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Campo vacio, verifica campo 'SSN'");
-            } else {
-
-                obtenerDatosPaciente();
-                //cargarMedicosEnCombo();
             }
+         
+         if (cajaSSNCambios.getText().length() != 11) {
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 11 caracteres",
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+            }
+
+            Paciente paciente = PacienteDAO.getInstancia().buscarPacientePorSSN(cajaSSNCambios.getText());
+
+        if (paciente == null) {
+            JOptionPane.showMessageDialog(this,
+                "No existe un paciente con ese SSN.",
+                "Sin resultados",
+                JOptionPane.INFORMATION_MESSAGE);
+            cajaSSNCambios.setText("");
+            return;
+            
+        }
+            try {
+                obtenerDatosPaciente();
+                btnEditarPacCambios.setEnabled(true);
+                btnRestablecerPacCambios.setEnabled(true);
+                
+            } catch (RuntimeException ex) {
+                JOptionPane.showMessageDialog(this,"Campo vacio, verifica los datos");
+            }
+                
+            
         
     }//GEN-LAST:event_btnBuscarCambiosActionPerformed
 
@@ -396,6 +505,225 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         ResultSetTableModel modelo = pacienteDAO.actualizarTablaFiltrada("SSN", cajaSSNCambios.getText());
         tablaRegPacientes.setModel(modelo);
     }//GEN-LAST:event_cajaSSNCambiosKeyReleased
+
+    private void cajaSSNCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSSNCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+        
+        if (cajaSSNCambios.getText().length() >= 11) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres",
+            "SSN inválido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!Character.isDigit(c) && c != '-') {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+        }
+    }//GEN-LAST:event_cajaSSNCambiosKeyTyped
+
+    private void cajaNombreCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaNombreCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaNombreCambiosKeyTyped
+
+    private void cajaPaternoCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaPaternoCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaPaternoCambiosKeyTyped
+
+    private void cajaMaternoCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaMaternoCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaMaternoCambiosKeyTyped
+
+    private void cajaCalleCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCalleCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaCalleCambios.getText().length() >= 100) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 100 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaCalleCambiosKeyTyped
+
+    private void cajaNumCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNumCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaNumCambios.getText().length() >= 10) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 10 numeros maximo");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaNumCambiosKeyTyped
+
+    private void cajaColoniaCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColoniaCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+        
+        if (cajaColoniaCambios.getText().length() >= 50) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 50 caracteres");
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaColoniaCambiosKeyTyped
+
+    private void cajaCodPostalCambiosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCodPostalCambiosKeyTyped
+        
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (cajaCodPostalCambios.getText().length() >= 5) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 5 numeros");
+            return;
+        }
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaCodPostalCambiosKeyTyped
 
     /**
      * @param args the command line arguments

@@ -38,6 +38,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         setSize(380, 620);           
         setLocationRelativeTo(null);  
         setResizable(false); 
+        btnAnteriorRegPacientes.setEnabled(false);
         
         //cargarMedicosEnCombo();
         
@@ -131,7 +132,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             cajaNombreConsultas.setText(reg.getNombre());
             cajaPaternoConsultas.setText(reg.getApePaterno());
             cajaMaternoConsultas.setText(reg.getApeMaterno());
-            spEdadConsultas.setValue(reg.getEdad());
+            spEdadConsultas.setValue((int) reg.getEdad());
             cbSSNMedicoConsultas.setSelectedItem(reg.getSsnMedicoCabecera());
             cajaCalleConsultas.setText(reg.getCalle());
             cajaNumeroConsultas.setText(String.valueOf(reg.getNumero()));
@@ -242,7 +243,10 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         cajaColoniaConsultas.setText("");
         cajaCodPostalConsultas.setText("");
         cajaIndicePac.setText("0");
+        posActual = -1;
         actualizarTablaFiltro(tablaRegPacientes);
+        
+        desactivarCampos();
         
     }
     
@@ -432,6 +436,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             }
         });
 
+        btnRestablecerPacConsultas.setBackground(new java.awt.Color(0, 153, 255));
         btnRestablecerPacConsultas.setText("Restablecer");
         btnRestablecerPacConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -581,7 +586,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
        
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaNombreConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -591,7 +596,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
        
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaPaternoConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -602,7 +607,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaMaternoConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -613,7 +618,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         spEdadConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -623,6 +628,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     
         limpiarCampos();
         desactivarCampos();
+        actualizarEstadoBotones();
         cbSSNMedicoConsultas.setEnabled(true);
 
         // MUY IMPORTANTE
@@ -635,7 +641,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     private void rbCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCalleActionPerformed
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaCalleConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -644,7 +650,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     private void rbNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNumeroActionPerformed
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaNumeroConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -653,7 +659,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     private void rbColoniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbColoniaActionPerformed
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaColoniaConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -662,7 +668,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     private void rbCodPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCodPostalActionPerformed
         limpiarCampos();
         desactivarCampos();
-
+        actualizarEstadoBotones();
         cajaCodPostalConsultas.setEnabled(true);
 
         actualizarTablaFiltro(tablaRegPacientes);
@@ -717,33 +723,55 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
     }//GEN-LAST:event_cajaCodPostalConsultasKeyReleased
 
     private void btnRestablecerPacConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestablecerPacConsultasActionPerformed
+        
+        int edad = (int) spEdadConsultas.getValue();
+        if (cajaNombreConsultas.getText().isEmpty() && cajaPaternoConsultas.getText().isEmpty() && cajaMaternoConsultas.getText().isEmpty()
+                && edad == 0 && cbSSNMedicoConsultas.getSelectedIndex() == -1
+                && cajaCalleConsultas.getText().isEmpty() && cajaNumeroConsultas.getText().isEmpty()
+                && cajaColoniaConsultas.getText().isEmpty() && cajaCodPostalConsultas.getText().isEmpty() && buttonGroup1.getSelection() == null && posActual == -1){
+            
+           
+            JOptionPane.showMessageDialog(this,"No hay elementos que eliminar");
+            return;
+            
+        }
+        
         limpiarCampos();
         desactivarCampos();
         posActual = -1;
         actualizarEstadoBotones();
         buttonGroup1.clearSelection();
+       
     }//GEN-LAST:event_btnRestablecerPacConsultasActionPerformed
 
     private void btnPrimerRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerRegPacientesActionPerformed
-       if (!listaPacientes.isEmpty()) {
+        desactivarCampos();
+        buttonGroup1.clearSelection();
+        if (!listaPacientes.isEmpty()) {
                 mostrarRegistros(0);
             }
                
     }//GEN-LAST:event_btnPrimerRegPacientesActionPerformed
 
     private void btnAnteriorRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorRegPacientesActionPerformed
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (posActual > 0) {
                 mostrarRegistros(posActual - 1);
             }
     }//GEN-LAST:event_btnAnteriorRegPacientesActionPerformed
 
     private void btnSiguienteRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteRegPacientesActionPerformed
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (posActual < listaPacientes.size() - 1) {
                 mostrarRegistros(posActual + 1);
             }
     }//GEN-LAST:event_btnSiguienteRegPacientesActionPerformed
 
     private void btnUltimoRegPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoRegPacientesActionPerformed
+        desactivarCampos();
+        buttonGroup1.clearSelection();
         if (!listaPacientes.isEmpty()) {
                 mostrarRegistros(listaPacientes.size() - 1);
             }
