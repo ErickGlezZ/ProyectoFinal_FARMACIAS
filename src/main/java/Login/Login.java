@@ -167,7 +167,7 @@ public class Login extends javax.swing.JFrame {
         String usuario = cajaUsuario.getText();
         String password = new String(cajaPassword.getPassword());
         
-        if (usuario.equals("") && password.equals("")){
+        if (usuario.equals("admin") && password.equals("farmacia1234")){
                 //JOptionPane.showMessageDialog(this,"¡Bienvenido!");
 
                 SwingUtilities.invokeLater(new Runnable() {
