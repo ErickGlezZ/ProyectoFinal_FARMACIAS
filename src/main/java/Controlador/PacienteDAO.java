@@ -52,7 +52,7 @@ public class PacienteDAO {
         new Thread(() -> {
             final String CONTROLADOR_JDBC = conexionBD.getDriver();
             final String URL = conexionBD.getURL();
-            final String CONSULTA = "SELECT * FROM pacientes ORDER BY SSN";
+            final String CONSULTA = "SELECT * FROM pacientes ORDER BY SSN DESC";
 
             try {
 
