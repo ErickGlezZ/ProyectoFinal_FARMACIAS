@@ -217,16 +217,19 @@
     <Component class="javax.swing.JTextField" name="cajaNombreConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNombreConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaPaternoConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaPaternoConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaMaternoConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaMaternoConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="spEdadConsultas">
@@ -250,21 +253,25 @@
     <Component class="javax.swing.JTextField" name="cajaCalleConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaCalleConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaCalleConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaNumeroConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNumeroConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaNumeroConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaColoniaConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaColoniaConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaColoniaConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="cajaCodPostalConsultas">
       <Events>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaCodPostalConsultasKeyReleased"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="cajaCodPostalConsultasKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRestablecerPacConsultas">

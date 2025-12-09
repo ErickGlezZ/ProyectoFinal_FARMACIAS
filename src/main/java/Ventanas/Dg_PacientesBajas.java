@@ -435,10 +435,10 @@ public class Dg_PacientesBajas extends javax.swing.JDialog {
             return;
         }
 
-        if (!Character.isDigit(c) && c != '-') {
+        if (!Character.isDigit(c)) {
             evt.consume(); 
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
         }
     }//GEN-LAST:event_cajaSSNBajasKeyTyped
 

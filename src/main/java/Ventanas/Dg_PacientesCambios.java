@@ -40,6 +40,8 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         setSize(380, 620);           
         setLocationRelativeTo(null);  
         setResizable(false); 
+        ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setEditable(false);
+
         
         cajaNombreCambios.setEnabled(false);
         cajaPaternoCambios.setEnabled(false);
@@ -52,13 +54,13 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         cajaCodPostalCambios.setEnabled(false);
         btnEditarPacCambios.setEnabled(false);
         btnRestablecerPacCambios.setEnabled(false);
-        ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setEditable(false);
-        ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setFocusable(false);
+        
         
     }
     
     
     public void obtenerDatosPaciente() {
+    ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setEditable(false);
 
     String sql = "SELECT * FROM Pacientes WHERE SSN LIKE ?";
     String texto = cajaSSNCambios.getText().trim() + "%";
@@ -166,6 +168,8 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
         cajaCodPostalCambios.setText("");
         btnEditarPacCambios.setEnabled(false);
         btnRestablecerPacCambios.setEnabled(false);
+        
+        habilitarCamposEdicion(false); 
         
         
     }
@@ -465,7 +469,8 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnEditarPacCambiosActionPerformed
 
     private void btnBuscarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCambiosActionPerformed
-        
+        ((JSpinner.DefaultEditor) spEdadCambios.getEditor()).getTextField().setEditable(false);
+
          if (cajaSSNCambios.getText().isEmpty()){
                 JOptionPane.showMessageDialog(this,"Campo vacio, verifica campo 'SSN'");
             }
@@ -522,11 +527,12 @@ public class Dg_PacientesCambios extends javax.swing.JDialog {
             "SSN inválido", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
 
-        if (!Character.isDigit(c) && c != '-') {
+        if (!Character.isDigit(c)) {
             evt.consume(); 
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
         }
     }//GEN-LAST:event_cajaSSNCambiosKeyTyped
 

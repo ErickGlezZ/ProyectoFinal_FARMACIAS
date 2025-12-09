@@ -337,6 +337,12 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
             return;
         }
         
+        if (cajaCodPostalAltas.getText().length() != 5){
+            JOptionPane.showMessageDialog(this, "Debes ingresar exactamente 5 numeros",
+                    "Cod_Postal invalido", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         if (edad < 1 || edad > 100) {
             JOptionPane.showMessageDialog(this,
                 "La edad debe estar entre 1 y 100 años.",
@@ -409,10 +415,10 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
         }
 
         
-        if (!Character.isDigit(c) && c != '-') {
+        if (!Character.isDigit(c)) {
             evt.consume(); 
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
         }
     }//GEN-LAST:event_cajaSSNAltasKeyTyped
 
@@ -600,6 +606,8 @@ public class Dg_PacientesAltas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Solo debes ingresar 5 numeros");
             return;
         }
+        
+        
 
         
         if (!Character.isDigit(c)) {

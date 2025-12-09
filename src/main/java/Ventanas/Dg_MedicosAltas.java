@@ -298,12 +298,13 @@ public class Dg_MedicosAltas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Solo debes ingresar 11 caracteres");
             return;
         }
+        
 
         
-        if (!Character.isDigit(c) && c != '-') {
+        if (!Character.isDigit(c)) {
             evt.consume(); 
             Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Solo debes ingresar números y guiones");
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
         }
         
      

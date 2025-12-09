@@ -8,10 +8,13 @@ import ConexionBD.ConexionBD;
 import Controlador.PacienteDAO;
 import Modelo.Paciente;
 import Modelo.ResultSetTableModel;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +44,7 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
         btnAnteriorRegPacientes.setEnabled(false);
         
         //cargarMedicosEnCombo();
+        
         
         
         buttonGroup1.add(rbNombre);
@@ -386,17 +390,26 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaNombreConsultasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNombreConsultasKeyTyped(evt);
+            }
         });
 
         cajaPaternoConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaPaternoConsultasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaPaternoConsultasKeyTyped(evt);
+            }
         });
 
         cajaMaternoConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaMaternoConsultasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaMaternoConsultasKeyTyped(evt);
             }
         });
 
@@ -416,11 +429,17 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaCalleConsultasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaCalleConsultasKeyTyped(evt);
+            }
         });
 
         cajaNumeroConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaNumeroConsultasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaNumeroConsultasKeyTyped(evt);
             }
         });
 
@@ -428,11 +447,17 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaColoniaConsultasKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaColoniaConsultasKeyTyped(evt);
+            }
         });
 
         cajaCodPostalConsultas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 cajaCodPostalConsultasKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cajaCodPostalConsultasKeyTyped(evt);
             }
         });
 
@@ -776,6 +801,150 @@ public class Dg_PacientesConsultas extends javax.swing.JDialog {
                 mostrarRegistros(listaPacientes.size() - 1);
             }
     }//GEN-LAST:event_btnUltimoRegPacientesActionPerformed
+
+    private void cajaNombreConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNombreConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaNombreConsultasKeyTyped
+
+    private void cajaPaternoConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPaternoConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaPaternoConsultasKeyTyped
+
+    private void cajaMaternoConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMaternoConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaMaternoConsultasKeyTyped
+
+    private void cajaCalleConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCalleConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaCalleConsultasKeyTyped
+
+    private void cajaColoniaConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColoniaConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        
+        if (c == ' ') {
+            return;
+        }
+
+        
+        if (!Character.isLetter(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar letras");
+        }
+    }//GEN-LAST:event_cajaColoniaConsultasKeyTyped
+
+    private void cajaNumeroConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaNumeroConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaNumeroConsultasKeyTyped
+
+    private void cajaCodPostalConsultasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCodPostalConsultasKeyTyped
+        char c = evt.getKeyChar();
+
+        
+        if (c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        if (cajaCodPostalConsultas.getText().length() >= 5) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar 5 numeros");
+            return;
+        }
+        
+        if (!Character.isDigit(c)) {
+            evt.consume(); 
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Solo debes ingresar números");
+        }
+    }//GEN-LAST:event_cajaCodPostalConsultasKeyTyped
 
     /**
      * @param args the command line arguments
